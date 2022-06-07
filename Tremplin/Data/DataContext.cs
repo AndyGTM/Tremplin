@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tremplin.Models;
 
-namespace Tremplin.Models
+namespace Tremplin.Data
 {
     public class DataContext : DbContext
     {

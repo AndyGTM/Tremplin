@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Tremplin.Models;
+using Tremplin.Data;
 
 #nullable disable
 
@@ -43,7 +43,7 @@ namespace Tremplin.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HealthProfessional");
+                    b.ToTable("HealthProfessional", (string)null);
                 });
 #pragma warning restore 612, 618
         }

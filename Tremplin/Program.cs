@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Tremplin.Models;
+using Tremplin.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

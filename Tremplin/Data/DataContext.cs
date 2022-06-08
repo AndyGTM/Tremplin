@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tremplin.Models;
 
 namespace Tremplin.Data
 {
@@ -10,6 +9,10 @@ namespace Tremplin.Data
         {
         }
 
-        public DbSet<HealthProfessional> HealthProfessionals { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<UserRole> UserRoles { get; set; }
     }
 }

@@ -1,15 +1,15 @@
-﻿@model Tremplin.Models.HealthProfessional
+﻿@model UserLoginViewModel
 
 @{
-    ViewData["Title"] = "Inscription";
+    ViewData["Title"] = "Connexion";
 }
 
-<h1>Inscription</h1>
+<h1>Connexion</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Register">
+        <form asp-action="Login" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -21,18 +21,18 @@
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="ConfirmedPassword" class="control-label"></label>
-                <input asp-for="ConfirmedPassword" class="form-control" />
-                <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                <div class="checkbox">
+                    <label asp-for="IsRememberMe">
+                        <input asp-for="IsRememberMe" />
+                        @Html.DisplayNameFor(m => m.IsRememberMe)
+                    </label>
+                </div>
             </div>
+            <br /><br />
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                <input type="submit" value="Se connecter" class="btn btn-primary" />
             </div>
         </form>
     </div>

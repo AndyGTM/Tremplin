@@ -25,6 +25,18 @@ namespace Tremplin.Store
             return await Task.FromResult(IdentityResult.Success);
         }
 
+        public async Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
+        {
+            // Updating the user to the data context
+            DataContext.Update(user);
+
+            // Persistance de la modification de l'utilisateur dans la base de données.
+            await DataContext.SaveChangesAsync(cancellationToken);
+
+            // Return
+            return await Task.FromResult(IdentityResult.Success);
+        }
+
         public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
         {
             // Deleting the user from the data context
@@ -83,7 +95,6 @@ namespace Tremplin.Store
         {
             user.Password = password;
 
-
             return Task.FromResult((object)null);
         }
 
@@ -103,11 +114,6 @@ namespace Tremplin.Store
         }
 
         public Task<string> GetNormalizedUserNameAsync(User user, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IdentityResult> UpdateAsync(User user, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

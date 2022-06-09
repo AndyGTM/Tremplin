@@ -77,6 +77,146 @@ namespace Tremplin.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Permet d'accéder au menu permettant de modifier les informations d'un utilisateur
+        /// </summary>
+        [HttpGet]
+        public IActionResult UpdateMenu()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Permet d'accéder à la vue permettant de modifier l'identifiant d'un utilisateur
+        /// </summary>
+        [HttpGet]
+        public IActionResult UserNameUpdate()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Permet de modifier l'identifiant d'un utilisateur
+        /// </summary>
+        /// <param name="userNameUpdateViewModel">UserName information</param>
+        [HttpPost]
+        public async Task<IActionResult> UserNameUpdate(UserNameUpdateViewModel userNameUpdateViewModel)
+        {
+            IActionResult result;
+
+            // Valid input data ?
+            if (!this.ModelState.IsValid)
+                result = this.View(userNameUpdateViewModel);
+            else
+            {
+                // UserName update
+                User user = await UserManager.GetUserAsync(User);
+
+                user.UserName = userNameUpdateViewModel.UserName;
+
+                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+
+                // UserName updated ?
+                if (!resultUpdate.Succeeded)
+                {
+                    foreach (IdentityError item in resultUpdate.Errors)
+                        this.ModelState.AddModelError(string.Empty, item.Description);
+                    result = this.View(userNameUpdateViewModel);
+                }
+                else
+                    result = this.RedirectToAction(nameof(Index), "Home");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Permet d'accéder à la vue permettant de modifier le mot de passe d'un utilisateur
+        /// </summary>
+        [HttpGet]
+        public IActionResult PasswordUpdate()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Permet de modifier le mot de passe d'un utilisateur
+        /// </summary>
+        /// <param name="passwordUpdateViewModel">UserName information</param>
+        [HttpPost]
+        public async Task<IActionResult> PasswordUpdate(PasswordUpdateViewModel passwordUpdateViewModel)
+        {
+            IActionResult result;
+
+            // Valid input data ?
+            if (!this.ModelState.IsValid)
+                result = this.View(passwordUpdateViewModel);
+            else
+            {
+                // Password update
+                User user = await UserManager.GetUserAsync(User);
+                string hashPassword = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
+                user.Password = hashPassword;
+                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+
+                // Password updated ?
+                if (!resultUpdate.Succeeded)
+                {
+                    foreach (IdentityError item in resultUpdate.Errors)
+                        this.ModelState.AddModelError(string.Empty, item.Description);
+                    result = this.View(passwordUpdateViewModel);
+                }
+                else
+                    result = this.RedirectToAction(nameof(Index), "Home");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Permet d'accéder au menu permettant de modifier l'email d'un utilisateur
+        /// </summary>
+        [HttpGet]
+        public IActionResult EmailUpdate()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Permet de modifier l'email d'un utilisateur
+        /// </summary>
+        /// <param name="emailUpdateViewModel">Email information</param>
+        [HttpPost]
+        public async Task<IActionResult> EmailUpdate(EmailUpdateViewModel emailUpdateViewModel)
+        {
+            IActionResult result;
+
+            // Valid input data ?
+            if (!this.ModelState.IsValid)
+                result = this.View(emailUpdateViewModel);
+            else
+            {
+                // Email update
+                User user = await UserManager.GetUserAsync(User);
+
+                user.Email = emailUpdateViewModel.Email;
+
+                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+
+                // Email updated ?
+                if (!resultUpdate.Succeeded)
+                {
+                    foreach (IdentityError item in resultUpdate.Errors)
+                        this.ModelState.AddModelError(string.Empty, item.Description);
+                    result = this.View(emailUpdateViewModel);
+                }
+                else
+                    result = this.RedirectToAction(nameof(Index), "Home");
+            }
+
+            return result;
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()

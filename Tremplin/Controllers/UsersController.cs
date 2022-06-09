@@ -10,12 +10,12 @@ namespace Tremplin.Controllers
     public class UsersController : Controller
     {
         /// <summary>
-        /// Gestionnaire d'utilisateur.
+        /// User manager
         /// </summary>
         private UserManager<User> UserManager { get; init; }
 
         /// <summary>
-        /// Gestionnaire de sécurité.
+        /// Security manager
         /// </summary>
         private SignInManager<User> LoginManager { get; init; }
 
@@ -29,7 +29,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet d'accéder à la vue permettant de créer un utilisateur.
+        /// Provides access to the view for creating a user
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
@@ -39,7 +39,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet de créer un utilisateur.
+        /// Allows to create a user
         /// </summary>
         /// <param name="userRegisterViewModel">User information</param>
         [HttpPost]
@@ -78,7 +78,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet d'accéder au menu permettant de modifier les informations d'un utilisateur
+        /// Provides access to the menu for updating an user's information
         /// </summary>
         [HttpGet]
         public IActionResult UpdateMenu()
@@ -87,7 +87,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet d'accéder à la vue permettant de modifier l'identifiant d'un utilisateur
+        /// Provides access to the view for updating an user's name
         /// </summary>
         [HttpGet]
         public IActionResult UserNameUpdate()
@@ -96,7 +96,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet de modifier l'identifiant d'un utilisateur
+        /// Allows to update an user's name
         /// </summary>
         /// <param name="userNameUpdateViewModel">UserName information</param>
         [HttpPost]
@@ -131,7 +131,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet d'accéder à la vue permettant de modifier le mot de passe d'un utilisateur
+        /// Provides access to the view for updating an user's password
         /// </summary>
         [HttpGet]
         public IActionResult PasswordUpdate()
@@ -140,7 +140,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet de modifier le mot de passe d'un utilisateur
+        /// Allows to update an user's password
         /// </summary>
         /// <param name="passwordUpdateViewModel">UserName information</param>
         [HttpPost]
@@ -174,7 +174,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet d'accéder au menu permettant de modifier l'email d'un utilisateur
+        /// Provides access to the view for updating an user's email
         /// </summary>
         [HttpGet]
         public IActionResult EmailUpdate()
@@ -183,7 +183,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet de modifier l'email d'un utilisateur
+        /// Allows to update an user's email
         /// </summary>
         /// <param name="emailUpdateViewModel">Email information</param>
         [HttpPost]
@@ -219,13 +219,16 @@ namespace Tremplin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        /// <summary>
+        /// Provides access to the view for the user login
+        /// </summary>
         public IActionResult Login()
         {
             return this.View();
         }
 
         /// <summary>
-        /// Permet d'authentifier un utilisateur.
+        /// Allows a user to login
         /// </summary>
         /// <param name="userLoginViewModel">User credentials</param>
         [HttpPost]
@@ -252,7 +255,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Permet de déconnecter un utilisateur.
+        /// Allows a user to logout
         /// </summary>
         [AllowAnonymous]
         public ActionResult Logout()
@@ -263,7 +266,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Méthode accessible aux utilisateurs authentifiés.
+        /// Method accessible to authenticated users
         /// </summary>
         public IActionResult AccessAllowed()
         {
@@ -271,7 +274,7 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
-        /// Méthode accessible à tous utilisateurs.
+        /// Method accessible to all users
         /// </summary>
         [AllowAnonymous]
         public IActionResult AccessDenied()

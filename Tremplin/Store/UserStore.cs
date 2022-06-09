@@ -18,7 +18,7 @@ namespace Tremplin.Store
             // Adding the user to the data context
             DataContext.Add(user);
 
-            // Persistance de l'ajout de l'utilisateur dans la base de données.
+            // Persistence of adding the user to the database
             await DataContext.SaveChangesAsync(cancellationToken);
 
             // Return
@@ -30,7 +30,7 @@ namespace Tremplin.Store
             // Updating the user to the data context
             DataContext.Update(user);
 
-            // Persistance de la modification de l'utilisateur dans la base de données.
+            // Persistence of update the user to the database
             await DataContext.SaveChangesAsync(cancellationToken);
 
             // Return
@@ -42,7 +42,7 @@ namespace Tremplin.Store
             // Deleting the user from the data context
             DataContext.Remove(user);
 
-            // Persistance de la suppression de l'utilisateur dans la base de données.
+            // Persistence of deleting the user to the database
             int result = await DataContext.SaveChangesAsync(cancellationToken);
 
             // Return
@@ -51,7 +51,7 @@ namespace Tremplin.Store
 
         public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            // Recherche d’un utilisateur à partir de son identifiant.
+            // Find an user by his Id
             return int.TryParse(userId, out int id) ?
                 await DataContext.Users.FindAsync(id) :
                 await Task.FromResult((User)null);
@@ -59,7 +59,7 @@ namespace Tremplin.Store
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            // Recherche d’un utilisateur à partir de son nom d’utilisateur.
+            // Find an user by his name
             return await DataContext.Users
                 .SingleOrDefaultAsync(u => u.UserName.Equals(normalizedUserName.ToLower()), cancellationToken);
         }

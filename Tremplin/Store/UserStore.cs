@@ -4,7 +4,7 @@ using Tremplin.Data;
 
 namespace Tremplin.Store
 {
-    public class UserStore : IUserStore<User>, IUserPasswordStore<User>
+    public class UserStore : IUserPasswordStore<User>
     {
         private DataContext DataContext { get; init; }
 

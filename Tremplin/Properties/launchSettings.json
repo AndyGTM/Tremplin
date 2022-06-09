@@ -7,6 +7,7 @@
       "sslPort": 44333
     }
   },
+
   "profiles": {
     "Tremplin": {
       "commandName": "Project",
@@ -17,6 +18,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

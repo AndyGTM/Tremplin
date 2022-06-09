@@ -50,7 +50,9 @@ namespace Tremplin.Controllers
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
+            {
                 result = this.View(userRegisterViewModel);
+            }
             else
             {
                 // User creation
@@ -106,14 +108,14 @@ namespace Tremplin.Controllers
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
+            {
                 result = this.View(userNameUpdateViewModel);
+            }
             else
             {
                 // UserName update
                 User user = await UserManager.GetUserAsync(User);
-
                 user.UserName = userNameUpdateViewModel.UserName;
-
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // UserName updated ?
@@ -150,7 +152,9 @@ namespace Tremplin.Controllers
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
+            {
                 result = this.View(passwordUpdateViewModel);
+            }
             else
             {
                 // Password update
@@ -193,14 +197,14 @@ namespace Tremplin.Controllers
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
+            {
                 result = this.View(emailUpdateViewModel);
+            }
             else
             {
                 // Email update
                 User user = await UserManager.GetUserAsync(User);
-
                 user.Email = emailUpdateViewModel.Email;
-
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // Email updated ?
@@ -237,11 +241,14 @@ namespace Tremplin.Controllers
         {
             IActionResult result;
             if (!this.ModelState.IsValid)
+            {
                 result = this.View(userLoginViewModel);
+            }
             else
             {
                 Microsoft.AspNetCore.Identity.SignInResult resultLogin = await this.LoginManager.PasswordSignInAsync(userLoginViewModel.UserName,
                     userLoginViewModel.Password, userLoginViewModel.IsRememberMe, false);
+
                 if (!resultLogin.Succeeded)
                 {
                     this.ModelState.AddModelError(string.Empty, "Identifiant ou mot de passe non correct ");

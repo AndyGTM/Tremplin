@@ -126,7 +126,7 @@ namespace Tremplin.Controllers
                     result = this.View(userNameUpdateViewModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(Index), "Home");
+                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
             }
 
             return result;
@@ -171,7 +171,7 @@ namespace Tremplin.Controllers
                     result = this.View(passwordUpdateViewModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(Index), "Home");
+                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
             }
 
             return result;
@@ -215,7 +215,7 @@ namespace Tremplin.Controllers
                     result = this.View(emailUpdateViewModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(Index), "Home");
+                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
             }
 
             return result;
@@ -285,6 +285,14 @@ namespace Tremplin.Controllers
         /// </summary>
         [AllowAnonymous]
         public IActionResult AccessDenied()
+        {
+            return this.View();
+        }
+
+        /// <summary>
+        /// Provides access to the view when an update succeeds
+        /// </summary>
+        public IActionResult UpdateSucceeded()
         {
             return this.View();
         }

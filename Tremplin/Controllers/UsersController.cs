@@ -159,6 +159,25 @@ namespace Tremplin.Controllers
             {
                 // Password update
                 User user = await UserManager.GetUserAsync(User);
+
+                IList<IPasswordValidator<User>> validators = UserManager.PasswordValidators;
+
+                foreach (IPasswordValidator<User> validator in validators)
+                {
+                    IdentityResult resultValidator = await validator.ValidateAsync(UserManager, user, passwordUpdateViewModel.Password);
+
+                    if (!resultValidator.Succeeded)
+                    {
+                        foreach (IdentityError error in resultValidator.Errors)
+                        {
+                            this.ModelState.AddModelError(string.Empty, error.Description);
+                        }
+
+                        result = this.View(passwordUpdateViewModel);
+                        return result;
+                    }
+                }
+
                 user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 

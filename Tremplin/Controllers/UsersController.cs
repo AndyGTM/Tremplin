@@ -159,8 +159,7 @@ namespace Tremplin.Controllers
             {
                 // Password update
                 User user = await UserManager.GetUserAsync(User);
-                string hashPassword = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
-                user.Password = hashPassword;
+                user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // Password updated ?

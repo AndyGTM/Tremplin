@@ -150,15 +150,16 @@ namespace Tremplin.Controllers
         {
             IActionResult result;
 
-            // Valid input data ?
+            // First input data validation
             if (!this.ModelState.IsValid)
             {
                 result = this.View(passwordUpdateViewModel);
             }
             else
             {
-                // Password update
                 User user = await UserManager.GetUserAsync(User);
+
+                #region Password validators
 
                 IList<IPasswordValidator<User>> validators = UserManager.PasswordValidators;
 
@@ -178,6 +179,9 @@ namespace Tremplin.Controllers
                     }
                 }
 
+                #endregion Password validators
+
+                // Password update
                 user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 

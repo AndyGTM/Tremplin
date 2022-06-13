@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin", "Tremplin\Tremplin.csproj", "{93DB312F-E6F6-428E-83A8-D97110370D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin", "Tremplin\Tremplin.csproj", "{93DB312F-E6F6-428E-83A8-D97110370D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Tests", "Tremplin.Tests\Tremplin.Tests.csproj", "{BF45F437-80E5-4DD4-9108-EE3EE3128A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

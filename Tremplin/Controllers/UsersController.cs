@@ -41,36 +41,36 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to create a user
         /// </summary>
-        /// <param name="userRegisterViewModel">User information</param>
+        /// <param name="userRegistrationViewModel">User information</param>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(UserRegisterViewModel userRegisterViewModel)
+        public async Task<IActionResult> Register(UserRegistrationViewModel userRegistrationViewModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(userRegisterViewModel);
+                result = this.View(userRegistrationViewModel);
             }
             else
             {
                 // User creation
                 User user = new()
                 {
-                    UserName = userRegisterViewModel.UserName,
-                    Password = userRegisterViewModel.Password,
-                    Email = userRegisterViewModel.Email
+                    UserName = userRegistrationViewModel.UserName,
+                    Password = userRegistrationViewModel.Password,
+                    Email = userRegistrationViewModel.Email
                 };
 
-                IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegisterViewModel.Password);
+                IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegistrationViewModel.Password);
 
                 // User created ?
                 if (!resultCreate.Succeeded)
                 {
                     foreach (IdentityError item in resultCreate.Errors)
                         this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(userRegisterViewModel);
+                    result = this.View(userRegistrationViewModel);
                 }
                 else
                     result = this.RedirectToAction(nameof(Index), "Home");

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tremplin.Models
 {
-    public class UserRegisterViewModel : UserLoginViewModel
+    public class UserRegistrationViewModel : UserLoginViewModel
     {
         /// <summary>
         /// Password confirmation for users

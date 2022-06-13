@@ -53,6 +53,10 @@
                 <span asp-validation-for="Sex" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SharedSheet" class="control-label"></label>
+                <input asp-for="SharedSheet" type="checkbox" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Enregistrer" class="btn btn-primary" />
             </div>
         </form>

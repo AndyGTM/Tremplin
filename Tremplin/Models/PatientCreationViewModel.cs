@@ -47,5 +47,11 @@ namespace Tremplin.Models
         [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Sexe")]
         public SexTypes Sex { get; set; }
+
+        /// <summary>
+        /// Authorize or not the sharing of the patient sheet with others practitioners
+        /// </summary>
+        [DisplayName("Fiche partagée")]
+        public bool SharedSheet { get; set; }
     }
 }

@@ -49,7 +49,8 @@ namespace Tremplin.Controllers
                     FirstName = patientCreationViewModel.FirstName,
                     BirthDate = patientCreationViewModel.BirthDate,
                     BloodGroup = patientCreationViewModel.BloodGroup,
-                    Sex = patientCreationViewModel.Sex
+                    Sex = patientCreationViewModel.Sex,
+                    SharedSheet = patientCreationViewModel.SharedSheet
                 };
 
                 // Adding the patient to the data context

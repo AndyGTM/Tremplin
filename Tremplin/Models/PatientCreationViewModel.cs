@@ -9,8 +9,10 @@ namespace Tremplin.Models
         /// <summary>
         /// Social security number
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "Le {0} est requis")]
         [DisplayName("Numéro de sécurité sociale")]
+        [RegularExpression(@"[0-9]{1} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2}|[0-9]{15}",
+            ErrorMessage = @"Le {0} doit être composé de chiffres au format ""x xx xx xx xxx xxx xx"" ou ""xxxxxxxxxxxxxxx""")]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>

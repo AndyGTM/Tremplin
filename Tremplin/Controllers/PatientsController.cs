@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 using Tremplin.Data;
 using Tremplin.Models;
 
@@ -43,7 +44,9 @@ namespace Tremplin.Controllers
                 // Patient creation
                 Patient patient = new()
                 {
-                    SocialSecurityNumber = patientCreationViewModel.SocialSecurityNumber,
+                    // Removal of any spaces for recording the social security number in the database
+                    SocialSecurityNumber = Regex.Replace(patientCreationViewModel.SocialSecurityNumber, @"\s", ""),
+
                     LastName = patientCreationViewModel.LastName,
                     FirstName = patientCreationViewModel.FirstName,
                     BirthDate = patientCreationViewModel.BirthDate,

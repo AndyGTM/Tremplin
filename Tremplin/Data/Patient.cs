@@ -19,6 +19,8 @@ namespace Tremplin.Data
         /// </summary>
         [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Numéro de sécurité sociale")]
+        [Column(TypeName="char")]
+        [StringLength(15)]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>

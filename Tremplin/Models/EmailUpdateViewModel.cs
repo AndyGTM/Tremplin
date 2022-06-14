@@ -8,8 +8,9 @@ namespace Tremplin.Models
         /// <summary>
         /// User email
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "L'{0} est requis")]
         [DisplayName("E-mail")]
+        [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
         public string Email { get; set; }
     }
 }

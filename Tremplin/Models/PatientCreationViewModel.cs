@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Tremplin.CustomValidation;
 using Tremplin.Enums;
 
 namespace Tremplin.Models
@@ -13,6 +14,7 @@ namespace Tremplin.Models
         [DisplayName("Numéro de sécurité sociale")]
         [RegularExpression(@"[0-9]{1} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2}|[0-9]{15}",
             ErrorMessage = @"Le {0} doit être composé de chiffres au format ""x xx xx xx xxx xxx xx"" ou ""xxxxxxxxxxxxxxx""")]
+        [ExistingSocialSecurityNumber]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>

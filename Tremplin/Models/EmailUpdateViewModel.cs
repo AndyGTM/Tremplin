@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Tremplin.CustomValidation;
 
 namespace Tremplin.Models
 {
@@ -8,9 +9,10 @@ namespace Tremplin.Models
         /// <summary>
         /// User email
         /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
+        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("E-mail")]
         [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
+        [ExistingMail]
         public string Email { get; set; }
     }
 }

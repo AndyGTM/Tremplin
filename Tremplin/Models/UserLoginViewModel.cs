@@ -8,7 +8,7 @@ namespace Tremplin.Models
         /// <summary>
         /// User identifier
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "L'{0} est requis")]
         [DisplayName("Identifiant")]
         public string UserName { get; set; }
 

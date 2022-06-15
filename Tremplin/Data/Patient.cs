@@ -40,8 +40,9 @@ namespace Tremplin.Data
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "La {0} est requise")]
         [DisplayName("Date de naissance")]
+        [DataType(DataType.DateTime)]
         public DateTime BirthDate { get; set; }
 
         /// <summary>

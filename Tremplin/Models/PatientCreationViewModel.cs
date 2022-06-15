@@ -34,8 +34,10 @@ namespace Tremplin.Models
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "La {0} est requise")]
         [DisplayName("Date de naissance")]
+        [DataType(DataType.DateTime)]
+        [BirthDateNotAfterToday(ErrorMessage = "La {0} ne peut pas être après la date d'aujourd'hui")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>

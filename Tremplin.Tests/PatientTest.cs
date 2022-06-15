@@ -5,20 +5,22 @@ namespace Tremplin.Tests
     [TestClass]
     public class PatientTest
     {
-        /// <summary>
-        /// Test if birth date is not after today's date
-        /// </summary>
-        [TestMethod]
-        public void Compare_BirthDate_NotAfterToday()
-        {
-            // Arrange
-            DateTime birthDate = new DateTime(1995, 04, 30);
+        #region Tests
 
+        /// <summary>
+        /// Comparison test between birth date and today's date
+        /// </summary>
+        /// /// <param name="comparisonExpected">Return -1 if BirthDate is earlier than Today, 1 if BirthDate is later than Today and 0 if the two dates are equal</param>
+        [TestMethod]
+        // Arrange
+        [DynamicData(nameof(ComparisonDatesData), DynamicDataSourceType.Method)]
+        public void Compare_BirthDate_WithToday(DateTime birthDate, int comparisonExpected)
+        {
             // Act
             int result = DateTime.Compare(birthDate, DateTime.Today);
 
             // Assert
-            Assert.IsTrue(result <= 0, "Birth date is after today's date");
+            Assert.AreEqual(comparisonExpected, result);
         }
 
         /// <summary>
@@ -36,5 +38,27 @@ namespace Tremplin.Tests
             // Assert
             Assert.AreEqual("190263577788855", result);
         }
+
+        #endregion Tests
+
+        #region Data
+
+        /// <summary>
+        /// Collection of objects, with dates and integers used for testing the "DateTime.Compare()" method
+        /// </summary>
+        /// <returns></returns>
+        private static IEnumerable<object[]> ComparisonDatesData()
+        {
+            // Earlier date than today (integer value is then equal to -1 when using "DateTime.Compare()")
+            yield return new object[] { new DateTime(1995, 04, 30), -1};
+
+            // Same date as today (integer value is then equal to 0 when using "DateTime.Compare()")
+            yield return new object[] { DateTime.Today, 0 };
+
+            // Later date than today (integer value is then equal to 1 when using "DateTime.Compare()")
+            yield return new object[] { new DateTime(3095, 04, 30), 1 };
+        }
+
+        #endregion Data
     }
 }

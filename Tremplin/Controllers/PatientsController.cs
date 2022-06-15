@@ -44,7 +44,7 @@ namespace Tremplin.Controllers
                 // Patient creation
                 Patient patient = new()
                 {
-                    // Removal of any spaces for recording the social security number in the database
+                    // Removal of any blank spaces for recording the social security number in the database
                     SocialSecurityNumber = Regex.Replace(patientCreationViewModel.SocialSecurityNumber, @"\s", ""),
 
                     LastName = patientCreationViewModel.LastName,

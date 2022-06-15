@@ -13,7 +13,7 @@ namespace Tremplin.CustomValidation
         {
             DataContext datacontext = (DataContext)validationContext.GetService(typeof(DataContext));
 
-            // Removal of any spaces to match database social security number
+            // Removal of any blank spaces to match database social security number
             string socialSecurityNumberViewModel = Regex.Replace(value.ToString(), @"\s", "");
 
             if (!datacontext.Patients.Any(x => x.SocialSecurityNumber == socialSecurityNumberViewModel))

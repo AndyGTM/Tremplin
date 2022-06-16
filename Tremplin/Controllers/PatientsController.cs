@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Tremplin.Data;
 using Tremplin.Models;
@@ -14,6 +15,16 @@ namespace Tremplin.Controllers
         public PatientsController(DataContext dataContext)
         {
             DataContext = dataContext;
+        }
+
+        /// <summary>
+        /// Provides access to the view for listing patients
+        /// </summary>
+        [HttpGet]
+        public IActionResult Index()
+        {
+            DbSet<Patient> items = DataContext.Patients;
+            return View(items);
         }
 
         /// <summary>

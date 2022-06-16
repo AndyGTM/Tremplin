@@ -1,46 +1,32 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Tremplin.Enums;
 
-namespace Tremplin.Data
+namespace Tremplin.Models
 {
-    [Table("Patient")]
-    public class Patient
+    public class PatientListViewModel
     {
-        /// <summary>
-        /// Patient Id
-        /// </summary>
-        [Key, Required]
-        public int Id { get; set; }
-
         /// <summary>
         /// Social security number
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Numéro de sécurité sociale")]
-        [Column(TypeName="char")]
-        [StringLength(15)]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>
         /// Patient last name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Nom")]
         public string LastName { get; set; }
 
         /// <summary>
         /// Patient first name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Prénom")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [Required(ErrorMessage = "La {0} est requise")]
         [DisplayName("Date de naissance")]
         [DataType(DataType.DateTime)]
         public DateTime BirthDate { get; set; }
@@ -48,16 +34,13 @@ namespace Tremplin.Data
         /// <summary>
         /// Patient blood group
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Groupe sanguin")]
         public BloodGroupNames BloodGroup { get; set; }
 
         /// <summary>
         /// Patient sex
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
         [DisplayName("Sexe")]
-        [Column(TypeName = "tinyint")]
         public SexTypes Sex { get; set; }
 
         /// <summary>

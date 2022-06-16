@@ -11,9 +11,6 @@ namespace Tremplin.Enums
         Male,
 
         [Display(Name = "Féminin")]
-        Female,
-
-        [Display(Name = "Neutre")]
-        Neutral
+        Female
     }
 }

@@ -18,12 +18,25 @@ builder.Services.AddTransient<IRoleStore<UserRole>, RoleStore>();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Password settings.
+
+#if DEBUG
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 1;
+    options.Password.RequiredUniqueChars = 0;
+
+
+#else
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
+
+#endif
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -40,7 +53,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
 
+#if DEBUG
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(1440);
+
+#else
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+#endif
 
     options.LoginPath = "/Users/Login";
     options.AccessDeniedPath = "/Users/AccessDenied";

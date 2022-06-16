@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Tremplin.Data;
 using Tremplin.Models;
@@ -21,10 +20,13 @@ namespace Tremplin.Controllers
         /// Provides access to the view for listing patients
         /// </summary>
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(PatientListViewModel patientListViewModel)
         {
-            DbSet<Patient> items = DataContext.Patients;
-            return View(items);
+            IEnumerable<Patient> patientsDB = DataContext.Patients;
+
+            patientListViewModel.Patients = patientsDB.ToList() ;
+
+            return View(patientListViewModel);
         }
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace Tremplin.Controllers
                 // Persistence of adding the patient to the database
                 await DataContext.SaveChangesAsync();
 
-                result = this.RedirectToAction(nameof(Index), "Home");
+                result = this.RedirectToAction(nameof(this.Index));
             }
 
             return result;

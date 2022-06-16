@@ -1,11 +1,18 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Tremplin.Data;
 using Tremplin.Enums;
 
 namespace Tremplin.Models
 {
     public class PatientListViewModel
     {
+        /// <summary>
+        /// Patient Id
+        /// </summary>
+        [Key, Required]
+        public int Id { get; set; }
+
         /// <summary>
         /// Social security number
         /// </summary>
@@ -48,5 +55,7 @@ namespace Tremplin.Models
         /// </summary>
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
+
+        public IEnumerable<Patient> Patients { get; set; }
     }
 }

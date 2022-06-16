@@ -1,7 +1,13 @@
-﻿@model IEnumerable<Tremplin.Data.Patient>
+﻿@using System.Text.RegularExpressions
+@using Tremplin.Data
+
+@model PatientListViewModel
 
 @{
     ViewData["Title"] = "Liste des patients";
+
+    string socialSecurityNumber;
+    string birthDate;
 }
 
 <h1>Liste des patients</h1>
@@ -9,6 +15,7 @@
 <p>
     <a asp-action="Create">Création d'un nouveau patient</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -36,36 +43,54 @@
             <th></th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BloodGroup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sex)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SharedSheet)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (Patient item in Model.Patients)
+        {
+            // Adding blank spaces for displaying the social security number
+            socialSecurityNumber = Regex.Replace(item.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+
+            birthDate = item.BirthDate.ToString("dd/MM/yyyy");
+
+            <tr>
+                <td>
+                    @socialSecurityNumber
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                   @birthDate
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BloodGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+
+                @if (item.SharedSheet)
+                {
+                    <td>
+                        Oui
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Non
+                    </td>
+                }
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

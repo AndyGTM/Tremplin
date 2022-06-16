@@ -1,20 +1,19 @@
 using System.Text.RegularExpressions;
+using Tremplin.Tests.CustomData;
 
 namespace Tremplin.Tests
 {
     [TestClass]
     public class PatientTest
     {
-        #region Tests
-
         /// <summary>
         /// Comparison test between birth date and today's date
         /// </summary>
-        /// /// <param name="comparisonExpected">Return -1 if BirthDate is earlier than Today, 1 if BirthDate is later than Today and 0 if the two dates are equal</param>
-        [TestMethod]
+        /// <param name="comparisonExpected">Return -1 if BirthDate is earlier than Today, 1 if BirthDate is later than Today and 0 if the two dates are equal</param>
+        [DataTestMethod]
         // Arrange
-        [DynamicData(nameof(ComparisonDatesData), DynamicDataSourceType.Method)]
-        public void Compare_BirthDate_WithToday(DateTime birthDate, int comparisonExpected)
+        [ComparisonDatesDataSource]
+        public void Compare_BirthDate_WithToday(DateTime birthDate, int comparisonExpected, string displayName)
         {
             // Act
             int result = DateTime.Compare(birthDate, DateTime.Today);
@@ -26,7 +25,7 @@ namespace Tremplin.Tests
         /// <summary>
         /// Test if blank spaces in social security number are correctly removed
         /// </summary>
-        [TestMethod]
+        [TestMethod("Remove blank spaces from social security number")]
         public void Format_SocialSecurityNumber_RemoveBlankSpaces()
         {
             // Arrange
@@ -38,27 +37,5 @@ namespace Tremplin.Tests
             // Assert
             Assert.AreEqual("190263577788855", result);
         }
-
-        #endregion Tests
-
-        #region Data
-
-        /// <summary>
-        /// Collection of objects, with dates and integers used for testing the "DateTime.Compare()" method
-        /// </summary>
-        /// <returns></returns>
-        private static IEnumerable<object[]> ComparisonDatesData()
-        {
-            // Earlier date than today (integer value is then equal to -1 when using "DateTime.Compare()")
-            yield return new object[] { new DateTime(1995, 04, 30), -1};
-
-            // Same date as today (integer value is then equal to 0 when using "DateTime.Compare()")
-            yield return new object[] { DateTime.Today, 0 };
-
-            // Later date than today (integer value is then equal to 1 when using "DateTime.Compare()")
-            yield return new object[] { new DateTime(3095, 04, 30), 1 };
-        }
-
-        #endregion Data
     }
 }

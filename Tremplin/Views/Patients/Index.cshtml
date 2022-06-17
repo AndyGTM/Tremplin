@@ -68,20 +68,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Sex)
                 </td>
-
-                @if (item.SharedSheet)
-                {
-                    <td>
-                        Oui
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        Non
-                    </td>
-                }
-
+                <td>
+                    @(item.SharedSheet ? "Oui":"Non")
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

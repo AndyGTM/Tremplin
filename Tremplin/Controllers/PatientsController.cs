@@ -24,7 +24,7 @@ namespace Tremplin.Controllers
         {
             IEnumerable<Patient> patientsDB = DataContext.Patients;
 
-            patientListViewModel.Patients = patientsDB.ToList() ;
+            patientListViewModel.Patients = patientsDB.ToList();
 
             return View(patientListViewModel);
         }

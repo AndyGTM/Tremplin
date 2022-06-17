@@ -43,6 +43,7 @@ namespace Tremplin.Data
         [Required(ErrorMessage = "La {0} est requise")]
         [DisplayName("Date de naissance")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>

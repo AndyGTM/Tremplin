@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Tremplin.Data;
 using Tremplin.Models;
@@ -20,11 +21,20 @@ namespace Tremplin.Controllers
         /// Provides access to the view for listing patients
         /// </summary>
         [HttpGet]
-        public IActionResult Index(PatientListViewModel patientListViewModel)
+        public async Task<IActionResult> Index(string searchLastName)
         {
-            IEnumerable<Patient> patientsDB = DataContext.Patients;
+            IQueryable<Patient> patients = from m in DataContext.Patients
+                         select m;
 
-            patientListViewModel.Patients = patientsDB.ToList();
+            if (!string.IsNullOrEmpty(searchLastName))
+            {
+                patients = patients.Where(s => s.LastName!.Contains(searchLastName));
+            }
+
+            PatientListViewModel patientListViewModel = new PatientListViewModel
+            {
+                Patients = await patients.ToListAsync()
+            };
 
             foreach (Patient patient in patientListViewModel.Patients)
             {

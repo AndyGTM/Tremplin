@@ -57,6 +57,8 @@ namespace Tremplin.Models
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
 
-        public IEnumerable<Patient> Patients { get; set; }
+        public List<Patient>? Patients { get; set; }
+
+        public string? SearchLastName { get; set; }
     }
 }

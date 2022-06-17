@@ -12,6 +12,13 @@
     <a asp-action="Create">Création d'un nouveau patient</a>
 </p>
 
+<form asp-controller="Patients" asp-action="Index" method="get">
+    <p>
+        Nom: <input type="text" asp-for="SearchLastName" />
+        <input type="submit" value="Rechercher" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>

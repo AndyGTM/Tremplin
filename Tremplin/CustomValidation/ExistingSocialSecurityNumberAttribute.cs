@@ -11,6 +11,11 @@ namespace Tremplin.CustomValidation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
             DataContext datacontext = (DataContext)validationContext.GetService(typeof(DataContext));
 
             // Removal of any blank spaces to match database social security number

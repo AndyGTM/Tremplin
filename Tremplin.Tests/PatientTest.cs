@@ -23,19 +23,35 @@ namespace Tremplin.Tests
         }
 
         /// <summary>
+        /// Test if blank spaces in social security number are correctly added
+        /// </summary>
+        [TestMethod("Add blank spaces in social security number")]
+        public void Format_SocialSecurityNumber_AddBlankSpaces()
+        {
+            // Arrange
+            string socialSecurityNumber = "289113356951934";
+
+            // Act
+            string result = Regex.Replace(socialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+
+            // Assert
+            Assert.AreEqual("2 89 11 33 569 519 34", result);
+        }
+
+        /// <summary>
         /// Test if blank spaces in social security number are correctly removed
         /// </summary>
-        [TestMethod("Remove blank spaces from social security number")]
+        [TestMethod("Remove blank spaces in social security number")]
         public void Format_SocialSecurityNumber_RemoveBlankSpaces()
         {
             // Arrange
-            string socialSecurityNumber = "1 90 26 35 777 888 55";
+            string socialSecurityNumber = "1 90 05 35 777 888 55";
 
             // Act
             string result = Regex.Replace(socialSecurityNumber, @"\s", "");
 
             // Assert
-            Assert.AreEqual("190263577788855", result);
+            Assert.AreEqual("190053577788855", result);
         }
     }
 }

@@ -139,15 +139,62 @@ namespace Tremplin.Controllers
                 patient.BloodGroup = patientUpdateViewModel.BloodGroup;
                 patient.Sex = patientUpdateViewModel.Sex;
                 patient.SharedSheet = patientUpdateViewModel.SharedSheet;
-               
+
                 // Updating the patient to the data context
-                DataContext.Update(patient);
+                DataContext.Patients.Update(patient);
 
                 // Persistence of updating the patient to the database
                 await DataContext.SaveChangesAsync();
 
                 result = this.RedirectToAction(nameof(this.Index));
             }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Provides access to the view for deleting a patient
+        /// </summary>
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Patient patientDB = DataContext.Patients.Find(id);
+
+            PatientDeleteViewModel patientDeleteViewModel = new PatientDeleteViewModel();
+
+            patientDeleteViewModel.Id = patientDB.Id;
+
+            // Adding blank spaces for displaying the social security number
+            patientDeleteViewModel.SocialSecurityNumber = Regex.Replace(patientDB.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+
+            patientDeleteViewModel.LastName = patientDB.LastName;
+            patientDeleteViewModel.FirstName = patientDB.FirstName;
+            patientDeleteViewModel.BirthDate = patientDB.BirthDate;
+            patientDeleteViewModel.BloodGroup = patientDB.BloodGroup;
+            patientDeleteViewModel.Sex = patientDB.Sex;
+            patientDeleteViewModel.SharedSheet = patientDB.SharedSheet;
+
+            return View(patientDeleteViewModel);
+        }
+
+        /// <summary>
+        /// Allows to delete a patient
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, PatientDeleteViewModel patientDeleteViewModel)
+        {
+            IActionResult result;
+
+            // Patient delete
+            Patient patient = DataContext.Patients.Find(id);
+
+            // Deleting the patient to the data context
+            DataContext.Patients.Remove(patient);
+
+            // Persistence of deleting the patient to the database
+            await DataContext.SaveChangesAsync();
+
+            result = this.RedirectToAction(nameof(this.Index));
 
             return result;
         }

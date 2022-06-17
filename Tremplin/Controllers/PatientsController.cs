@@ -26,6 +26,12 @@ namespace Tremplin.Controllers
 
             patientListViewModel.Patients = patientsDB.ToList();
 
+            foreach (Patient patient in patientListViewModel.Patients)
+            {
+                // Adding blank spaces for displaying the social security number
+                patient.SocialSecurityNumber = Regex.Replace(patient.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+            }
+
             return View(patientListViewModel);
         }
 

@@ -14,7 +14,9 @@
 
 <form asp-controller="Patients" asp-action="Index" method="get">
     <p>
-        Nom: <input type="text" asp-for="SearchLastName" />
+        Nom <input type="text" asp-for="SearchLastName" />
+
+        Prénom <input type="text" asp-for="SearchFirstName" />
         <input type="submit" value="Rechercher" />
     </p>
 </form>

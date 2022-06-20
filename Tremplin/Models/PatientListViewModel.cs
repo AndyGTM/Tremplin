@@ -59,6 +59,14 @@ namespace Tremplin.Models
 
         public List<Patient>? Patients { get; set; }
 
+        /// <summary>
+        /// Allow to search patients by last name
+        /// </summary>
         public string? SearchLastName { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by first name
+        /// </summary>
+        public string? SearchFirstName { get; set; }
     }
 }

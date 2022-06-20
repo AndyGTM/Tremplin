@@ -21,7 +21,7 @@ namespace Tremplin.Controllers
         /// Provides access to the view for listing patients
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index(string searchLastName, string searchFirstName)
+        public async Task<IActionResult> Index(string searchLastName, string searchFirstName, DateTime? searchBirthDate)
         {
             IQueryable<Patient> patients = from m in DataContext.Patients
                          select m;
@@ -34,6 +34,11 @@ namespace Tremplin.Controllers
             if (!string.IsNullOrEmpty(searchFirstName))
             {
                 patients = patients.Where(s => s.FirstName!.Contains(searchFirstName));
+            }
+
+            if (searchBirthDate.HasValue)
+            {
+                patients = patients.Where(s => s.BirthDate!.Equals(searchBirthDate));
             }
 
             PatientListViewModel patientListViewModel = new PatientListViewModel

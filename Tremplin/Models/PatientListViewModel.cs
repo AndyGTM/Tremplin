@@ -68,5 +68,10 @@ namespace Tremplin.Models
         /// Allow to search patients by first name
         /// </summary>
         public string? SearchFirstName { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by birth date
+        /// </summary>
+        public string? SearchBirthDate { get; set; }
     }
 }

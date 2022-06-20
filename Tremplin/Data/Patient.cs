@@ -66,5 +66,11 @@ namespace Tremplin.Data
         /// </summary>
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
+
+        /// <summary>
+        /// User who created this patient
+        /// </summary>
+        [DisplayName("Créé par")]
+        public string CreatedBy { get; set; }
     }
 }

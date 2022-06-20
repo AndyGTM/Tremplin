@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -12,9 +13,15 @@ namespace Tremplin.Controllers
     {
         private DataContext DataContext { get; init; }
 
-        public PatientsController(DataContext dataContext)
+        /// <summary>
+        /// User manager
+        /// </summary>
+        private UserManager<User> UserManager { get; init; }
+
+        public PatientsController(DataContext dataContext, UserManager<User> aUserManager)
         {
             DataContext = dataContext;
+            this.UserManager = aUserManager;
         }
 
         /// <summary>
@@ -23,7 +30,10 @@ namespace Tremplin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchLastName, string searchFirstName, string searchSocialSecurityNumber, DateTime? searchBirthDate)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             IQueryable<Patient> patients = from m in DataContext.Patients
+                                           where m.SharedSheet || m.CreatedBy == user.UserName
                                            select m;
 
             if (!string.IsNullOrEmpty(searchLastName))
@@ -39,6 +49,27 @@ namespace Tremplin.Controllers
             if (!string.IsNullOrEmpty(searchSocialSecurityNumber))
             {
                 patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+
+                #region TODO Allow user to search social security number by entering blank spaces
+
+                //if (searchSocialSecurityNumber.Contains(' '))
+                //{
+                //    foreach (Patient patient in patients)
+                //    {
+                //        patient.SocialSecurityNumber = Regex.Replace
+                //                            (patient.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+                //    }
+
+                //    // !!! The LINQ query doesn't seem to take the format of the security number done earlier by the "Regex.Replace()" method
+                //    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+                //}
+
+                //else
+                //{
+                //    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+                //}
+
+                #endregion TODO Allow user to search social security number by entering blank spaces
             }
 
             if (searchBirthDate.HasValue)
@@ -85,6 +116,8 @@ namespace Tremplin.Controllers
             }
             else
             {
+                User user = await UserManager.GetUserAsync(User);
+
                 // Patient creation
                 Patient patient = new()
                 {
@@ -96,8 +129,9 @@ namespace Tremplin.Controllers
                     BirthDate = patientCreationViewModel.BirthDate,
                     BloodGroup = patientCreationViewModel.BloodGroup,
                     Sex = patientCreationViewModel.Sex,
-                    SharedSheet = patientCreationViewModel.SharedSheet
-                };
+                    SharedSheet = patientCreationViewModel.SharedSheet,
+                    CreatedBy = await UserManager.GetUserNameAsync(user)
+            };
 
                 // Adding the patient to the data context
                 DataContext.Add(patient);

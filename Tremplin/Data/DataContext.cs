@@ -11,6 +11,8 @@ namespace Tremplin.Data
 
         public DbSet<Patient> Patients { get; set; }
 
+        public DbSet<Consultation> Consultations { get; set; }
+
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<User> Users { get; set; }

@@ -1,19 +1,18 @@
-﻿@using Tremplin.Enums;
-
-@model ConsultationCreationViewModel
+﻿@model ConsultationUpdateViewModel
 
 @{
-    ViewData["Title"] = "Enregistrement d'une nouvelle consultation";
+    ViewData["Title"] = "Modification d'une consultation";
 }
 
-<h1>Enregistrement d'une nouvelle consultation</h1>
+<h1>Modification d'une consultation</h1>
 
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" type="date" class="form-control" />
@@ -37,11 +36,9 @@
 </div>
 
 <div>
-    <a asp-controller="Consultations" asp-action="Index" asp-route-id="@Model.Id">Retour</a>
+    <a asp-controller="Consultations" asp-action="Index" asp-route-id="@Model.PatientId">Retour</a>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

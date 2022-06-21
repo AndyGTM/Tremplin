@@ -82,5 +82,58 @@ namespace Tremplin.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// Provides access to the view for updating a consultation
+        /// </summary>
+        [HttpGet]
+        public IActionResult Update(int id, ConsultationUpdateViewModel consultationUpdateViewModel)
+        {
+            Consultation consultation = DataContext.Consultations.Find(id);
+
+            consultationUpdateViewModel.Id = consultation.Id;
+
+            consultationUpdateViewModel.Date = consultation.Date;
+            consultationUpdateViewModel.ShortDescription = consultation.ShortDescription;
+            consultationUpdateViewModel.LongDescription = consultation.LongDescription;
+            consultationUpdateViewModel.PatientId = consultation.PatientId;
+
+            return View(consultationUpdateViewModel);
+        }
+
+        /// <summary>
+        /// Allows to update a consultation
+        /// </summary>
+        /// <param name="consultationUpdateViewModel">Consultation information</param>
+        [HttpPost]
+        public async Task<IActionResult> Update(ConsultationUpdateViewModel consultationUpdateViewModel)
+        {
+            IActionResult result;
+
+            // Valid input data ?
+            if (!this.ModelState.IsValid)
+            {
+                result = this.View(consultationUpdateViewModel);
+            }
+            else
+            {
+                // Consultation update
+                Consultation consultation = DataContext.Consultations.Find(consultationUpdateViewModel.Id);
+
+                consultation.Date = consultationUpdateViewModel.Date;
+                consultation.ShortDescription = consultationUpdateViewModel.ShortDescription;
+                consultation.LongDescription = consultationUpdateViewModel.LongDescription;
+
+                // Updating the consultation to the data context
+                DataContext.Consultations.Update(consultation);
+
+                // Persistence of updating the consultation to the database
+                await DataContext.SaveChangesAsync();
+
+                result = this.RedirectToAction(nameof(this.Index), new { id = consultation.PatientId });
+            }
+
+            return result;
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace Tremplin.Models
         /// </summary>
         [DisplayName("Date de naissance")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MMMM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>

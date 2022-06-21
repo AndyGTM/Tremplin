@@ -135,5 +135,47 @@ namespace Tremplin.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// Provides access to the view for deleting a consultation
+        /// </summary>
+        [HttpGet]
+        public IActionResult Delete(int id, ConsultationDeleteViewModel consultationdDeleteViewModel)
+        {
+            Consultation consultation = DataContext.Consultations.Find(id);
+
+            consultationdDeleteViewModel.Id = consultation.Id;
+            
+            consultationdDeleteViewModel.Date = consultation.Date;
+            consultationdDeleteViewModel.ShortDescription = consultation.ShortDescription;
+            consultationdDeleteViewModel.LongDescription = consultation.LongDescription;
+            consultationdDeleteViewModel.PatientId = consultation.PatientId;
+
+            return View(consultationdDeleteViewModel);
+        }
+
+        /// <summary>
+        /// Allows to delete a consultation
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> Delete(ConsultationDeleteViewModel consultationdDeleteViewModel)
+        {
+            IActionResult result;
+
+            // Consultation delete
+            Consultation consultation = DataContext.Consultations.Find(consultationdDeleteViewModel.Id);
+
+            consultationdDeleteViewModel.PatientId = consultation.PatientId;
+
+            // Deleting the consultation to the data context
+            DataContext.Consultations.Remove(consultation);
+
+            // Persistence of deleting the consultation to the database
+            await DataContext.SaveChangesAsync();
+
+            result = this.RedirectToAction(nameof(this.Index), new { id = consultationdDeleteViewModel.PatientId });
+
+            return result;
+        }
     }
 }

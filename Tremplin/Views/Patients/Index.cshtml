@@ -80,8 +80,8 @@
                     @(item.SharedSheet ? "Oui":"Non")
                 </td>
                 <td>
+                    <a asp-controller="Consultations" asp-action="Index" asp-route-id="@item.Id">Consultations</a> |
                     <a asp-action="Update" asp-route-id="@item.Id">Modifier</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
                 </td>
             </tr>

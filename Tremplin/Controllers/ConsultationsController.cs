@@ -84,6 +84,24 @@ namespace Tremplin.Controllers
         }
 
         /// <summary>
+        /// Provides access to the view for consultation's details
+        /// </summary>
+        [HttpGet]
+        public IActionResult Details(int id, ConsultationDetailsViewModel consultationDetailsViewModel)
+        {
+            Consultation consultation = DataContext.Consultations.Find(id);
+
+            consultationDetailsViewModel.Id = consultation.Id;
+
+            consultationDetailsViewModel.Date = consultation.Date;
+            consultationDetailsViewModel.ShortDescription = consultation.ShortDescription;
+            consultationDetailsViewModel.LongDescription = consultation.LongDescription;
+            consultationDetailsViewModel.PatientId = consultation.PatientId;
+
+            return View(consultationDetailsViewModel);
+        }
+
+        /// <summary>
         /// Provides access to the view for updating a consultation
         /// </summary>
         [HttpGet]

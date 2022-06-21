@@ -48,28 +48,18 @@ namespace Tremplin.Controllers
 
             if (!string.IsNullOrEmpty(searchSocialSecurityNumber))
             {
-                patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+                // Allow user to search social security number by entering blank spaces
+                if (searchSocialSecurityNumber.Contains(' '))
+                {
+                    searchSocialSecurityNumber = Regex.Replace(searchSocialSecurityNumber, @"\s", "");
 
-                #region TODO Allow user to search social security number by entering blank spaces
+                    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+                }
 
-                //if (searchSocialSecurityNumber.Contains(' '))
-                //{
-                //    foreach (Patient patient in patients)
-                //    {
-                //        patient.SocialSecurityNumber = Regex.Replace
-                //                            (patient.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
-                //    }
-
-                //    // !!! The LINQ query doesn't seem to take the format of the security number done earlier by the "Regex.Replace()" method
-                //    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
-                //}
-
-                //else
-                //{
-                //    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
-                //}
-
-                #endregion TODO Allow user to search social security number by entering blank spaces
+                else
+                {
+                    patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
+                }
             }
 
             if (searchBirthDate.HasValue)
@@ -131,7 +121,7 @@ namespace Tremplin.Controllers
                     Sex = patientCreationViewModel.Sex,
                     SharedSheet = patientCreationViewModel.SharedSheet,
                     CreatedBy = await UserManager.GetUserNameAsync(user)
-            };
+                };
 
                 // Adding the patient to the data context
                 DataContext.Add(patient);

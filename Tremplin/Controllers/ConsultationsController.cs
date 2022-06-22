@@ -37,11 +37,14 @@ namespace Tremplin.Controllers
         /// Provides access to the view for creating a consultation
         /// </summary>
         /// <param name="id">Patient Id</param>
-        /// <param name="consultationCreationViewModel">Consultation information</param>
         [HttpGet]
-        public IActionResult Create(int id, ConsultationCreationViewModel consultationCreationViewModel)
+        public IActionResult Create(int id)
         {
-            consultationCreationViewModel.Id = id;
+            ConsultationCreationViewModel consultationCreationViewModel = new()
+            {
+                Id = id,
+                Date = DateTime.Today
+            };
 
             return View(consultationCreationViewModel);
         }
@@ -105,16 +108,18 @@ namespace Tremplin.Controllers
         /// Provides access to the view for updating a consultation
         /// </summary>
         [HttpGet]
-        public IActionResult Update(int id, ConsultationUpdateViewModel consultationUpdateViewModel)
+        public IActionResult Update(int id)
         {
             Consultation consultation = DataContext.Consultations.Find(id);
 
-            consultationUpdateViewModel.Id = consultation.Id;
-
-            consultationUpdateViewModel.Date = consultation.Date;
-            consultationUpdateViewModel.ShortDescription = consultation.ShortDescription;
-            consultationUpdateViewModel.LongDescription = consultation.LongDescription;
-            consultationUpdateViewModel.PatientId = consultation.PatientId;
+            ConsultationUpdateViewModel consultationUpdateViewModel = new()
+            {
+                Id = consultation.Id,
+                Date = consultation.Date,
+                ShortDescription = consultation.ShortDescription,
+                LongDescription = consultation.LongDescription,
+                PatientId = consultation.PatientId
+            };
 
             return View(consultationUpdateViewModel);
         }

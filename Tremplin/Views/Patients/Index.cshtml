@@ -28,6 +28,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.UserIsCreator)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.SocialSecurityNumber)
             </th>
             <th>
@@ -57,6 +60,9 @@
         {
             <tr>
                 <td>
+                    @(item.UserIsCreator ? "Oui":"Non")
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
                 </td>
                 <td>
@@ -77,11 +83,16 @@
                 <td>
                     @(item.SharedSheet ? "Oui":"Non")
                 </td>
-                <td>
-                    <a asp-controller="Consultations" asp-action="Index" asp-route-id="@item.Id">Consultations</a> |
-                    <a asp-action="Update" asp-route-id="@item.Id">Modifier</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
-                </td>
+
+                @if (item.UserIsCreator)
+                {
+                    <td>
+                        <a asp-controller="Consultations" asp-action="Index" asp-route-id="@item.Id">Consultations</a> |
+                        <a asp-action="Update" asp-route-id="@item.Id">Modifier</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </td>
+                }
+
             </tr>
         }
     </tbody>

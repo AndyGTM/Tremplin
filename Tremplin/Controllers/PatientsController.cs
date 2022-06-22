@@ -67,7 +67,7 @@ namespace Tremplin.Controllers
                 patients = patients.Where(s => s.BirthDate!.Equals(searchBirthDate));
             }
 
-            PatientListViewModel patientListViewModel = new PatientListViewModel
+            PatientListViewModel patientListViewModel = new()
             {
                 Patients = await patients.ToListAsync()
             };
@@ -76,6 +76,16 @@ namespace Tremplin.Controllers
             {
                 // Adding blank spaces for displaying the social security number
                 patient.SocialSecurityNumber = Regex.Replace(patient.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+
+                // Check if user is the creator of the patient
+                if (patient.CreatedBy == UserManager.GetUserName(User))
+                {
+                    patient.UserIsCreator = true;
+                }
+                else
+                {
+                    patient.UserIsCreator = false;
+                }
             }
 
             return View(patientListViewModel);

@@ -49,6 +49,12 @@ namespace Tremplin.Models.PatientViewModels
         public bool SharedSheet { get; set; }
 
         /// <summary>
+        /// Check if user is creator of this patient
+        /// </summary>
+        [DisplayName("Auteur fiche")]
+        public bool UserIsCreator { get; set; }
+
+        /// <summary>
         /// List to display patients in the view "Index" (for patients controller)
         /// </summary>
         public List<Patient>? Patients { get; set; }
@@ -72,5 +78,6 @@ namespace Tremplin.Models.PatientViewModels
         /// Allow to search patients by birth date
         /// </summary>
         public DateTime? SearchBirthDate { get; set; }
+
     }
 }

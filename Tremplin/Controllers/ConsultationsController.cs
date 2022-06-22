@@ -166,7 +166,6 @@ namespace Tremplin.Controllers
             
             consultationdDeleteViewModel.Date = consultation.Date;
             consultationdDeleteViewModel.ShortDescription = consultation.ShortDescription;
-            consultationdDeleteViewModel.LongDescription = consultation.LongDescription;
             consultationdDeleteViewModel.PatientId = consultation.PatientId;
 
             return View(consultationdDeleteViewModel);

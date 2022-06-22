@@ -15,14 +15,14 @@ namespace Tremplin.Models.ConsultationViewModels
         /// <summary>
         /// Consultation date
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de consultation")]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Short description of the consultation
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Description courte")]
         public string ShortDescription { get; set; }
 

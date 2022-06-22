@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
-using Tremplin.Models;
+using Tremplin.Models.ConsultationViewModels;
 
 namespace Tremplin.Controllers
 {

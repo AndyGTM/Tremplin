@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.UserViewModels
 {
     public class UserLoginViewModel
     {

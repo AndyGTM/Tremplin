@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Tremplin.CustomValidation;
 using Tremplin.Enums;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.PatientViewModels
 {
     public class PatientDeleteViewModel
     {

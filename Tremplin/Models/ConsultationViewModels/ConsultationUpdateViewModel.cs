@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationDeleteViewModel
+    public class ConsultationUpdateViewModel
     {
         /// <summary>
         /// Consultation Id
@@ -16,15 +16,13 @@ namespace Tremplin.Models
         /// </summary>
         [Required]
         [DisplayName("Date de consultation")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Short description of the consultation
         /// </summary>
         [Required]
-        [DisplayName("Description")]
+        [DisplayName("Description courte")]
         public string ShortDescription { get; set; }
 
         /// <summary>

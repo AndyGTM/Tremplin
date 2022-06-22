@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tremplin.Data;
-using Tremplin.Models;
+using Tremplin.Models.UserViewModels;
 
 namespace Tremplin.Controllers
 {

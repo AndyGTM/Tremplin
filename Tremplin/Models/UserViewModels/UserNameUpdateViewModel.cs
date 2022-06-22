@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Tremplin.CustomValidation;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.UserViewModels
 {
     public class UserNameUpdateViewModel
     {

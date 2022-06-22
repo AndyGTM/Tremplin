@@ -1,19 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Tremplin.CustomValidation;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.UserViewModels
 {
-    public class UserRegistrationViewModel
+    public class PasswordUpdateViewModel
     {
-        /// <summary>
-        /// User identifier
-        /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
-        [DisplayName("Identifiant")]
-        [ExistingUserName]
-        public string UserName { get; set; }
-
         /// <summary>
         /// User password
         /// </summary>
@@ -30,14 +21,5 @@ namespace Tremplin.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas")]
         public string ConfirmedPassword { get; set; }
-
-        /// <summary>
-        /// User email
-        /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
-        [Display(Name = "E-mail")]
-        [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
-        [ExistingMail]
-        public string Email { get; set; }
     }
 }

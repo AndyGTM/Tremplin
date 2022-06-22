@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Tremplin.Data;
-using Tremplin.Models;
+using Tremplin.Models.PatientViewModels;
 
 namespace Tremplin.Controllers
 {

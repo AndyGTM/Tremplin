@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Tremplin.Data;
 using Tremplin.Enums;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.PatientViewModels
 {
     public class PatientListViewModel
     {

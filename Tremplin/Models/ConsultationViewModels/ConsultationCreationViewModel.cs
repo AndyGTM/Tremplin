@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationDetailsViewModel
+    public class ConsultationCreationViewModel
     {
         /// <summary>
-        /// Consultation Id
+        /// Patient Id associated with this consultation
         /// </summary>
-        [Key, Required]
+        [ForeignKey("Patient"), Required]
         public int Id { get; set; }
 
         /// <summary>
@@ -16,15 +17,13 @@ namespace Tremplin.Models
         /// </summary>
         [Required]
         [DisplayName("Date de consultation")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Short description of the consultation
         /// </summary>
         [Required]
-        [DisplayName("Description")]
+        [DisplayName("Description courte")]
         public string ShortDescription { get; set; }
 
         /// <summary>
@@ -32,10 +31,5 @@ namespace Tremplin.Models
         /// </summary>
         [DisplayName("Description longue (optionnelle)")]
         public string? LongDescription { get; set; }
-
-        /// <summary>
-        /// Patient Id associated with this consultation
-        /// </summary>
-        public int PatientId { get; set; }
     }
 }

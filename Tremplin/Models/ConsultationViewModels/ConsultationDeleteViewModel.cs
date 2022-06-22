@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Tremplin.Data;
 
-namespace Tremplin.Models
+namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationListViewModel
+    public class ConsultationDeleteViewModel
     {
         /// <summary>
         /// Consultation Id
@@ -31,19 +30,12 @@ namespace Tremplin.Models
         /// <summary>
         /// Long description of the consultation
         /// </summary>
-        public string LongDescription { get; set; }
+        [DisplayName("Description longue (optionnelle)")]
+        public string? LongDescription { get; set; }
 
         /// <summary>
         /// Patient Id associated with this consultation
         /// </summary>
-        [Required]
         public int PatientId { get; set; }
-
-        /// <summary>
-        /// Patient associated with this consultation
-        /// </summary>
-        public Patient Patient { get; set; }
-
-        public List<Consultation>? Consultations { get; set; }
     }
 }

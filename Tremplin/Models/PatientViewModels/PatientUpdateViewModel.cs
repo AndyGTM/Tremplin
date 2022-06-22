@@ -16,7 +16,7 @@ namespace Tremplin.Models.PatientViewModels
         /// <summary>
         /// Social security number
         /// </summary>
-        [Required(ErrorMessage = "Le {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Numéro de sécurité sociale")]
         [RegularExpression(@"[0-9]{1} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2}|[0-9]{15}",
             ErrorMessage = @"Le {0} doit être composé de chiffres au format ""x xx xx xx xxx xxx xx"" ou ""xxxxxxxxxxxxxxx""")]
@@ -25,37 +25,36 @@ namespace Tremplin.Models.PatientViewModels
         /// <summary>
         /// Patient last name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Nom")]
         public string LastName { get; set; }
 
         /// <summary>
         /// Patient first name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Prénom")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [Required(ErrorMessage = "La {0} est requise")]
+        [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de naissance")]
-        [DataType(DataType.DateTime)]
         [BirthDateNotAfterToday(ErrorMessage = "La {0} ne peut pas être après la date d'aujourd'hui")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
         /// Patient blood group
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Groupe sanguin")]
         public BloodGroupNames BloodGroup { get; set; }
 
         /// <summary>
         /// Patient sex
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Sexe")]
         public SexTypes Sex { get; set; }
 

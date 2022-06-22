@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using Tremplin.Data;
 using Tremplin.Enums;
 
@@ -7,12 +6,6 @@ namespace Tremplin.Models.PatientViewModels
 {
     public class PatientListViewModel
     {
-        /// <summary>
-        /// Patient Id
-        /// </summary>
-        [Key, Required]
-        public int Id { get; set; }
-
         /// <summary>
         /// Social security number
         /// </summary>
@@ -35,8 +28,6 @@ namespace Tremplin.Models.PatientViewModels
         /// Patient birth date
         /// </summary>
         [DisplayName("Date de naissance")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
@@ -57,6 +48,9 @@ namespace Tremplin.Models.PatientViewModels
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
 
+        /// <summary>
+        /// List to display patients in the view "Index" (for patients controller)
+        /// </summary>
         public List<Patient>? Patients { get; set; }
 
         /// <summary>

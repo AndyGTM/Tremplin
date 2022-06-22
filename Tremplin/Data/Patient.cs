@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Tremplin.Enums;
 
@@ -17,8 +16,7 @@ namespace Tremplin.Data
         /// <summary>
         /// Social security number
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [DisplayName("Numéro de sécurité sociale")]
+        [Required]
         [Column(TypeName="char")]
         [StringLength(15)]
         public string SocialSecurityNumber { get; set; }
@@ -26,22 +24,19 @@ namespace Tremplin.Data
         /// <summary>
         /// Patient last name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [DisplayName("Nom")]
+        [Required]
         public string LastName { get; set; }
 
         /// <summary>
         /// Patient first name
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [DisplayName("Prénom")]
+        [Required]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [Required(ErrorMessage = "La {0} est requise")]
-        [DisplayName("Date de naissance")]
+        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
@@ -49,28 +44,24 @@ namespace Tremplin.Data
         /// <summary>
         /// Patient blood group
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [DisplayName("Groupe sanguin")]
+        [Required]
         public BloodGroupNames BloodGroup { get; set; }
 
         /// <summary>
         /// Patient sex
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [DisplayName("Sexe")]
+        [Required]
         [Column(TypeName = "tinyint")]
         public SexTypes Sex { get; set; }
 
         /// <summary>
         /// Authorize or not the sharing of the patient sheet with others practitioners
         /// </summary>
-        [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
 
         /// <summary>
         /// User who created this patient
         /// </summary>
-        [DisplayName("Créé par")]
         public string CreatedBy { get; set; }
     }
 }

@@ -15,24 +15,20 @@ namespace Tremplin.Data
         /// <summary>
         /// User identifier
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [Display(Name = "Identifiant")]
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
         /// User password
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
-        [Display(Name = "Mot de passe")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         /// <summary>
         /// User email
         /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
-        [Display(Name = "E-mail")]
-        [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
+        [Required]
         public string Email { get; set; }
     }
 }

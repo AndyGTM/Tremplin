@@ -9,9 +9,9 @@ namespace Tremplin.Models.UserViewModels
         /// <summary>
         /// User email
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("E-mail")]
-        [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
+        [EmailAddress(ErrorMessage = "{0} non valide")]
         [ExistingMail]
         public string Email { get; set; }
     }

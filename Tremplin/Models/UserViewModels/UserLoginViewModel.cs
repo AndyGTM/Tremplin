@@ -8,14 +8,14 @@ namespace Tremplin.Models.UserViewModels
         /// <summary>
         /// User identifier
         /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Identifiant")]
         public string UserName { get; set; }
 
         /// <summary>
         /// User password
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Mot de passe")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

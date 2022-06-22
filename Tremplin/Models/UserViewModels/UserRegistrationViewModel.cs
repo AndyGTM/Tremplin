@@ -9,7 +9,7 @@ namespace Tremplin.Models.UserViewModels
         /// <summary>
         /// User identifier
         /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Identifiant")]
         [ExistingUserName]
         public string UserName { get; set; }
@@ -17,7 +17,7 @@ namespace Tremplin.Models.UserViewModels
         /// <summary>
         /// User password
         /// </summary>
-        [Required(ErrorMessage = "Le champ {0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Mot de passe")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -34,9 +34,9 @@ namespace Tremplin.Models.UserViewModels
         /// <summary>
         /// User email
         /// </summary>
-        [Required(ErrorMessage = "L'{0} est requis")]
+        [Required(ErrorMessage = "{0} requis")]
         [Display(Name = "E-mail")]
-        [EmailAddress(ErrorMessage = "Adresse e-mail non valide")]
+        [EmailAddress(ErrorMessage = "{0} non valide")]
         [ExistingMail]
         public string Email { get; set; }
     }

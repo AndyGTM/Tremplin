@@ -43,6 +43,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="userRegistrationViewModel">User information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserRegistrationViewModel userRegistrationViewModel)
         {
@@ -102,6 +103,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="userNameUpdateViewModel">UserName information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserNameUpdate(UserNameUpdateViewModel userNameUpdateViewModel)
         {
             IActionResult result;
@@ -146,6 +148,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="passwordUpdateViewModel">UserName information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> PasswordUpdate(PasswordUpdateViewModel passwordUpdateViewModel)
         {
             IActionResult result;
@@ -213,6 +216,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="emailUpdateViewModel">Email information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmailUpdate(EmailUpdateViewModel emailUpdateViewModel)
         {
             IActionResult result;
@@ -258,6 +262,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="userLoginViewModel">User credentials</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {

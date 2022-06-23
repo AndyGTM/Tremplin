@@ -105,6 +105,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="patientCreationViewModel">Patient information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PatientCreationViewModel patientCreationViewModel)
         {
             IActionResult result;
@@ -175,6 +176,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="patientUpdateViewModel">Patient information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, PatientUpdateViewModel patientUpdateViewModel)
         {
             IActionResult result;
@@ -240,6 +242,7 @@ namespace Tremplin.Controllers
         /// Allows to delete a patient
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, PatientDeleteViewModel patientDeleteViewModel)
         {
             IActionResult result;

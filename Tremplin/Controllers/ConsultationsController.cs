@@ -54,6 +54,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="consultationCreationViewModel">Consultation information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ConsultationCreationViewModel consultationCreationViewModel)
         {
             IActionResult result;
@@ -129,6 +130,7 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="consultationUpdateViewModel">Consultation information</param>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ConsultationUpdateViewModel consultationUpdateViewModel)
         {
             IActionResult result;
@@ -180,6 +182,7 @@ namespace Tremplin.Controllers
         /// Allows to delete a consultation
         /// </summary>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(ConsultationDeleteViewModel consultationdDeleteViewModel)
         {
             IActionResult result;

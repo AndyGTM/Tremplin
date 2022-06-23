@@ -17,8 +17,6 @@ namespace Tremplin.Data
         /// Social security number
         /// </summary>
         [Required]
-        [Column(TypeName="char")]
-        [StringLength(15)]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>

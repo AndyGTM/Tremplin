@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin", "Tremplin\Trempl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Tests", "Tremplin.Tests\Tremplin.Tests.csproj", "{BF45F437-80E5-4DD4-9108-EE3EE3128A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Core", "Tremplin.Core\Tremplin.Core.csproj", "{1B76C178-27F7-4A95-B1DE-AB847FA74B82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Core", "Tremplin.Core\Tremplin.Core.csproj", "{1B76C178-27F7-4A95-B1DE-AB847FA74B82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Data", "Tremplin.Data\Tremplin.Data.csproj", "{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1B76C178-27F7-4A95-B1DE-AB847FA74B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B76C178-27F7-4A95-B1DE-AB847FA74B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B76C178-27F7-4A95-B1DE-AB847FA74B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

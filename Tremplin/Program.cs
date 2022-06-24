@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.IServices.IPatient;
+using Tremplin.Services;
 using Tremplin.Store;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
+
+// Patient service
+builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
 
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IRoleStore<UserRole>, RoleStore>();

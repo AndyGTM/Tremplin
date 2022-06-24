@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Tests", "Tremplin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Core", "Tremplin.Core\Tremplin.Core.csproj", "{1B76C178-27F7-4A95-B1DE-AB847FA74B82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Data", "Tremplin.Data\Tremplin.Data.csproj", "{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Data", "Tremplin.Data\Tremplin.Data.csproj", "{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Services", "Tremplin.Services\Tremplin.Services.csproj", "{B30FBB42-F79F-400B-B24E-366D8F369BA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.IServices", "Tremplin.IServices\Tremplin.IServices.csproj", "{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B30FBB42-F79F-400B-B24E-366D8F369BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B30FBB42-F79F-400B-B24E-366D8F369BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B30FBB42-F79F-400B-B24E-366D8F369BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B30FBB42-F79F-400B-B24E-366D8F369BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

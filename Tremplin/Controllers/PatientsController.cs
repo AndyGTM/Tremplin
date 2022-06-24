@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Tremplin.Data;
+using Tremplin.IServices.IPatient;
 using Tremplin.Models.PatientViewModels;
 
 namespace Tremplin.Controllers
@@ -18,10 +19,13 @@ namespace Tremplin.Controllers
         /// </summary>
         private UserManager<User> UserManager { get; init; }
 
-        public PatientsController(DataContext dataContext, UserManager<User> aUserManager)
+        private readonly IPatientService _patientService;
+
+        public PatientsController(DataContext dataContext, UserManager<User> aUserManager, IPatientService patientService)
         {
             DataContext = dataContext;
             this.UserManager = aUserManager;
+            _patientService = patientService;
         }
 
         /// <summary>
@@ -32,9 +36,7 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            IQueryable<Patient> patients = from m in DataContext.Patients
-                                           where m.SharedSheet || m.CreatedBy == user.UserName
-                                           select m;
+            IQueryable<Patient> patients = _patientService.GetPatients(user);
 
             if (!string.IsNullOrEmpty(searchLastName))
             {

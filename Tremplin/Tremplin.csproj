@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tremplin.Core\Tremplin.Core.csproj" />
+  </ItemGroup>
+
 </Project>

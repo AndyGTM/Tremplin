@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Tremplin.Enums
+namespace Tremplin.Core.Enums
 {
     /// <summary>
     /// Enumeration of sex types

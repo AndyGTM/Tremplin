@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Tremplin.Core.Enums;
 using Tremplin.CustomValidation;
-using Tremplin.Enums;
 
 namespace Tremplin.Models.PatientViewModels
 {

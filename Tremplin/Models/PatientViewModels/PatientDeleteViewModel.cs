@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Tremplin.Enums;
+using Tremplin.Core.Enums;
 
 namespace Tremplin.Models.PatientViewModels
 {

@@ -27,6 +27,14 @@ namespace Tremplin.Data
 
         public DbSet<UserRole> UserRoles { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            if (!options.IsConfigured)
+            {
+                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Tremplin.db;Trusted_Connection=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseEncryption(this._provider);

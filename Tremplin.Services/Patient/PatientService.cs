@@ -14,14 +14,16 @@ namespace Tremplin.Services
             DataContext = dataContext;
         }
 
+        #region CRUD Patients
+
         /// <summary>
         /// Gets list of patients with shared sheet and/or created by logged user
         /// </summary>
-        /// <param name="user">Logged user</param>
-        public IQueryable<Patient> GetPatients(User user)
+        /// <param name="userName">Logged user</param>
+        public IQueryable<Patient> GetPatients(string userName)
         {
             IQueryable<Patient> patients = from m in DataContext.Patients
-                                           where m.SharedSheet || m.CreatedBy == user.UserName
+                                           where m.SharedSheet || m.CreatedBy == userName
                                            select m;
             return patients;
         }
@@ -30,7 +32,7 @@ namespace Tremplin.Services
         /// Creation of a patient by logged user
         /// </summary>
         /// <param name="userName">Logged user</param>
-        public Patient CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+        public void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName)
         {
             Patient patient = new()
@@ -47,10 +49,11 @@ namespace Tremplin.Services
                 CreatedBy = userName
             };
 
-            return patient;
+            // Adding the patient to the data context
+            DataContext.Add(patient);
         }
 
-        public Patient UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+        public void UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
         {
             // Removal of any blank spaces for recording the social security number in the database
@@ -63,7 +66,28 @@ namespace Tremplin.Services
             patient.Sex = sex;
             patient.SharedSheet = sharedSheet;
 
-            return patient;
+            // Updating the patient to the data context
+            DataContext.Patients.Update(patient);
         }
+
+        #endregion CRUD Patients
+
+        #region Format social security number
+
+        public string AddBlankSpacesInSocialSecurityNumber(string socialSecurityNumber)
+        {
+            socialSecurityNumber = Regex.Replace(socialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+
+            return socialSecurityNumber;
+        }
+
+        public string RemoveBlankSpacesInSocialSecurityNumber(string socialSecurityNumber)
+        {
+            socialSecurityNumber = Regex.Replace(socialSecurityNumber, @"\s", "");
+
+            return socialSecurityNumber;
+        }
+
+        #endregion Format social security number
     }
 }

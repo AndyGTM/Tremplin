@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 using Tremplin.Data;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models.PatientViewModels;
@@ -36,7 +35,7 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            IQueryable<Patient> patients = _patientService.GetPatients(user);
+            IQueryable<Patient> patients = _patientService.GetPatients(user.UserName);
 
             if (!string.IsNullOrEmpty(searchLastName))
             {
@@ -53,7 +52,7 @@ namespace Tremplin.Controllers
                 // Allow user to search social security number by entering blank spaces
                 if (searchSocialSecurityNumber.Contains(' '))
                 {
-                    searchSocialSecurityNumber = Regex.Replace(searchSocialSecurityNumber, @"\s", "");
+                    searchSocialSecurityNumber = _patientService.RemoveBlankSpacesInSocialSecurityNumber(searchSocialSecurityNumber);
 
                     patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
                 }
@@ -77,10 +76,10 @@ namespace Tremplin.Controllers
             foreach (Patient patient in patientListViewModel.Patients)
             {
                 // Adding blank spaces for displaying the social security number
-                patient.SocialSecurityNumber = Regex.Replace(patient.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+                patient.SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber);
 
                 // Check if user is the creator of the patient
-                if (patient.CreatedBy == UserManager.GetUserName(User))
+                if (patient.CreatedBy == user.UserName)
                 {
                     patient.UserIsCreator = true;
                 }
@@ -122,7 +121,7 @@ namespace Tremplin.Controllers
                 User user = await UserManager.GetUserAsync(User);
 
                 // Patient creation
-                Patient patient = _patientService.CreatePatient
+                _patientService.CreatePatient
                     (
                         patientCreationViewModel.SocialSecurityNumber,
                         patientCreationViewModel.LastName,
@@ -133,9 +132,6 @@ namespace Tremplin.Controllers
                         patientCreationViewModel.SharedSheet,
                         user.UserName
                     );
-
-                // Adding the patient to the data context
-                DataContext.Add(patient);
 
                 // Persistence of adding the patient to the database
                 await DataContext.SaveChangesAsync();
@@ -154,19 +150,20 @@ namespace Tremplin.Controllers
         {
             Patient patientDB = DataContext.Patients.Find(id);
 
-            PatientUpdateViewModel patientUpdateViewModel = new PatientUpdateViewModel();
+            PatientUpdateViewModel patientUpdateViewModel = new()
+            {
+                Id = patientDB.Id,
 
-            patientUpdateViewModel.Id = patientDB.Id;
+                // Adding blank spaces for displaying the social security number
+                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patientDB.SocialSecurityNumber),
 
-            // Adding blank spaces for displaying the social security number
-            patientUpdateViewModel.SocialSecurityNumber = Regex.Replace(patientDB.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
-
-            patientUpdateViewModel.LastName = patientDB.LastName;
-            patientUpdateViewModel.FirstName = patientDB.FirstName;
-            patientUpdateViewModel.BirthDate = patientDB.BirthDate;
-            patientUpdateViewModel.BloodGroup = patientDB.BloodGroup;
-            patientUpdateViewModel.Sex = patientDB.Sex;
-            patientUpdateViewModel.SharedSheet = patientDB.SharedSheet;
+                LastName = patientDB.LastName,
+                FirstName = patientDB.FirstName,
+                BirthDate = patientDB.BirthDate,
+                BloodGroup = patientDB.BloodGroup,
+                Sex = patientDB.Sex,
+                SharedSheet = patientDB.SharedSheet
+            };
 
             return View(patientUpdateViewModel);
         }
@@ -203,9 +200,6 @@ namespace Tremplin.Controllers
                         patientUpdateViewModel.SharedSheet
                     );
 
-                // Updating the patient to the data context
-                DataContext.Patients.Update(patient);
-
                 // Persistence of updating the patient to the database
                 await DataContext.SaveChangesAsync();
 
@@ -223,19 +217,20 @@ namespace Tremplin.Controllers
         {
             Patient patientDB = DataContext.Patients.Find(id);
 
-            PatientDeleteViewModel patientDeleteViewModel = new PatientDeleteViewModel();
+            PatientDeleteViewModel patientDeleteViewModel = new()
+            {
+                Id = patientDB.Id,
 
-            patientDeleteViewModel.Id = patientDB.Id;
+                // Adding blank spaces for displaying the social security number
+                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patientDB.SocialSecurityNumber),
 
-            // Adding blank spaces for displaying the social security number
-            patientDeleteViewModel.SocialSecurityNumber = Regex.Replace(patientDB.SocialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
-
-            patientDeleteViewModel.LastName = patientDB.LastName;
-            patientDeleteViewModel.FirstName = patientDB.FirstName;
-            patientDeleteViewModel.BirthDate = patientDB.BirthDate;
-            patientDeleteViewModel.BloodGroup = patientDB.BloodGroup;
-            patientDeleteViewModel.Sex = patientDB.Sex;
-            patientDeleteViewModel.SharedSheet = patientDB.SharedSheet;
+                LastName = patientDB.LastName,
+                FirstName = patientDB.FirstName,
+                BirthDate = patientDB.BirthDate,
+                BloodGroup = patientDB.BloodGroup,
+                Sex = patientDB.Sex,
+                SharedSheet = patientDB.SharedSheet
+            };
 
             return View(patientDeleteViewModel);
         }

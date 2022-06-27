@@ -9,5 +9,8 @@ namespace Tremplin.IServices.IPatient
 
         Patient CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName);
+
+        Patient UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet);
     }
 }

@@ -191,15 +191,17 @@ namespace Tremplin.Controllers
                 // Patient update
                 Patient patient = DataContext.Patients.Find(id);
 
-                // Removal of any blank spaces for recording the social security number in the database
-                patient.SocialSecurityNumber = Regex.Replace(patientUpdateViewModel.SocialSecurityNumber, @"\s", "");
-
-                patient.LastName = patientUpdateViewModel.LastName;
-                patient.FirstName = patientUpdateViewModel.FirstName;
-                patient.BirthDate = patientUpdateViewModel.BirthDate;
-                patient.BloodGroup = patientUpdateViewModel.BloodGroup;
-                patient.Sex = patientUpdateViewModel.Sex;
-                patient.SharedSheet = patientUpdateViewModel.SharedSheet;
+                _patientService.UpdatePatient
+                    (
+                        patient,
+                        patientUpdateViewModel.SocialSecurityNumber,
+                        patientUpdateViewModel.LastName,
+                        patientUpdateViewModel.FirstName,
+                        patientUpdateViewModel.BirthDate,
+                        patientUpdateViewModel.BloodGroup,
+                        patientUpdateViewModel.Sex,
+                        patientUpdateViewModel.SharedSheet
+                    );
 
                 // Updating the patient to the data context
                 DataContext.Patients.Update(patient);

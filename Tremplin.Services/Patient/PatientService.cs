@@ -29,13 +29,6 @@ namespace Tremplin.Services
         /// <summary>
         /// Creation of a patient by logged user
         /// </summary>
-        /// <param name="socialSecurityNumber">Patient social security number</param>
-        /// <param name="lastName">Patient last name</param>
-        /// <param name="firstName">Patient first name</param>
-        /// <param name="birthDate">Patient birth date</param>
-        /// <param name="bloodGroup">Patient blood group</param>
-        /// <param name="sex">Patient sex</param>
-        /// <param name="sharedSheet">Authorize or not the sharing of the patient sheet with others practitioners</param>
         /// <param name="userName">Logged user</param>
         public Patient CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName)
@@ -53,6 +46,22 @@ namespace Tremplin.Services
                 SharedSheet = sharedSheet,
                 CreatedBy = userName
             };
+
+            return patient;
+        }
+
+        public Patient UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
+        {
+            // Removal of any blank spaces for recording the social security number in the database
+            patient.SocialSecurityNumber = Regex.Replace(socialSecurityNumber, @"\s", "");
+
+            patient.LastName = lastName;
+            patient.FirstName = firstName;
+            patient.BirthDate = birthDate;
+            patient.BloodGroup = bloodGroup;
+            patient.Sex = sex;
+            patient.SharedSheet = sharedSheet;
 
             return patient;
         }

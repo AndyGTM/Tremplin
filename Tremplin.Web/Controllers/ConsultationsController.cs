@@ -19,7 +19,6 @@ namespace Tremplin.Controllers
             DataContext = dataContext;
             _consultationService = consultationService;
         }
-
         
         /// <summary>
         /// Provides access to the view for listing consultations

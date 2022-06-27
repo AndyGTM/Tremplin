@@ -38,7 +38,7 @@ namespace Tremplin.Services
             Patient patient = new()
             {
                 // Removal of any blank spaces for recording the social security number in the database
-                SocialSecurityNumber = Regex.Replace(socialSecurityNumber, @"\s", ""),
+                SocialSecurityNumber = RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber),
 
                 LastName = lastName,
                 FirstName = firstName,
@@ -57,7 +57,7 @@ namespace Tremplin.Services
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
         {
             // Removal of any blank spaces for recording the social security number in the database
-            patient.SocialSecurityNumber = Regex.Replace(socialSecurityNumber, @"\s", "");
+            patient.SocialSecurityNumber = RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
 
             patient.LastName = lastName;
             patient.FirstName = firstName;

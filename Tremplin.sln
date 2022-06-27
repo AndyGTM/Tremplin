@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin", "Tremplin\Tremplin.csproj", "{93DB312F-E6F6-428E-83A8-D97110370D8C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Tests", "Tremplin.Tests\Tremplin.Tests.csproj", "{BF45F437-80E5-4DD4-9108-EE3EE3128A87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Core", "Tremplin.Core\Tremplin.Core.csproj", "{1B76C178-27F7-4A95-B1DE-AB847FA74B82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Data", "Tremplin.Data\Tremplin.Data.csproj", "{B5FEC8C4-E889-412F-8A48-8C25388CEA0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Services", "Tremplin.Services\Tremplin.Services.csproj", "{B30FBB42-F79F-400B-B24E-366D8F369BA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.Services", "Tremplin.Services\Tremplin.Services.csproj", "{B30FBB42-F79F-400B-B24E-366D8F369BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.IServices", "Tremplin.IServices\Tremplin.IServices.csproj", "{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tremplin.IServices", "Tremplin.IServices\Tremplin.IServices.csproj", "{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tremplin.Web", "Tremplin.Web\Tremplin.Web.csproj", "{F9E1A899-E93E-447F-B986-1AF95A391EB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93DB312F-E6F6-428E-83A8-D97110370D8C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF45F437-80E5-4DD4-9108-EE3EE3128A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02C1D8B4-B7B2-43EE-8D64-CCD81AC07A60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E1A899-E93E-447F-B986-1AF95A391EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E1A899-E93E-447F-B986-1AF95A391EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E1A899-E93E-447F-B986-1AF95A391EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E1A899-E93E-447F-B986-1AF95A391EB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

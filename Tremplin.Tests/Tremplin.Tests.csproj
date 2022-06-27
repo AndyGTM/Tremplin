@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tremplin\Tremplin.csproj" />
+    <ProjectReference Include="..\Tremplin.Web\Tremplin.Web.csproj" />
   </ItemGroup>
 
 </Project>

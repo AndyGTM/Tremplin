@@ -153,7 +153,7 @@ namespace Tremplin.Controllers
             Patient patientDB = DataContext.Patients.Find(id);
 
             // Check if user has the rights to access this view
-            if ((patientDB.CreatedBy != user.UserName) && !patientDB.SharedSheet)
+            if (patientDB.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
@@ -228,7 +228,7 @@ namespace Tremplin.Controllers
             Patient patientDB = DataContext.Patients.Find(id);
 
             // Check if user has the rights to access this view
-            if ((patientDB.CreatedBy != user.UserName) && !patientDB.SharedSheet)
+            if (patientDB.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }

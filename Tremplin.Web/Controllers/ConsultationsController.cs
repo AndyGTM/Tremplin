@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
@@ -12,11 +13,17 @@ namespace Tremplin.Controllers
     {
         private DataContext DataContext { get; init; }
 
+        /// <summary>
+        /// User manager
+        /// </summary>
+        private UserManager<User> UserManager { get; init; }
+
         private readonly IConsultationService _consultationService;
 
-        public ConsultationsController(DataContext dataContext, IConsultationService consultationService)
+        public ConsultationsController(DataContext dataContext, UserManager<User> aUserManager, IConsultationService consultationService)
         {
             DataContext = dataContext;
+            this.UserManager = aUserManager;
             _consultationService = consultationService;
         }
         
@@ -27,6 +34,16 @@ namespace Tremplin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int id, ConsultationListViewModel consultationListViewModel)
         {
+            User user = await UserManager.GetUserAsync(User);
+
+            Patient patient = DataContext.Patients.Find(id);
+
+            // Check if user has the rights to access this view
+            if (patient.CreatedBy != user.UserName)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
+
             IQueryable<Consultation> consultations = _consultationService.GetConsultations(id);
 
             consultationListViewModel.PatientId = id;
@@ -40,8 +57,18 @@ namespace Tremplin.Controllers
         /// </summary>
         /// <param name="id">Patient Id</param>
         [HttpGet]
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
+            User user = await UserManager.GetUserAsync(User);
+
+            Patient patient = DataContext.Patients.Find(id);
+
+            // Check if user has the rights to access this view
+            if (patient.CreatedBy != user.UserName)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
+
             ConsultationCreationViewModel consultationCreationViewModel = new()
             {
                 Id = id,
@@ -90,9 +117,19 @@ namespace Tremplin.Controllers
         /// Provides access to the view for consultation's details
         /// </summary>
         [HttpGet]
-        public IActionResult Details(int id, ConsultationDetailsViewModel consultationDetailsViewModel)
+        public async Task<IActionResult> Details(int id, ConsultationDetailsViewModel consultationDetailsViewModel)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             Consultation consultation = DataContext.Consultations.Find(id);
+
+            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+
+            // Check if user has the rights to access this view
+            if (patient.CreatedBy != user.UserName)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
 
             consultationDetailsViewModel.Id = consultation.Id;
 
@@ -108,9 +145,19 @@ namespace Tremplin.Controllers
         /// Provides access to the view for updating a consultation
         /// </summary>
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             Consultation consultation = DataContext.Consultations.Find(id);
+
+            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+
+            // Check if user has the rights to access this view
+            if (patient.CreatedBy != user.UserName)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
 
             ConsultationUpdateViewModel consultationUpdateViewModel = new()
             {
@@ -165,12 +212,21 @@ namespace Tremplin.Controllers
         /// Provides access to the view for deleting a consultation
         /// </summary>
         [HttpGet]
-        public IActionResult Delete(int id, ConsultationDeleteViewModel consultationdDeleteViewModel)
+        public async Task<IActionResult> Delete(int id, ConsultationDeleteViewModel consultationdDeleteViewModel)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             Consultation consultation = DataContext.Consultations.Find(id);
 
-            consultationdDeleteViewModel.Id = consultation.Id;
-            
+            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+
+            // Check if user has the rights to access this view
+            if (patient.CreatedBy != user.UserName)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
+
+            consultationdDeleteViewModel.Id = consultation.Id;           
             consultationdDeleteViewModel.Date = consultation.Date;
             consultationdDeleteViewModel.ShortDescription = consultation.ShortDescription;
             consultationdDeleteViewModel.PatientId = consultation.PatientId;

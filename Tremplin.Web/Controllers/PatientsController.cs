@@ -146,9 +146,17 @@ namespace Tremplin.Controllers
         /// Provides access to the view for updating a patient
         /// </summary>
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             Patient patientDB = DataContext.Patients.Find(id);
+
+            // Check if user has the rights to access this view
+            if ((patientDB.CreatedBy != user.UserName) && !patientDB.SharedSheet)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
 
             PatientUpdateViewModel patientUpdateViewModel = new()
             {
@@ -213,9 +221,17 @@ namespace Tremplin.Controllers
         /// Provides access to the view for deleting a patient
         /// </summary>
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            User user = await UserManager.GetUserAsync(User);
+
             Patient patientDB = DataContext.Patients.Find(id);
+
+            // Check if user has the rights to access this view
+            if ((patientDB.CreatedBy != user.UserName) && !patientDB.SharedSheet)
+            {
+                return this.RedirectToAction("AccessDenied", "Users");
+            }
 
             PatientDeleteViewModel patientDeleteViewModel = new()
             {

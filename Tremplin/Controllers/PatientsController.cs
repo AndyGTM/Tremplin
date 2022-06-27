@@ -122,19 +122,17 @@ namespace Tremplin.Controllers
                 User user = await UserManager.GetUserAsync(User);
 
                 // Patient creation
-                Patient patient = new()
-                {
-                    // Removal of any blank spaces for recording the social security number in the database
-                    SocialSecurityNumber = Regex.Replace(patientCreationViewModel.SocialSecurityNumber, @"\s", ""),
-
-                    LastName = patientCreationViewModel.LastName,
-                    FirstName = patientCreationViewModel.FirstName,
-                    BirthDate = patientCreationViewModel.BirthDate,
-                    BloodGroup = patientCreationViewModel.BloodGroup,
-                    Sex = patientCreationViewModel.Sex,
-                    SharedSheet = patientCreationViewModel.SharedSheet,
-                    CreatedBy = await UserManager.GetUserNameAsync(user)
-                };
+                Patient patient = _patientService.CreatePatient
+                    (
+                        patientCreationViewModel.SocialSecurityNumber,
+                        patientCreationViewModel.LastName,
+                        patientCreationViewModel.FirstName,
+                        patientCreationViewModel.BirthDate,
+                        patientCreationViewModel.BloodGroup,
+                        patientCreationViewModel.Sex,
+                        patientCreationViewModel.SharedSheet,
+                        user.UserName
+                    );
 
                 // Adding the patient to the data context
                 DataContext.Add(patient);

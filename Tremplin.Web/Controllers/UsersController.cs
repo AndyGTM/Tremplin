@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tremplin.Data;
+using Tremplin.IServices.IUser;
 using Tremplin.Models.UserViewModels;
 
 namespace Tremplin.Controllers
@@ -19,13 +20,13 @@ namespace Tremplin.Controllers
         /// </summary>
         private SignInManager<User> LoginManager { get; init; }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public UsersController(UserManager<User> aUserManager, SignInManager<User> aLoginManager)
+        private readonly IUserService _userService;
+
+        public UsersController(UserManager<User> aUserManager, SignInManager<User> aLoginManager, IUserService userService)
         {
             this.UserManager = aUserManager;
             this.LoginManager = aLoginManager;
+            _userService = userService;
         }
 
         /// <summary>
@@ -57,12 +58,12 @@ namespace Tremplin.Controllers
             else
             {
                 // User creation
-                User user = new()
-                {
-                    UserName = userRegistrationViewModel.UserName,
-                    Password = userRegistrationViewModel.Password,
-                    Email = userRegistrationViewModel.Email
-                };
+                User user = _userService.CreateUser
+                    (
+                        userRegistrationViewModel.UserName,
+                        userRegistrationViewModel.Password,
+                        userRegistrationViewModel.Email
+                    );
 
                 IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegistrationViewModel.Password);
 

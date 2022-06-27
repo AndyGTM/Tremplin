@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
+using Tremplin.IServices.IUser;
 using Tremplin.Services;
 using Tremplin.Store;
 
@@ -20,6 +21,9 @@ builder.Services.AddScoped(typeof(IConsultationService), typeof(ConsultationServ
 
 // Patient service
 builder.Services.AddScoped(typeof(IPatientService), typeof(PatientService));
+
+// User service
+builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
 
 builder.Services.AddTransient<IUserStore<User>, UserStore>();
 builder.Services.AddTransient<IRoleStore<UserRole>, RoleStore>();

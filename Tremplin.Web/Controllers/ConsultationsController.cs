@@ -70,21 +70,18 @@ namespace Tremplin.Controllers
             else
             {
                 // Consultation creation
-                Consultation consultation = new()
-                {
-                    Date = consultationCreationViewModel.Date,
-                    ShortDescription = consultationCreationViewModel.ShortDescription,
-                    LongDescription = consultationCreationViewModel.LongDescription,
-                    PatientId = consultationCreationViewModel.Id
-                };
-
-                // Adding the consultation to the data context
-                DataContext.Add(consultation);
+                _consultationService.CreateConsultation
+                    (
+                        consultationCreationViewModel.Date,
+                        consultationCreationViewModel.ShortDescription,
+                        consultationCreationViewModel.LongDescription,
+                        consultationCreationViewModel.Id
+                    );
 
                 // Persistence of adding the consultation to the database
                 await DataContext.SaveChangesAsync();
 
-                result = this.RedirectToAction(nameof(this.Index), new { id = consultation.PatientId });
+                result = this.RedirectToAction(nameof(this.Index), new { id = consultationCreationViewModel.Id });
             }
 
             return result;

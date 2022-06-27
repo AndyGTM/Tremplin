@@ -145,12 +145,13 @@ namespace Tremplin.Controllers
                 // Consultation update
                 Consultation consultation = DataContext.Consultations.Find(consultationUpdateViewModel.Id);
 
-                consultation.Date = consultationUpdateViewModel.Date;
-                consultation.ShortDescription = consultationUpdateViewModel.ShortDescription;
-                consultation.LongDescription = consultationUpdateViewModel.LongDescription;
-
-                // Updating the consultation to the data context
-                DataContext.Consultations.Update(consultation);
+                _consultationService.UpdateConsultation
+                    (
+                        consultation,
+                        consultationUpdateViewModel.Date,
+                        consultationUpdateViewModel.ShortDescription,
+                        consultationUpdateViewModel.LongDescription
+                    );
 
                 // Persistence of updating the consultation to the database
                 await DataContext.SaveChangesAsync();

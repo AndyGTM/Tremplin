@@ -16,6 +16,11 @@ namespace Tremplin.IServices.IConsultation
         /// </summary>
         void CreateConsultation(DateTime date, string shortDescription, string? longDescription, int patientId);
 
+        /// <summary>
+        /// Update of a consultation for the selected patient
+        /// </summary>
+        void UpdateConsultation(Consultation consultation, DateTime date, string shortDescription, string? longDescription);
+        
         #endregion CRUD Consultations
     }
 }

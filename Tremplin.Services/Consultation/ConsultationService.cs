@@ -43,6 +43,20 @@ namespace Tremplin.Services
             DataContext.Add(consultation);
         }
 
+        /// <summary>
+        /// Update of a consultation for the selected patient
+        /// </summary>
+        public void UpdateConsultation(Consultation consultation, DateTime date, string shortDescription, string? longDescription)
+        {
+            // Consultation update
+            consultation.Date = date;
+            consultation.ShortDescription = shortDescription;
+            consultation.LongDescription = longDescription;
+
+            // Updating the consultation to the data context
+            DataContext.Update(consultation);
+        }
+
         #endregion CRUD Consultations
     }
 }

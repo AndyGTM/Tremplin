@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.IServices.IConsultation;
 using Tremplin.Models.ConsultationViewModels;
 
 namespace Tremplin.Controllers
@@ -11,11 +12,15 @@ namespace Tremplin.Controllers
     {
         private DataContext DataContext { get; init; }
 
-        public ConsultationsController(DataContext dataContext)
+        private readonly IConsultationService _consultationService;
+
+        public ConsultationsController(DataContext dataContext, IConsultationService consultationService)
         {
             DataContext = dataContext;
+            _consultationService = consultationService;
         }
 
+        
         /// <summary>
         /// Provides access to the view for listing consultations
         /// </summary>
@@ -23,9 +28,7 @@ namespace Tremplin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int id, ConsultationListViewModel consultationListViewModel)
         {
-            IQueryable<Consultation> consultations = from m in DataContext.Consultations
-                                                     where m.PatientId == id
-                                                     select m;
+            IQueryable<Consultation> consultations = _consultationService.GetConsultations(id);
 
             consultationListViewModel.PatientId = id;
             consultationListViewModel.Consultations = await consultations.ToListAsync();

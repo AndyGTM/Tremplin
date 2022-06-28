@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Tremplin.Core.Enums;
 using Tremplin.Data;
+using Tremplin.IRepositories.IPatient;
 using Tremplin.IServices.IPatient;
 
 namespace Tremplin.Services
@@ -9,9 +10,12 @@ namespace Tremplin.Services
     {
         private DataContext DataContext { get; init; }
 
-        public PatientService(DataContext dataContext)
+        private IPatientRepository<Patient> _patientRepository { get; set; }
+
+        public PatientService(DataContext dataContext, IPatientRepository<Patient> patientRepository)
         {
             DataContext = dataContext;
+            _patientRepository = patientRepository;
         }
 
         #region CRUD Patients
@@ -22,9 +26,8 @@ namespace Tremplin.Services
         /// <param name="userName">Logged user</param>
         public IQueryable<Patient> GetPatients(string userName)
         {
-            IQueryable<Patient> patients = from m in DataContext.Patients
-                                           where m.SharedSheet || m.CreatedBy == userName
-                                           select m;
+            IQueryable<Patient> patients = _patientRepository.GetPatients().Where(m => m.SharedSheet || m.CreatedBy == userName);
+
             return patients;
         }
 

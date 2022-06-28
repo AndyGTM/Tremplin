@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tremplin.IRepositories\Tremplin.IRepositories.csproj" />
+  </ItemGroup>
+
 </Project>

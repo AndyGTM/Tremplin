@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tremplin.Data\Tremplin.Data.csproj" />
     <ProjectReference Include="..\Tremplin.IServices\Tremplin.IServices.csproj" />
+    <ProjectReference Include="..\Tremplin.Repositories\Tremplin.Repositories.csproj" />
     <ProjectReference Include="..\Tremplin.Services\Tremplin.Services.csproj" />
   </ItemGroup>
 

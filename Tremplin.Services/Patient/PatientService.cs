@@ -52,8 +52,7 @@ namespace Tremplin.Services
                 CreatedBy = userName
             };
 
-            // Adding the patient to the data context
-            DataContext.Add(patient);
+            _patientRepository.CreatePatient(patient);
         }
 
         public void UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,

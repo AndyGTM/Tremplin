@@ -133,9 +133,6 @@ namespace Tremplin.Controllers
                         user.UserName
                     );
 
-                // Persistence of adding the patient to the database
-                await DataContext.SaveChangesAsync();
-
                 result = this.RedirectToAction(nameof(this.Index));
             }
 

@@ -19,5 +19,12 @@ namespace Tremplin.Repositories
 
             return patients;
         }
+
+        public void CreatePatient(T patient)
+        {
+            DataContext.Add(patient);
+
+            DataContext.SaveChanges();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Tremplin.Core.Helpers;
 using Tremplin.Data;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models.PatientViewModels;
@@ -49,7 +50,7 @@ namespace Tremplin.Controllers
                 // Allow user to search social security number by entering blank spaces
                 if (searchSocialSecurityNumber.Contains(' '))
                 {
-                    searchSocialSecurityNumber = _patientService.RemoveBlankSpacesInSocialSecurityNumber(searchSocialSecurityNumber);
+                    searchSocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(searchSocialSecurityNumber);
 
                     patients = patients.Where(s => s.SocialSecurityNumber!.Contains(searchSocialSecurityNumber));
                 }
@@ -73,7 +74,7 @@ namespace Tremplin.Controllers
             foreach (Patient patient in patientListViewModel.Patients)
             {
                 // Adding blank spaces for displaying the social security number
-                patient.SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber);
+                patient.SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber);
 
                 // Check if user is the creator of the patient
                 if (patient.CreatedBy == user.UserName)
@@ -157,7 +158,7 @@ namespace Tremplin.Controllers
                 Id = patient.Id,
 
                 // Adding blank spaces for displaying the social security number
-                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
+                SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
 
                 LastName = patient.LastName,
                 FirstName = patient.FirstName,
@@ -229,7 +230,7 @@ namespace Tremplin.Controllers
                 Id = patient.Id,
 
                 // Adding blank spaces for displaying the social security number
-                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
+                SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
 
                 LastName = patient.LastName,
                 FirstName = patient.FirstName,

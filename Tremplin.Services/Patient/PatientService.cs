@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using Tremplin.Core.Enums;
+﻿using Tremplin.Core.Enums;
+using Tremplin.Core.Helpers;
 using Tremplin.Data;
 using Tremplin.IRepositories.IPatient;
 using Tremplin.IServices.IPatient;
@@ -45,7 +45,7 @@ namespace Tremplin.Services
             Patient patient = new()
             {
                 // Removal of any blank spaces for recording the social security number in the database
-                SocialSecurityNumber = RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber),
+                SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber),
 
                 LastName = lastName,
                 FirstName = firstName,
@@ -63,7 +63,7 @@ namespace Tremplin.Services
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
         {
             // Removal of any blank spaces for recording the social security number in the database
-            patient.SocialSecurityNumber = RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
+            patient.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
 
             patient.LastName = lastName;
             patient.FirstName = firstName;
@@ -81,23 +81,5 @@ namespace Tremplin.Services
         }
 
         #endregion CRUD Patients
-
-        #region Format social security number
-
-        public string AddBlankSpacesInSocialSecurityNumber(string socialSecurityNumber)
-        {
-            socialSecurityNumber = Regex.Replace(socialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
-
-            return socialSecurityNumber;
-        }
-
-        public string RemoveBlankSpacesInSocialSecurityNumber(string socialSecurityNumber)
-        {
-            socialSecurityNumber = Regex.Replace(socialSecurityNumber, @"\s", "");
-
-            return socialSecurityNumber;
-        }
-
-        #endregion Format social security number
     }
 }

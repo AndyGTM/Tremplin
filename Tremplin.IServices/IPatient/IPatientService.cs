@@ -28,13 +28,5 @@ namespace Tremplin.IServices.IPatient
         void DeletePatient(Patient patient);
 
         #endregion CRUD Patients
-
-        #region Format social security number
-
-        string AddBlankSpacesInSocialSecurityNumber(string socialSecurityNumber);
-        
-        string RemoveBlankSpacesInSocialSecurityNumber(string socialSecurityNumber);
-
-        #endregion Format social security number
     }
 }

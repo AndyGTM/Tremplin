@@ -18,5 +18,12 @@ namespace Tremplin.Repositories
 
             DataContext.SaveChanges();
         }
+
+        public void UpdateUser(T user, CancellationToken cancellationToken)
+        {
+            DataContext.Update(user);
+
+            DataContext.SaveChanges();
+        }
     }
 }

@@ -11,8 +11,6 @@ namespace Tremplin.Controllers
     [Authorize]
     public class PatientsController : Controller
     {
-        private DataContext DataContext { get; init; }
-
         /// <summary>
         /// User manager
         /// </summary>
@@ -20,9 +18,8 @@ namespace Tremplin.Controllers
 
         private readonly IPatientService _patientService;
 
-        public PatientsController(DataContext dataContext, UserManager<User> aUserManager, IPatientService patientService)
+        public PatientsController(UserManager<User> aUserManager, IPatientService patientService)
         {
-            DataContext = dataContext;
             this.UserManager = aUserManager;
             _patientService = patientService;
         }
@@ -147,27 +144,27 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patientDB = DataContext.Patients.Find(id);
+            Patient patient = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
-            if (patientDB.CreatedBy != user.UserName)
+            if (patient.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
             PatientUpdateViewModel patientUpdateViewModel = new()
             {
-                Id = patientDB.Id,
+                Id = patient.Id,
 
                 // Adding blank spaces for displaying the social security number
-                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patientDB.SocialSecurityNumber),
+                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
 
-                LastName = patientDB.LastName,
-                FirstName = patientDB.FirstName,
-                BirthDate = patientDB.BirthDate,
-                BloodGroup = patientDB.BloodGroup,
-                Sex = patientDB.Sex,
-                SharedSheet = patientDB.SharedSheet
+                LastName = patient.LastName,
+                FirstName = patient.FirstName,
+                BirthDate = patient.BirthDate,
+                BloodGroup = patient.BloodGroup,
+                Sex = patient.Sex,
+                SharedSheet = patient.SharedSheet
             };
 
             return View(patientUpdateViewModel);
@@ -191,7 +188,7 @@ namespace Tremplin.Controllers
             else
             {
                 // Patient update
-                Patient patient = DataContext.Patients.Find(id);
+                Patient patient = _patientService.GetPatientById(id);
 
                 _patientService.UpdatePatient
                     (
@@ -219,27 +216,27 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patientDB = DataContext.Patients.Find(id);
+            Patient patient = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
-            if (patientDB.CreatedBy != user.UserName)
+            if (patient.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
             PatientDeleteViewModel patientDeleteViewModel = new()
             {
-                Id = patientDB.Id,
+                Id = patient.Id,
 
                 // Adding blank spaces for displaying the social security number
-                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patientDB.SocialSecurityNumber),
+                SocialSecurityNumber = _patientService.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber),
 
-                LastName = patientDB.LastName,
-                FirstName = patientDB.FirstName,
-                BirthDate = patientDB.BirthDate,
-                BloodGroup = patientDB.BloodGroup,
-                Sex = patientDB.Sex,
-                SharedSheet = patientDB.SharedSheet
+                LastName = patient.LastName,
+                FirstName = patient.FirstName,
+                BirthDate = patient.BirthDate,
+                BloodGroup = patient.BloodGroup,
+                Sex = patient.Sex,
+                SharedSheet = patient.SharedSheet
             };
 
             return View(patientDeleteViewModel);
@@ -255,7 +252,7 @@ namespace Tremplin.Controllers
             IActionResult result;
 
             // Patient delete
-            Patient patient = DataContext.Patients.Find(id);
+            Patient patient = _patientService.GetPatientById(id);
 
             _patientService.DeletePatient(patient);
 

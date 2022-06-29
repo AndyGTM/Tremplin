@@ -13,6 +13,11 @@ namespace Tremplin.Repositories
             DataContext = dataContext;
         }
 
+        public T GetPatientById(int id)
+        {
+            return DataContext.Set<T>().Find(id);
+        }
+
         public IQueryable<T> GetPatients()
         {
             DbSet<T> patients = DataContext.Set<T>();

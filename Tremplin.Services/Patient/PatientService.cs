@@ -17,6 +17,13 @@ namespace Tremplin.Services
 
         #region CRUD Patients
 
+        public Patient GetPatientById(int id)
+        {
+            Patient patient = _patientRepository.GetPatientById(id);
+
+            return patient;
+        }
+
         /// <summary>
         /// Gets list of patients with shared sheet and/or created by logged user
         /// </summary>

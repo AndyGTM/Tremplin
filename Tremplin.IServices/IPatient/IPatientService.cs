@@ -7,6 +7,8 @@ namespace Tremplin.IServices.IPatient
     {
         #region CRUD Patients
 
+        Patient GetPatientById (int id);
+
         /// <summary>
         /// Gets list of patients with shared sheet and/or created by logged user
         /// </summary>

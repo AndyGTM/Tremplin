@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.IRepositories.IConsultation;
 using Tremplin.IRepositories.IPatient;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
@@ -17,6 +18,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
+
+// Consultation repository
+builder.Services.AddScoped(typeof(IConsultationRepository<Consultation>), typeof(ConsultationRepository<Consultation>));
 
 // Patient repository
 builder.Services.AddScoped(typeof(IPatientRepository<Patient>), typeof(PatientRepository<Patient>));

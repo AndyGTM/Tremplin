@@ -1,27 +1,34 @@
 ﻿using Tremplin.Data;
+using Tremplin.IRepositories.IConsultation;
 using Tremplin.IServices.IConsultation;
 
 namespace Tremplin.Services
 {
     public class ConsultationService : IConsultationService
     {
-        private DataContext DataContext { get; init; }
+        private IConsultationRepository<Consultation> _consultationRepository { get; set; }
 
-        public ConsultationService(DataContext dataContext)
+        public ConsultationService(IConsultationRepository<Consultation> consultationRepository)
         {
-            DataContext = dataContext;
+            _consultationRepository = consultationRepository;
         }
 
         #region CRUD Consultations
+
+        public Consultation GetConsultationById(int id)
+        {
+            Consultation consultation = _consultationRepository.GetConsultationById(id);
+
+            return consultation;
+        }
 
         /// <summary>
         /// Gets list of consultations by patient Id
         /// </summary>
         public IQueryable<Consultation> GetConsultations(int idPatient)
         {
-            IQueryable<Consultation> consultations = from m in DataContext.Consultations
-                                                     where m.PatientId == idPatient
-                                                     select m;
+            IQueryable<Consultation> consultations = _consultationRepository.GetConsultations().Where(m => m.PatientId == idPatient);
+
             return consultations;
         }
 
@@ -39,8 +46,7 @@ namespace Tremplin.Services
                 PatientId = patientId
             };
 
-            // Adding the consultation to the data context
-            DataContext.Add(consultation);
+            _consultationRepository.CreateConsultation(consultation);
         }
 
         /// <summary>
@@ -53,8 +59,12 @@ namespace Tremplin.Services
             consultation.ShortDescription = shortDescription;
             consultation.LongDescription = longDescription;
 
-            // Updating the consultation to the data context
-            DataContext.Update(consultation);
+            _consultationRepository.UpdateConsultation(consultation);
+        }
+
+        public void DeleteConsultation(Consultation consultation)
+        {
+            _consultationRepository.DeleteConsultation(consultation);
         }
 
         #endregion CRUD Consultations

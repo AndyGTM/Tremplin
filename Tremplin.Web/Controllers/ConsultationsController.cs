@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
 using Tremplin.IServices.IConsultation;
+using Tremplin.IServices.IPatient;
 using Tremplin.Models.ConsultationViewModels;
 
 namespace Tremplin.Controllers
@@ -11,8 +12,6 @@ namespace Tremplin.Controllers
     [Authorize]
     public class ConsultationsController : Controller
     {
-        private DataContext DataContext { get; init; }
-
         /// <summary>
         /// User manager
         /// </summary>
@@ -20,13 +19,15 @@ namespace Tremplin.Controllers
 
         private readonly IConsultationService _consultationService;
 
-        public ConsultationsController(DataContext dataContext, UserManager<User> aUserManager, IConsultationService consultationService)
+        private readonly IPatientService _patientService;
+
+        public ConsultationsController(UserManager<User> aUserManager, IConsultationService consultationService, IPatientService patientService)
         {
-            DataContext = dataContext;
             this.UserManager = aUserManager;
             _consultationService = consultationService;
+            _patientService = patientService;
         }
-        
+
         /// <summary>
         /// Provides access to the view for listing consultations
         /// </summary>
@@ -36,7 +37,7 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patient = DataContext.Patients.Find(id);
+            Patient patient = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
             if (patient.CreatedBy != user.UserName)
@@ -61,7 +62,7 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patient = DataContext.Patients.Find(id);
+            Patient patient = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
             if (patient.CreatedBy != user.UserName)
@@ -104,9 +105,6 @@ namespace Tremplin.Controllers
                         consultationCreationViewModel.Id
                     );
 
-                // Persistence of adding the consultation to the database
-                await DataContext.SaveChangesAsync();
-
                 result = this.RedirectToAction(nameof(this.Index), new { id = consultationCreationViewModel.Id });
             }
 
@@ -121,9 +119,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = DataContext.Consultations.Find(id);
+            Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+            Patient patient = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
             if (patient.CreatedBy != user.UserName)
@@ -149,9 +147,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = DataContext.Consultations.Find(id);
+            Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+            Patient patient = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
             if (patient.CreatedBy != user.UserName)
@@ -189,7 +187,7 @@ namespace Tremplin.Controllers
             else
             {
                 // Consultation update
-                Consultation consultation = DataContext.Consultations.Find(consultationUpdateViewModel.Id);
+                Consultation consultation = _consultationService.GetConsultationById(consultationUpdateViewModel.Id);
 
                 _consultationService.UpdateConsultation
                     (
@@ -198,9 +196,6 @@ namespace Tremplin.Controllers
                         consultationUpdateViewModel.ShortDescription,
                         consultationUpdateViewModel.LongDescription
                     );
-
-                // Persistence of updating the consultation to the database
-                await DataContext.SaveChangesAsync();
 
                 result = this.RedirectToAction(nameof(this.Index), new { id = consultation.PatientId });
             }
@@ -216,9 +211,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = DataContext.Consultations.Find(id);
+            Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = DataContext.Patients.Find(consultation.PatientId);
+            Patient patient = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
             if (patient.CreatedBy != user.UserName)
@@ -226,7 +221,7 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            consultationdDeleteViewModel.Id = consultation.Id;           
+            consultationdDeleteViewModel.Id = consultation.Id;
             consultationdDeleteViewModel.Date = consultation.Date;
             consultationdDeleteViewModel.ShortDescription = consultation.ShortDescription;
             consultationdDeleteViewModel.PatientId = consultation.PatientId;
@@ -244,15 +239,11 @@ namespace Tremplin.Controllers
             IActionResult result;
 
             // Consultation delete
-            Consultation consultation = DataContext.Consultations.Find(consultationdDeleteViewModel.Id);
+            Consultation consultation = _consultationService.GetConsultationById(consultationdDeleteViewModel.Id);
 
             consultationdDeleteViewModel.PatientId = consultation.PatientId;
 
-            // Deleting the consultation to the data context
-            DataContext.Consultations.Remove(consultation);
-
-            // Persistence of deleting the consultation to the database
-            await DataContext.SaveChangesAsync();
+            _consultationService.DeleteConsultation(consultation);
 
             result = this.RedirectToAction(nameof(this.Index), new { id = consultationdDeleteViewModel.PatientId });
 

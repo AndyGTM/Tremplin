@@ -6,6 +6,8 @@ namespace Tremplin.IServices.IConsultation
     {
         #region CRUD Consultations
 
+        Consultation GetConsultationById(int id);
+
         /// <summary>
         /// Gets list of consultations by patient Id
         /// </summary>
@@ -20,7 +22,9 @@ namespace Tremplin.IServices.IConsultation
         /// Update of a consultation for the selected patient
         /// </summary>
         void UpdateConsultation(Consultation consultation, DateTime date, string shortDescription, string? longDescription);
-        
+
+        void DeleteConsultation(Consultation consultation);
+
         #endregion CRUD Consultations
     }
 }

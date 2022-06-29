@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.IRepositories.IUser;
 
 namespace Tremplin.Store
 {
@@ -8,18 +9,17 @@ namespace Tremplin.Store
     {
         private DataContext DataContext { get; init; }
 
-        public UserStore(DataContext dataContext)
+        private IUserRepository<User> _userRepository { get; set; }
+
+        public UserStore(DataContext dataContext, IUserRepository<User> userRepository)
         {
             DataContext = dataContext;
+            _userRepository = userRepository;
         }
 
         public async Task<IdentityResult> CreateAsync(User user, CancellationToken cancellationToken)
         {
-            // Adding the user to the data context
-            DataContext.Add(user);
-
-            // Persistence of adding the user to the database
-            await DataContext.SaveChangesAsync(cancellationToken);
+            _userRepository.CreateUser(user, cancellationToken);
 
             // Return
             return await Task.FromResult(IdentityResult.Success);

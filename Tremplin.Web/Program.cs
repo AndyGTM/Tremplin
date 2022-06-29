@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
 using Tremplin.IRepositories.IConsultation;
 using Tremplin.IRepositories.IPatient;
+using Tremplin.IRepositories.IUser;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
 using Tremplin.IServices.IUser;
@@ -24,6 +25,9 @@ builder.Services.AddScoped(typeof(IConsultationRepository<Consultation>), typeof
 
 // Patient repository
 builder.Services.AddScoped(typeof(IPatientRepository<Patient>), typeof(PatientRepository<Patient>));
+
+// User repository
+builder.Services.AddScoped(typeof(IUserRepository<User>), typeof(UserRepository<User>));
 
 // Consultation service
 builder.Services.AddScoped(typeof(IConsultationService), typeof(ConsultationService));

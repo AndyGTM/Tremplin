@@ -49,7 +49,7 @@ namespace Tremplin.Store
         {
             // Find an user by his Id
             return int.TryParse(userId, out int id) ?
-                await DataContext.Users.FindAsync(id) :
+                _userRepository.GetUserById(id, cancellationToken) :
                 await Task.FromResult((User)null);
         }
 

@@ -12,6 +12,11 @@ namespace Tremplin.Repositories
             DataContext = dataContext;
         }
 
+        public T GetUserById(int userId, CancellationToken cancellationToken)
+        {
+            return DataContext.Set<T>().Find(userId);
+        }
+
         public void CreateUser(T user, CancellationToken cancellationToken)
         {
             DataContext.Add(user);

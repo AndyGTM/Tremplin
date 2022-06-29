@@ -33,5 +33,12 @@ namespace Tremplin.Repositories
 
             DataContext.SaveChanges();
         }
+
+        public void DeletePatient(T patient)
+        {
+            DataContext.Remove(patient);
+
+            DataContext.SaveChanges();
+        }
     }
 }

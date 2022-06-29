@@ -23,6 +23,8 @@ namespace Tremplin.IServices.IPatient
         void UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet);
 
+        void DeletePatient(Patient patient);
+
         #endregion CRUD Patients
 
         #region Format social security number

@@ -257,11 +257,7 @@ namespace Tremplin.Controllers
             // Patient delete
             Patient patient = DataContext.Patients.Find(id);
 
-            // Deleting the patient to the data context
-            DataContext.Patients.Remove(patient);
-
-            // Persistence of deleting the patient to the database
-            await DataContext.SaveChangesAsync();
+            _patientService.DeletePatient(patient);
 
             result = this.RedirectToAction(nameof(this.Index));
 

@@ -9,5 +9,7 @@ namespace Tremplin.IRepositories.IPatient
         void CreatePatient(T patient);
 
         void UpdatePatient(T patient);
+
+        void DeletePatient(T patient);
     }
 }

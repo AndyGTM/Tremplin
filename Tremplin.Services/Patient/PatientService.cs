@@ -68,6 +68,11 @@ namespace Tremplin.Services
             _patientRepository.UpdatePatient(patient);
         }
 
+        public void DeletePatient(Patient patient)
+        {
+            _patientRepository.DeletePatient(patient);
+        }
+
         #endregion CRUD Patients
 
         #region Format social security number

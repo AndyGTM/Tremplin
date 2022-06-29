@@ -6,13 +6,10 @@ namespace Tremplin.Store
 {
     public class UserStore : IUserPasswordStore<User>
     {
-        private DataContext DataContext { get; init; }
-
         private IUserRepository<User> _userRepository { get; set; }
 
-        public UserStore(DataContext dataContext, IUserRepository<User> userRepository)
+        public UserStore(IUserRepository<User> userRepository)
         {
-            DataContext = dataContext;
             _userRepository = userRepository;
         }
 
@@ -30,18 +27,6 @@ namespace Tremplin.Store
 
             // Return
             return await Task.FromResult(IdentityResult.Success);
-        }
-
-        public async Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
-        {
-            // Deleting the user from the data context
-            DataContext.Remove(user);
-
-            // Persistence of deleting the user to the database
-            int result = await DataContext.SaveChangesAsync(cancellationToken);
-
-            // Return
-            return await Task.FromResult(result == 1 ? IdentityResult.Success : IdentityResult.Failed());
         }
 
         public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
@@ -67,7 +52,7 @@ namespace Tremplin.Store
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
-                DataContext?.Dispose();
+                _userRepository.Dispose();
         }
 
         public Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken)
@@ -100,6 +85,11 @@ namespace Tremplin.Store
         public Task<bool> HasPasswordAsync(User user, CancellationToken cancellationToken)
         {
             return Task.FromResult(!string.IsNullOrWhiteSpace(user.Password));
+        }
+
+        public Task<IdentityResult> DeleteAsync(User user, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         public Task SetUserNameAsync(User user, string userName, CancellationToken cancellationToken)

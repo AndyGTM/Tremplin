@@ -2,7 +2,7 @@
 
 namespace Tremplin.IRepositories.IUser
 {
-    public interface IUserRepository<T> where T : User
+    public interface IUserRepository<T> : IDisposable where T : User
     {
         T GetUserById(int userId, CancellationToken cancellationToken);
 

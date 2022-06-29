@@ -26,5 +26,12 @@ namespace Tremplin.Repositories
 
             DataContext.SaveChanges();
         }
+
+        public void UpdatePatient(T patient)
+        {
+            DataContext.Update(patient);
+
+            DataContext.SaveChanges();
+        }
     }
 }

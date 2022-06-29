@@ -8,13 +8,10 @@ namespace Tremplin.Services
 {
     public class PatientService : IPatientService
     {
-        private DataContext DataContext { get; init; }
-
         private IPatientRepository<Patient> _patientRepository { get; set; }
 
-        public PatientService(DataContext dataContext, IPatientRepository<Patient> patientRepository)
+        public PatientService(IPatientRepository<Patient> patientRepository)
         {
-            DataContext = dataContext;
             _patientRepository = patientRepository;
         }
 
@@ -68,8 +65,7 @@ namespace Tremplin.Services
             patient.Sex = sex;
             patient.SharedSheet = sharedSheet;
 
-            // Updating the patient to the data context
-            DataContext.Patients.Update(patient);
+            _patientRepository.UpdatePatient(patient);
         }
 
         #endregion CRUD Patients

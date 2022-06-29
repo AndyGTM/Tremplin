@@ -205,9 +205,6 @@ namespace Tremplin.Controllers
                         patientUpdateViewModel.SharedSheet
                     );
 
-                // Persistence of updating the patient to the database
-                await DataContext.SaveChangesAsync();
-
                 result = this.RedirectToAction(nameof(this.Index));
             }
 

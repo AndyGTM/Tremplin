@@ -7,5 +7,7 @@ namespace Tremplin.IRepositories.IPatient
         IQueryable<T> GetPatients();
 
         void CreatePatient(T patient);
+
+        void UpdatePatient(T patient);
     }
 }

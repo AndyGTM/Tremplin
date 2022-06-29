@@ -6,6 +6,8 @@ namespace Tremplin.IRepositories.IUser
     {
         T GetUserById(int userId, CancellationToken cancellationToken);
 
+        T GetUserByName(string normalizedUserName, CancellationToken cancellationToken);
+
         void CreateUser(T user, CancellationToken cancellationToken);
 
         void UpdateUser(T user, CancellationToken cancellationToken);

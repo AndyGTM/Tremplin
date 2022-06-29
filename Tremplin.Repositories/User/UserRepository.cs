@@ -17,6 +17,11 @@ namespace Tremplin.Repositories
             return DataContext.Set<T>().Find(userId);
         }
 
+        public T GetUserByName(string normalizedUserName, CancellationToken cancellationToken)
+        {
+            return DataContext.Set<T>().SingleOrDefault(u => u.UserName.Equals(normalizedUserName.ToLower()));
+        }
+
         public void CreateUser(T user, CancellationToken cancellationToken)
         {
             DataContext.Add(user);

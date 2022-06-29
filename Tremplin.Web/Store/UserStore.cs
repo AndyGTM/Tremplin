@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
 using Tremplin.IRepositories.IUser;
 
@@ -56,8 +55,7 @@ namespace Tremplin.Store
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
             // Find an user by his name
-            return await DataContext.Users
-                .SingleOrDefaultAsync(u => u.UserName.Equals(normalizedUserName.ToLower()), cancellationToken);
+            return await Task.FromResult(_userRepository.GetUserByName(normalizedUserName, cancellationToken));
         }
 
         public void Dispose()

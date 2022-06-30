@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Tremplin.Core.Enums;
-using Tremplin.Data;
 
 namespace Tremplin.Models.PatientViewModels
 {
@@ -57,7 +56,7 @@ namespace Tremplin.Models.PatientViewModels
         /// <summary>
         /// List to display patients in the view "Index" (for patients controller)
         /// </summary>
-        public List<Patient>? Patients { get; set; }
+        public List<Data.Patient>? Patients { get; set; }
 
         /// <summary>
         /// Allow to search patients by last name

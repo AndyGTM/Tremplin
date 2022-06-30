@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tremplin.Data\Tremplin.Data.csproj" />
+    <ProjectReference Include="..\Tremplin.Models\Tremplin.Models.csproj" />
   </ItemGroup>
 
 </Project>

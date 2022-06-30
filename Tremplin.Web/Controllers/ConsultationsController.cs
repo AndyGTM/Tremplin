@@ -6,6 +6,7 @@ using Tremplin.Data;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models.ConsultationViewModels;
+using Tremplin.Models.Patient;
 
 namespace Tremplin.Controllers
 {
@@ -37,10 +38,10 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patient = _patientService.GetPatientById(id);
+            PatientModel patientModel = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
-            if (patient.CreatedBy != user.UserName)
+            if (patientModel.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
@@ -62,10 +63,10 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Patient patient = _patientService.GetPatientById(id);
+            PatientModel patientModel = _patientService.GetPatientById(id);
 
             // Check if user has the rights to access this view
-            if (patient.CreatedBy != user.UserName)
+            if (patientModel.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
@@ -121,10 +122,10 @@ namespace Tremplin.Controllers
 
             Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
-            if (patient.CreatedBy != user.UserName)
+            if (patientModel.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
@@ -149,10 +150,10 @@ namespace Tremplin.Controllers
 
             Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
-            if (patient.CreatedBy != user.UserName)
+            if (patientModel.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }
@@ -213,10 +214,10 @@ namespace Tremplin.Controllers
 
             Consultation consultation = _consultationService.GetConsultationById(id);
 
-            Patient patient = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
 
             // Check if user has the rights to access this view
-            if (patient.CreatedBy != user.UserName)
+            if (patientModel.CreatedBy != user.UserName)
             {
                 return this.RedirectToAction("AccessDenied", "Users");
             }

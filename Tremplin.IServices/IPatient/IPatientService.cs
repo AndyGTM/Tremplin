@@ -1,5 +1,6 @@
 ﻿using Tremplin.Core.Enums;
 using Tremplin.Data;
+using Tremplin.Models.Patient;
 
 namespace Tremplin.IServices.IPatient
 {
@@ -7,7 +8,7 @@ namespace Tremplin.IServices.IPatient
     {
         #region CRUD Patients
 
-        Patient GetPatientById (int id);
+        PatientModel GetPatientById (int id);
 
         /// <summary>
         /// Gets list of patients with shared sheet and/or created by logged user
@@ -22,10 +23,10 @@ namespace Tremplin.IServices.IPatient
         void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName);
 
-        void UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+        void UpdatePatient(PatientModel patientModel, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet);
 
-        void DeletePatient(Patient patient);
+        void DeletePatient(PatientModel patientModel);
 
         #endregion CRUD Patients
     }

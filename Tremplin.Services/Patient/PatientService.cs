@@ -3,6 +3,7 @@ using Tremplin.Core.Helpers;
 using Tremplin.Data;
 using Tremplin.IRepositories.IPatient;
 using Tremplin.IServices.IPatient;
+using Tremplin.Models.Patient;
 
 namespace Tremplin.Services
 {
@@ -17,11 +18,13 @@ namespace Tremplin.Services
 
         #region CRUD Patients
 
-        public Patient GetPatientById(int id)
+        public PatientModel GetPatientById(int id)
         {
             Patient patient = _patientRepository.GetPatientById(id);
 
-            return patient;
+            PatientModel patientModel = MapToPatientModel(patient);
+
+            return patientModel;
         }
 
         /// <summary>
@@ -59,27 +62,82 @@ namespace Tremplin.Services
             _patientRepository.CreatePatient(patient);
         }
 
-        public void UpdatePatient(Patient patient, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
+        public void UpdatePatient(PatientModel patientModel, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
         {
             // Removal of any blank spaces for recording the social security number in the database
-            patient.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
+            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
 
-            patient.LastName = lastName;
-            patient.FirstName = firstName;
-            patient.BirthDate = birthDate;
-            patient.BloodGroup = bloodGroup;
-            patient.Sex = sex;
-            patient.SharedSheet = sharedSheet;
+            patientModel.LastName = lastName;
+            patientModel.FirstName = firstName;
+            patientModel.BirthDate = birthDate;
+            patientModel.BloodGroup = bloodGroup;
+            patientModel.Sex = sex;
+            patientModel.SharedSheet = sharedSheet;
+
+            Patient patient = MapToPatient(patientModel);
 
             _patientRepository.UpdatePatient(patient);
         }
 
-        public void DeletePatient(Patient patient)
+        public void DeletePatient(PatientModel patientModel)
         {
+            Patient patient = _patientRepository.GetPatientById(patientModel.Id);
+
             _patientRepository.DeletePatient(patient);
         }
 
         #endregion CRUD Patients
+
+        #region Mapping
+
+        /// <summary>
+        /// Map PatientModel to Patient
+        /// </summary>
+        /// <param name="patientModel">Patient model</param>
+        /// <returns>Patient entity</returns>
+        public Patient MapToPatient(PatientModel patientModel)
+        {
+            if (patientModel == null)
+                return new Patient();
+
+            Patient patient = _patientRepository.GetPatientById(patientModel.Id);
+
+            patient.SocialSecurityNumber = patientModel.SocialSecurityNumber;
+            patient.LastName = patientModel.LastName;
+            patient.FirstName = patientModel.FirstName;
+            patient.BirthDate = patientModel.BirthDate;
+            patient.BloodGroup = patientModel.BloodGroup;
+            patient.Sex = patientModel.Sex;
+            patient.SharedSheet = patientModel.SharedSheet;
+
+            return patient;          
+        }
+
+        /// <summary>
+        /// Map Patient to PatientModel
+        /// </summary>
+        /// <param name="patient">Patient entity</param>
+        /// <returns>Patient model</returns>
+        public static PatientModel MapToPatientModel(Patient patient)
+        {
+            if (patient == null)
+                return new PatientModel();
+
+            return new PatientModel()
+            {
+                Id = patient.Id,
+                SocialSecurityNumber = patient.SocialSecurityNumber,
+                LastName = patient.LastName,
+                FirstName = patient.FirstName,
+                BirthDate = patient.BirthDate,
+                BloodGroup = patient.BloodGroup,
+                Sex = patient.Sex,
+                SharedSheet = patient.SharedSheet,
+                CreatedBy = patient.CreatedBy
+            };
+        }
+
+        #endregion Mapping
     }
 }

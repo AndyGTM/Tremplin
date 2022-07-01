@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Tremplin.Data;
 
 namespace Tremplin.Models.ConsultationViewModels
 {
@@ -25,6 +24,6 @@ namespace Tremplin.Models.ConsultationViewModels
         /// <summary>
         /// List to display consultations in the view "Index" (for consultations controller)
         /// </summary>
-        public List<Consultation>? Consultations { get; set; }
+        public List<Consultation.ConsultationModel>? Consultations { get; set; }
     }
 }

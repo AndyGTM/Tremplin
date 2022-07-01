@@ -1,4 +1,4 @@
-﻿using Tremplin.Data;
+﻿using Tremplin.Models.Consultation;
 
 namespace Tremplin.IServices.IConsultation
 {
@@ -6,12 +6,12 @@ namespace Tremplin.IServices.IConsultation
     {
         #region CRUD Consultations
 
-        Consultation GetConsultationById(int id);
+        ConsultationModel GetConsultationById(int id);
 
         /// <summary>
         /// Gets list of consultations by patient Id
         /// </summary>
-        IQueryable<Consultation> GetConsultations(int idPatient);
+        IEnumerable<ConsultationModel> GetConsultations(int idPatient);
 
         /// <summary>
         /// Creation of a consultation for the selected patient
@@ -21,9 +21,9 @@ namespace Tremplin.IServices.IConsultation
         /// <summary>
         /// Update of a consultation for the selected patient
         /// </summary>
-        void UpdateConsultation(Consultation consultation, DateTime date, string shortDescription, string? longDescription);
+        void UpdateConsultation(ConsultationModel consultationModel, DateTime date, string shortDescription, string? longDescription);
 
-        void DeleteConsultation(Consultation consultation);
+        void DeleteConsultation(ConsultationModel consultationModel);
 
         #endregion CRUD Consultations
     }

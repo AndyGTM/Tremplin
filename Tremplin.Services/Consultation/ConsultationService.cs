@@ -1,6 +1,7 @@
 ﻿using Tremplin.Data;
 using Tremplin.IRepositories.IConsultation;
 using Tremplin.IServices.IConsultation;
+using Tremplin.Models.Consultation;
 
 namespace Tremplin.Services
 {
@@ -15,21 +16,31 @@ namespace Tremplin.Services
 
         #region CRUD Consultations
 
-        public Consultation GetConsultationById(int id)
+        public ConsultationModel GetConsultationById(int id)
         {
             Consultation consultation = _consultationRepository.GetConsultationById(id);
 
-            return consultation;
+            ConsultationModel consultationModel = MapToConsultationModel(consultation);
+
+            return consultationModel;
         }
 
         /// <summary>
         /// Gets list of consultations by patient Id
         /// </summary>
-        public IQueryable<Consultation> GetConsultations(int idPatient)
+        public IEnumerable<ConsultationModel> GetConsultations(int idPatient)
         {
             IQueryable<Consultation> consultations = _consultationRepository.GetConsultations().Where(m => m.PatientId == idPatient);
 
-            return consultations;
+            List<ConsultationModel> consultationsModels = new();
+
+            foreach (Consultation consultation in consultations)
+            {
+                ConsultationModel consultationModel = MapToConsultationModel(consultation);
+                consultationsModels.Add(consultationModel);
+            }
+
+            return consultationsModels;
         }
 
         /// <summary>
@@ -38,7 +49,7 @@ namespace Tremplin.Services
         public void CreateConsultation(DateTime date, string shortDescription, string? longDescription, int patientId)
         {
             // Consultation creation
-            Consultation consultation = new()
+            ConsultationModel consultationModel = new()
             {
                 Date = date,
                 ShortDescription = shortDescription,
@@ -46,27 +57,90 @@ namespace Tremplin.Services
                 PatientId = patientId
             };
 
+            Consultation consultation = MapToConsultation(consultationModel);
+
             _consultationRepository.CreateConsultation(consultation);
         }
 
         /// <summary>
         /// Update of a consultation for the selected patient
         /// </summary>
-        public void UpdateConsultation(Consultation consultation, DateTime date, string shortDescription, string? longDescription)
+        public void UpdateConsultation(ConsultationModel consultationModel, DateTime date, string shortDescription, string? longDescription)
         {
             // Consultation update
-            consultation.Date = date;
-            consultation.ShortDescription = shortDescription;
-            consultation.LongDescription = longDescription;
+            consultationModel.Date = date;
+            consultationModel.ShortDescription = shortDescription;
+            consultationModel.LongDescription = longDescription;
+
+            Consultation consultation = MapToConsultation(consultationModel);
 
             _consultationRepository.UpdateConsultation(consultation);
         }
 
-        public void DeleteConsultation(Consultation consultation)
+        public void DeleteConsultation(ConsultationModel consultationModel)
         {
+            Consultation consultation = _consultationRepository.GetConsultationById(consultationModel.Id);
+
             _consultationRepository.DeleteConsultation(consultation);
         }
 
         #endregion CRUD Consultations
+
+        #region Mapping
+
+        /// <summary>
+        /// Map consultation model to consultation entity
+        /// </summary>
+        /// <param name="consultationModel">Consultation model</param>
+        /// <returns>Consultation entity</returns>
+        public Consultation MapToConsultation(ConsultationModel consultationModel)
+        {
+            if (consultationModel == null)
+                return new Consultation();
+
+            Consultation consultation = _consultationRepository.GetConsultationById(consultationModel.Id);
+
+            if (consultation == null)
+            {
+                Consultation newConsultation = new()
+                {
+                    Date = consultationModel.Date,
+                    ShortDescription = consultationModel.ShortDescription,
+                    LongDescription = consultationModel.LongDescription,
+                    PatientId = consultationModel.PatientId
+                };
+
+                return newConsultation;
+            }
+
+            consultation.Date = consultationModel.Date;
+            consultation.ShortDescription = consultationModel.ShortDescription;
+            consultation.LongDescription = consultationModel.LongDescription;
+            consultation.PatientId = consultationModel.PatientId;
+
+            return consultation;
+        }
+
+        /// <summary>
+        /// Map consultation entity to consultation model
+        /// </summary>
+        /// <param name="consultation">Consultation entity</param>
+        /// <returns>Consultation model</returns>
+        public static ConsultationModel MapToConsultationModel(Consultation consultation)
+        {
+            if (consultation == null)
+                return new ConsultationModel();
+
+            return new ConsultationModel()
+            {
+                Id = consultation.Id,
+                Date = consultation.Date,
+                ShortDescription = consultation.ShortDescription,
+                LongDescription = consultation.LongDescription,
+                PatientId = consultation.PatientId
+            };
+        }
+
+        #endregion Mapping
     }
 }

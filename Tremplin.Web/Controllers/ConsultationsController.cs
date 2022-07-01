@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
+using Tremplin.Models.Consultation;
 using Tremplin.Models.ConsultationViewModels;
 using Tremplin.Models.Patient;
 
@@ -46,10 +46,10 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            IQueryable<Consultation> consultations = _consultationService.GetConsultations(id);
+            IEnumerable<ConsultationModel> consultationsModels = _consultationService.GetConsultations(id);
 
             consultationListViewModel.PatientId = id;
-            consultationListViewModel.Consultations = await consultations.ToListAsync();
+            consultationListViewModel.Consultations = consultationsModels.ToList();
 
             return View(consultationListViewModel);
         }
@@ -120,9 +120,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = _consultationService.GetConsultationById(id);
+            ConsultationModel consultationModel = _consultationService.GetConsultationById(id);
 
-            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
             // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
@@ -130,12 +130,12 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            consultationDetailsViewModel.Id = consultation.Id;
+            consultationDetailsViewModel.Id = consultationModel.Id;
 
-            consultationDetailsViewModel.Date = consultation.Date;
-            consultationDetailsViewModel.ShortDescription = consultation.ShortDescription;
-            consultationDetailsViewModel.LongDescription = consultation.LongDescription;
-            consultationDetailsViewModel.PatientId = consultation.PatientId;
+            consultationDetailsViewModel.Date = consultationModel.Date;
+            consultationDetailsViewModel.ShortDescription = consultationModel.ShortDescription;
+            consultationDetailsViewModel.LongDescription = consultationModel.LongDescription;
+            consultationDetailsViewModel.PatientId = consultationModel.PatientId;
 
             return View(consultationDetailsViewModel);
         }
@@ -148,9 +148,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = _consultationService.GetConsultationById(id);
+            ConsultationModel consultationModel = _consultationService.GetConsultationById(id);
 
-            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
             // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
@@ -160,11 +160,11 @@ namespace Tremplin.Controllers
 
             ConsultationUpdateViewModel consultationUpdateViewModel = new()
             {
-                Id = consultation.Id,
-                Date = consultation.Date,
-                ShortDescription = consultation.ShortDescription,
-                LongDescription = consultation.LongDescription,
-                PatientId = consultation.PatientId
+                Id = consultationModel.Id,
+                Date = consultationModel.Date,
+                ShortDescription = consultationModel.ShortDescription,
+                LongDescription = consultationModel.LongDescription,
+                PatientId = consultationModel.PatientId
             };
 
             return View(consultationUpdateViewModel);
@@ -188,17 +188,17 @@ namespace Tremplin.Controllers
             else
             {
                 // Consultation update
-                Consultation consultation = _consultationService.GetConsultationById(consultationUpdateViewModel.Id);
+                ConsultationModel consultationModel = _consultationService.GetConsultationById(consultationUpdateViewModel.Id);
 
                 _consultationService.UpdateConsultation
                     (
-                        consultation,
+                        consultationModel,
                         consultationUpdateViewModel.Date,
                         consultationUpdateViewModel.ShortDescription,
                         consultationUpdateViewModel.LongDescription
                     );
 
-                result = this.RedirectToAction(nameof(this.Index), new { id = consultation.PatientId });
+                result = this.RedirectToAction(nameof(this.Index), new { id = consultationModel.PatientId });
             }
 
             return result;
@@ -212,9 +212,9 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            Consultation consultation = _consultationService.GetConsultationById(id);
+            ConsultationModel consultationModel = _consultationService.GetConsultationById(id);
 
-            PatientModel patientModel = _patientService.GetPatientById(consultation.PatientId);
+            PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
             // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
@@ -222,10 +222,10 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            consultationdDeleteViewModel.Id = consultation.Id;
-            consultationdDeleteViewModel.Date = consultation.Date;
-            consultationdDeleteViewModel.ShortDescription = consultation.ShortDescription;
-            consultationdDeleteViewModel.PatientId = consultation.PatientId;
+            consultationdDeleteViewModel.Id = consultationModel.Id;
+            consultationdDeleteViewModel.Date = consultationModel.Date;
+            consultationdDeleteViewModel.ShortDescription = consultationModel.ShortDescription;
+            consultationdDeleteViewModel.PatientId = consultationModel.PatientId;
 
             return View(consultationdDeleteViewModel);
         }
@@ -240,11 +240,11 @@ namespace Tremplin.Controllers
             IActionResult result;
 
             // Consultation delete
-            Consultation consultation = _consultationService.GetConsultationById(consultationdDeleteViewModel.Id);
+            ConsultationModel consultationModel = _consultationService.GetConsultationById(consultationdDeleteViewModel.Id);
 
-            consultationdDeleteViewModel.PatientId = consultation.PatientId;
+            consultationdDeleteViewModel.PatientId = consultationModel.PatientId;
 
-            _consultationService.DeleteConsultation(consultation);
+            _consultationService.DeleteConsultation(consultationModel);
 
             result = this.RedirectToAction(nameof(this.Index), new { id = consultationdDeleteViewModel.PatientId });
 

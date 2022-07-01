@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tremplin.Data
+namespace Tremplin.Models.Consultation
 {
-    [Table("Consultation")]
-    public class Consultation
+    public class ConsultationModel
     {
         /// <summary>
         /// Consultation Id

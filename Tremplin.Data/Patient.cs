@@ -61,11 +61,5 @@ namespace Tremplin.Data
         /// User who created this patient
         /// </summary>
         public string CreatedBy { get; set; }
-
-        [NotMapped]
-        /// <summary>
-        /// Check if user is creator of this patient
-        /// </summary>
-        public bool UserIsCreator { get; set; }
     }
 }

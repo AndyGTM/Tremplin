@@ -45,7 +45,7 @@ namespace Tremplin.Services
         public void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName)
         {
-            Patient patient = new()
+            PatientModel patientModel = new()
             {
                 // Removal of any blank spaces for recording the social security number in the database
                 SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber),
@@ -58,6 +58,8 @@ namespace Tremplin.Services
                 SharedSheet = sharedSheet,
                 CreatedBy = userName
             };
+
+            Patient patient = MapToPatient(patientModel);
 
             _patientRepository.CreatePatient(patient);
         }
@@ -103,6 +105,23 @@ namespace Tremplin.Services
 
             Patient patient = _patientRepository.GetPatientById(patientModel.Id);
 
+            if (patient == null)
+            {
+                Patient newPatient = new()
+                {
+                    SocialSecurityNumber = patientModel.SocialSecurityNumber,
+                    LastName = patientModel.LastName,
+                    FirstName = patientModel.FirstName,
+                    BirthDate = patientModel.BirthDate,
+                    BloodGroup = patientModel.BloodGroup,
+                    Sex = patientModel.Sex,
+                    SharedSheet = patientModel.SharedSheet,
+                    CreatedBy = patientModel.CreatedBy
+                };
+
+                return newPatient;
+            }
+
             patient.SocialSecurityNumber = patientModel.SocialSecurityNumber;
             patient.LastName = patientModel.LastName;
             patient.FirstName = patientModel.FirstName;
@@ -111,7 +130,7 @@ namespace Tremplin.Services
             patient.Sex = patientModel.Sex;
             patient.SharedSheet = patientModel.SharedSheet;
 
-            return patient;          
+            return patient;
         }
 
         /// <summary>

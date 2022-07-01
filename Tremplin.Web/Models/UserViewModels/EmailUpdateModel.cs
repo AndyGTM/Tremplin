@@ -4,14 +4,15 @@ using Tremplin.CustomValidation;
 
 namespace Tremplin.Models.UserViewModels
 {
-    public class UserNameUpdateViewModel
+    public class EmailUpdateModel
     {
         /// <summary>
-        /// User identifier
+        /// User email
         /// </summary>
         [Required(ErrorMessage = "{0} requis")]
-        [DisplayName("Identifiant")]
-        [ExistingUserName]
-        public string UserName { get; set; }
+        [DisplayName("E-mail")]
+        [EmailAddress(ErrorMessage = "{0} non valide")]
+        [ExistingMail]
+        public string Email { get; set; }
     }
 }

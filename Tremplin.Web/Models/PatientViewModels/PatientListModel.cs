@@ -1,17 +1,10 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using Tremplin.Core.Enums;
 
 namespace Tremplin.Models.PatientViewModels
 {
-    public class PatientDeleteViewModel
+    public class PatientListModel
     {
-        /// <summary>
-        /// Patient Id
-        /// </summary>
-        [Key, Required]
-        public int Id { get; set; }
-
         /// <summary>
         /// Social security number
         /// </summary>
@@ -34,7 +27,6 @@ namespace Tremplin.Models.PatientViewModels
         /// Patient birth date
         /// </summary>
         [DisplayName("Date de naissance")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
@@ -54,5 +46,37 @@ namespace Tremplin.Models.PatientViewModels
         /// </summary>
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
+
+        /// <summary>
+        /// Check if user is creator of this patient
+        /// </summary>
+        [DisplayName("Auteur fiche")]
+        public bool UserIsCreator { get; set; }
+
+        /// <summary>
+        /// List to display patients in the view "Index" (for patients controller)
+        /// </summary>
+        public List<Patient.PatientModel>? Patients { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by last name
+        /// </summary>
+        public string? SearchLastName { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by first name
+        /// </summary>
+        public string? SearchFirstName { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by social security number
+        /// </summary>
+        public string? SearchSocialSecurityNumber { get; set; }
+
+        /// <summary>
+        /// Allow to search patients by birth date
+        /// </summary>
+        public DateTime? SearchBirthDate { get; set; }
+
     }
 }

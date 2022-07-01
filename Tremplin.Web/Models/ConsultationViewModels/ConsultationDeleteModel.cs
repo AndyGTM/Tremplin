@@ -1,13 +1,21 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationListViewModel
+    public class ConsultationDeleteModel
     {
+        /// <summary>
+        /// Consultation Id
+        /// </summary>
+        [Key, Required]
+        public int Id { get; set; }
+
         /// <summary>
         /// Consultation date
         /// </summary>
         [DisplayName("Date de consultation")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         /// <summary>
@@ -20,10 +28,5 @@ namespace Tremplin.Models.ConsultationViewModels
         /// Patient Id associated with this consultation
         /// </summary>
         public int PatientId { get; set; }
-
-        /// <summary>
-        /// List to display consultations in the view "Index" (for consultations controller)
-        /// </summary>
-        public List<Consultation.ConsultationModel>? Consultations { get; set; }
     }
 }

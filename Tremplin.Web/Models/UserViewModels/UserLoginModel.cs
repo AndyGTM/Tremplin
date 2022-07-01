@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tremplin.Models.UserViewModels
 {
-    public class UserLoginViewModel
+    public class UserLoginModel
     {
         /// <summary>
         /// User identifier

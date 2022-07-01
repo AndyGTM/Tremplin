@@ -42,37 +42,37 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to create a user
         /// </summary>
-        /// <param name="userRegistrationViewModel">User information</param>
+        /// <param name="userRegistrationModel">User information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(UserRegistrationViewModel userRegistrationViewModel)
+        public async Task<IActionResult> Register(UserRegistrationModel userRegistrationModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(userRegistrationViewModel);
+                result = this.View(userRegistrationModel);
             }
             else
             {
                 // User creation
                 User user = _userService.CreateUser
                     (
-                        userRegistrationViewModel.UserName,
-                        userRegistrationViewModel.Password,
-                        userRegistrationViewModel.Email
+                        userRegistrationModel.UserName,
+                        userRegistrationModel.Password,
+                        userRegistrationModel.Email
                     );
 
-                IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegistrationViewModel.Password);
+                IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegistrationModel.Password);
 
                 // User created ?
                 if (!resultCreate.Succeeded)
                 {
                     foreach (IdentityError item in resultCreate.Errors)
                         this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(userRegistrationViewModel);
+                    result = this.View(userRegistrationModel);
                 }
                 else
                     result = this.RedirectToAction(nameof(Index), "Home");
@@ -102,23 +102,23 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to update an user's name
         /// </summary>
-        /// <param name="userNameUpdateViewModel">UserName information</param>
+        /// <param name="userNameUpdateModel">UserName information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserNameUpdate(UserNameUpdateViewModel userNameUpdateViewModel)
+        public async Task<IActionResult> UserNameUpdate(UserNameUpdateModel userNameUpdateModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(userNameUpdateViewModel);
+                result = this.View(userNameUpdateModel);
             }
             else
             {
                 // UserName update
                 User user = await UserManager.GetUserAsync(User);
-                user.UserName = userNameUpdateViewModel.UserName;
+                user.UserName = userNameUpdateModel.UserName;
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // UserName updated ?
@@ -126,7 +126,7 @@ namespace Tremplin.Controllers
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
                         this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(userNameUpdateViewModel);
+                    result = this.View(userNameUpdateModel);
                 }
                 else
                     result = this.RedirectToAction(nameof(this.UpdateSucceeded));
@@ -147,17 +147,17 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to update an user's password
         /// </summary>
-        /// <param name="passwordUpdateViewModel">UserName information</param>
+        /// <param name="passwordUpdateModel">Password information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PasswordUpdate(PasswordUpdateViewModel passwordUpdateViewModel)
+        public async Task<IActionResult> PasswordUpdate(PasswordUpdateModel passwordUpdateModel)
         {
             IActionResult result;
 
             // First input data validation
             if (!this.ModelState.IsValid)
             {
-                result = this.View(passwordUpdateViewModel);
+                result = this.View(passwordUpdateModel);
             }
             else
             {
@@ -169,7 +169,7 @@ namespace Tremplin.Controllers
 
                 foreach (IPasswordValidator<User> validator in validators)
                 {
-                    IdentityResult resultValidator = await validator.ValidateAsync(UserManager, user, passwordUpdateViewModel.Password);
+                    IdentityResult resultValidator = await validator.ValidateAsync(UserManager, user, passwordUpdateModel.Password);
 
                     if (!resultValidator.Succeeded)
                     {
@@ -178,7 +178,7 @@ namespace Tremplin.Controllers
                             this.ModelState.AddModelError(string.Empty, error.Description);
                         }
 
-                        result = this.View(passwordUpdateViewModel);
+                        result = this.View(passwordUpdateModel);
                         return result;
                     }
                 }
@@ -186,7 +186,7 @@ namespace Tremplin.Controllers
                 #endregion Password validators
 
                 // Password update
-                user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateViewModel.Password);
+                user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateModel.Password);
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // Password updated ?
@@ -194,7 +194,7 @@ namespace Tremplin.Controllers
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
                         this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(passwordUpdateViewModel);
+                    result = this.View(passwordUpdateModel);
                 }
                 else
                     result = this.RedirectToAction(nameof(this.UpdateSucceeded));
@@ -215,23 +215,23 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to update an user's email
         /// </summary>
-        /// <param name="emailUpdateViewModel">Email information</param>
+        /// <param name="emailUpdateModel">Email information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EmailUpdate(EmailUpdateViewModel emailUpdateViewModel)
+        public async Task<IActionResult> EmailUpdate(EmailUpdateModel emailUpdateModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(emailUpdateViewModel);
+                result = this.View(emailUpdateModel);
             }
             else
             {
                 // Email update
                 User user = await UserManager.GetUserAsync(User);
-                user.Email = emailUpdateViewModel.Email;
+                user.Email = emailUpdateModel.Email;
                 IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
 
                 // Email updated ?
@@ -239,7 +239,7 @@ namespace Tremplin.Controllers
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
                         this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(emailUpdateViewModel);
+                    result = this.View(emailUpdateModel);
                 }
                 else
                     result = this.RedirectToAction(nameof(this.UpdateSucceeded));
@@ -261,26 +261,26 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows a user to login
         /// </summary>
-        /// <param name="userLoginViewModel">User credentials</param>
+        /// <param name="userLoginModel">User credentials</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
+        public async Task<IActionResult> Login(UserLoginModel userLoginModel)
         {
             IActionResult result;
             if (!this.ModelState.IsValid)
             {
-                result = this.View(userLoginViewModel);
+                result = this.View(userLoginModel);
             }
             else
             {
-                Microsoft.AspNetCore.Identity.SignInResult resultLogin = await this.LoginManager.PasswordSignInAsync(userLoginViewModel.UserName,
-                    userLoginViewModel.Password, userLoginViewModel.IsRememberMe, false);
+                Microsoft.AspNetCore.Identity.SignInResult resultLogin = await this.LoginManager.PasswordSignInAsync(userLoginModel.UserName,
+                    userLoginModel.Password, userLoginModel.IsRememberMe, false);
 
                 if (!resultLogin.Succeeded)
                 {
                     this.ModelState.AddModelError(string.Empty, "Identifiant ou mot de passe non correct ");
-                    result = this.View(userLoginViewModel);
+                    result = this.View(userLoginModel);
                 }
                 else
                     result = this.RedirectToAction(resultLogin.Succeeded ? nameof(this.AccessAllowed) : nameof(this.AccessDenied));

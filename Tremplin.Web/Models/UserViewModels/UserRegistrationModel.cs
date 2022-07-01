@@ -4,7 +4,7 @@ using Tremplin.CustomValidation;
 
 namespace Tremplin.Models.UserViewModels
 {
-    public class UserRegistrationViewModel
+    public class UserRegistrationModel
     {
         /// <summary>
         /// User identifier

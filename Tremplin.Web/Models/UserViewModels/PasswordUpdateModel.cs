@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tremplin.Models.UserViewModels
 {
-    public class PasswordUpdateViewModel
+    public class PasswordUpdateModel
     {
         /// <summary>
         /// User password

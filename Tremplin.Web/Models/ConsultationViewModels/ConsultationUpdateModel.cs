@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationCreationViewModel
+    public class ConsultationUpdateModel
     {
         /// <summary>
-        /// Patient Id associated with this consultation
+        /// Consultation Id
         /// </summary>
-        [ForeignKey("Patient"), Required]
+        [Key, Required]
         public int Id { get; set; }
 
         /// <summary>
@@ -31,5 +30,10 @@ namespace Tremplin.Models.ConsultationViewModels
         /// </summary>
         [DisplayName("Description longue (optionnelle)")]
         public string? LongDescription { get; set; }
+
+        /// <summary>
+        /// Patient Id associated with this consultation
+        /// </summary>
+        public int PatientId { get; set; }
     }
 }

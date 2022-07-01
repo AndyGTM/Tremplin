@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Tremplin.Core.Helpers;
 using Tremplin.Data;
 using Tremplin.IServices.IPatient;
@@ -67,12 +66,12 @@ namespace Tremplin.Controllers
                 patients = patients.Where(s => s.BirthDate!.Equals(searchBirthDate));
             }
 
-            PatientListViewModel patientListViewModel = new()
+            PatientListModel patientListModel = new()
             {
                 Patients = patients.ToList()
             };
 
-            foreach (PatientModel patientModel in patientListViewModel.Patients)
+            foreach (PatientModel patientModel in patientListModel.Patients)
             {
                 // Adding blank spaces for displaying the social security number
                 patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
@@ -88,7 +87,7 @@ namespace Tremplin.Controllers
                 }
             }
 
-            return View(patientListViewModel);
+            return View(patientListModel);
         }
 
         /// <summary>
@@ -103,17 +102,17 @@ namespace Tremplin.Controllers
         /// <summary>
         /// Allows to create a patient
         /// </summary>
-        /// <param name="patientCreationViewModel">Patient information</param>
+        /// <param name="patientCreationModel">Patient information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PatientCreationViewModel patientCreationViewModel)
+        public async Task<IActionResult> Create(PatientCreationModel patientCreationModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(patientCreationViewModel);
+                result = this.View(patientCreationModel);
             }
             else
             {
@@ -122,13 +121,13 @@ namespace Tremplin.Controllers
                 // Patient creation
                 _patientService.CreatePatient
                     (
-                        patientCreationViewModel.SocialSecurityNumber,
-                        patientCreationViewModel.LastName,
-                        patientCreationViewModel.FirstName,
-                        patientCreationViewModel.BirthDate,
-                        patientCreationViewModel.BloodGroup,
-                        patientCreationViewModel.Sex,
-                        patientCreationViewModel.SharedSheet,
+                        patientCreationModel.SocialSecurityNumber,
+                        patientCreationModel.LastName,
+                        patientCreationModel.FirstName,
+                        patientCreationModel.BirthDate,
+                        patientCreationModel.BloodGroup,
+                        patientCreationModel.Sex,
+                        patientCreationModel.SharedSheet,
                         user.UserName
                     );
 
@@ -154,7 +153,7 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            PatientUpdateViewModel patientUpdateViewModel = new()
+            PatientUpdateModel patientUpdateModel = new()
             {
                 Id = patientModel.Id,
 
@@ -169,23 +168,23 @@ namespace Tremplin.Controllers
                 SharedSheet = patientModel.SharedSheet
             };
 
-            return View(patientUpdateViewModel);
+            return View(patientUpdateModel);
         }
 
         /// <summary>
         /// Allows to update a patient
         /// </summary>
-        /// <param name="patientUpdateViewModel">Patient information</param>
+        /// <param name="patientUpdateModel">Patient information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, PatientUpdateViewModel patientUpdateViewModel)
+        public async Task<IActionResult> Update(int id, PatientUpdateModel patientUpdateModel)
         {
             IActionResult result;
 
             // Valid input data ?
             if (!this.ModelState.IsValid)
             {
-                result = this.View(patientUpdateViewModel);
+                result = this.View(patientUpdateModel);
             }
             else
             {
@@ -195,13 +194,13 @@ namespace Tremplin.Controllers
                 _patientService.UpdatePatient
                     (
                         patientModel,
-                        patientUpdateViewModel.SocialSecurityNumber,
-                        patientUpdateViewModel.LastName,
-                        patientUpdateViewModel.FirstName,
-                        patientUpdateViewModel.BirthDate,
-                        patientUpdateViewModel.BloodGroup,
-                        patientUpdateViewModel.Sex,
-                        patientUpdateViewModel.SharedSheet
+                        patientUpdateModel.SocialSecurityNumber,
+                        patientUpdateModel.LastName,
+                        patientUpdateModel.FirstName,
+                        patientUpdateModel.BirthDate,
+                        patientUpdateModel.BloodGroup,
+                        patientUpdateModel.Sex,
+                        patientUpdateModel.SharedSheet
                     );
 
                 result = this.RedirectToAction(nameof(this.Index));
@@ -226,7 +225,7 @@ namespace Tremplin.Controllers
                 return this.RedirectToAction("AccessDenied", "Users");
             }
 
-            PatientDeleteViewModel patientDeleteViewModel = new()
+            PatientDeleteModel patientDeleteModel = new()
             {
                 Id = patientModel.Id,
 
@@ -241,7 +240,7 @@ namespace Tremplin.Controllers
                 SharedSheet = patientModel.SharedSheet
             };
 
-            return View(patientDeleteViewModel);
+            return View(patientDeleteModel);
         }
 
         /// <summary>
@@ -249,7 +248,7 @@ namespace Tremplin.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, PatientDeleteViewModel patientDeleteViewModel)
+        public async Task<IActionResult> Delete(int id, PatientDeleteModel patientDeleteModel)
         {
             IActionResult result;
 

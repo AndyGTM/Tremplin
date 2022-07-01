@@ -1,43 +1,55 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Tremplin.Core.Enums;
+using Tremplin.CustomValidation;
 
 namespace Tremplin.Models.PatientViewModels
 {
-    public class PatientListViewModel
+    public class PatientCreationModel
     {
         /// <summary>
         /// Social security number
         /// </summary>
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Numéro de sécurité sociale")]
+        [RegularExpression(@"[0-9]{1} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2}|[0-9]{15}",
+            ErrorMessage = @"Le {0} doit être composé de chiffres au format ""x xx xx xx xxx xxx xx"" ou ""xxxxxxxxxxxxxxx""")]
+        [ExistingSocialSecurityNumber]
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>
         /// Patient last name
         /// </summary>
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Nom")]
         public string LastName { get; set; }
 
         /// <summary>
         /// Patient first name
         /// </summary>
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Prénom")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Patient birth date
         /// </summary>
+        [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de naissance")]
+        [BirthDateNotAfterToday(ErrorMessage = "La {0} ne peut pas être après la date d'aujourd'hui")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>
         /// Patient blood group
         /// </summary>
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Groupe sanguin")]
         public BloodGroupNames BloodGroup { get; set; }
 
         /// <summary>
         /// Patient sex
         /// </summary>
+        [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Sexe")]
         public SexTypes Sex { get; set; }
 
@@ -46,37 +58,5 @@ namespace Tremplin.Models.PatientViewModels
         /// </summary>
         [DisplayName("Fiche partagée")]
         public bool SharedSheet { get; set; }
-
-        /// <summary>
-        /// Check if user is creator of this patient
-        /// </summary>
-        [DisplayName("Auteur fiche")]
-        public bool UserIsCreator { get; set; }
-
-        /// <summary>
-        /// List to display patients in the view "Index" (for patients controller)
-        /// </summary>
-        public List<Patient.PatientModel>? Patients { get; set; }
-
-        /// <summary>
-        /// Allow to search patients by last name
-        /// </summary>
-        public string? SearchLastName { get; set; }
-
-        /// <summary>
-        /// Allow to search patients by first name
-        /// </summary>
-        public string? SearchFirstName { get; set; }
-
-        /// <summary>
-        /// Allow to search patients by social security number
-        /// </summary>
-        public string? SearchSocialSecurityNumber { get; set; }
-
-        /// <summary>
-        /// Allow to search patients by birth date
-        /// </summary>
-        public DateTime? SearchBirthDate { get; set; }
-
     }
 }

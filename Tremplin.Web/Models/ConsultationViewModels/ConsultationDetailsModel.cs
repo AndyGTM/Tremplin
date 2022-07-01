@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tremplin.Models.ConsultationViewModels
 {
-    public class ConsultationUpdateViewModel
+    public class ConsultationDetailsModel
     {
         /// <summary>
         /// Consultation Id
@@ -14,21 +14,20 @@ namespace Tremplin.Models.ConsultationViewModels
         /// <summary>
         /// Consultation date
         /// </summary>
-        [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de consultation")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         /// <summary>
         /// Short description of the consultation
         /// </summary>
-        [Required(ErrorMessage = "{0} requise")]
-        [DisplayName("Description courte")]
+        [DisplayName("Description")]
         public string ShortDescription { get; set; }
 
         /// <summary>
         /// Long description of the consultation
         /// </summary>
-        [DisplayName("Description longue (optionnelle)")]
+        [DisplayName("Description longue")]
         public string? LongDescription { get; set; }
 
         /// <summary>

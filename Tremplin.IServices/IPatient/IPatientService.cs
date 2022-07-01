@@ -14,7 +14,7 @@ namespace Tremplin.IServices.IPatient
         /// Gets list of patients with shared sheet and/or created by logged user
         /// </summary>
         /// <param name="userName">Logged user</param>
-        IQueryable<Patient> GetPatients(string userName);
+        IEnumerable<PatientModel> GetPatients(string userName);
 
         /// <summary>
         /// Creation of a patient by logged user

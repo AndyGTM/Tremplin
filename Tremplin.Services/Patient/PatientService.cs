@@ -31,11 +31,19 @@ namespace Tremplin.Services
         /// Gets list of patients with shared sheet and/or created by logged user
         /// </summary>
         /// <param name="userName">Logged user</param>
-        public IQueryable<Patient> GetPatients(string userName)
+        public IEnumerable<PatientModel> GetPatients(string userName)
         {
             IQueryable<Patient> patients = _patientRepository.GetPatients().Where(m => m.SharedSheet || m.CreatedBy == userName);
 
-            return patients;
+            List<PatientModel> patientsModels = new();
+
+            foreach (Patient patient in patients)
+            {
+                PatientModel patientModel = MapToPatientModel(patient);
+                patientsModels.Add(patientModel);
+            }
+
+            return patientsModels;
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Tremplin.Services
         #region Mapping
 
         /// <summary>
-        /// Map PatientModel to Patient
+        /// Map patient model to patient entity
         /// </summary>
         /// <param name="patientModel">Patient model</param>
         /// <returns>Patient entity</returns>
@@ -134,7 +142,7 @@ namespace Tremplin.Services
         }
 
         /// <summary>
-        /// Map Patient to PatientModel
+        /// Map patient entity to patient model
         /// </summary>
         /// <param name="patient">Patient entity</param>
         /// <returns>Patient model</returns>

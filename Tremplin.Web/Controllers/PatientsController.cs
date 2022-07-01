@@ -34,7 +34,7 @@ namespace Tremplin.Controllers
         {
             User user = await UserManager.GetUserAsync(User);
 
-            IQueryable<Patient> patients = _patientService.GetPatients(user.UserName);
+            IEnumerable<PatientModel> patients = _patientService.GetPatients(user.UserName);
 
             if (!string.IsNullOrEmpty(searchLastName))
             {
@@ -69,22 +69,22 @@ namespace Tremplin.Controllers
 
             PatientListViewModel patientListViewModel = new()
             {
-                Patients = await patients.ToListAsync()
+                Patients = patients.ToList()
             };
 
-            foreach (Patient patient in patientListViewModel.Patients)
+            foreach (PatientModel patientModel in patientListViewModel.Patients)
             {
                 // Adding blank spaces for displaying the social security number
-                patient.SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patient.SocialSecurityNumber);
+                patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
 
                 // Check if user is the creator of the patient
-                if (patient.CreatedBy == user.UserName)
+                if (patientModel.CreatedBy == user.UserName)
                 {
-                    patient.UserIsCreator = true;
+                    patientModel.UserIsCreator = true;
                 }
                 else
                 {
-                    patient.UserIsCreator = false;
+                    patientModel.UserIsCreator = false;
                 }
             }
 

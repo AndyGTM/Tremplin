@@ -1,6 +1,6 @@
 ﻿using Tremplin.Data.Entity;
 
-namespace Tremplin.IRepositories.IConsultation
+namespace Tremplin.IRepositories
 {
     public interface IConsultationRepository<T> where T : Consultation
     {

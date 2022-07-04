@@ -1,6 +1,6 @@
 ﻿using Tremplin.Data;
 using Tremplin.Data.Entity;
-using Tremplin.IRepositories.IUser;
+using Tremplin.IRepositories;
 
 namespace Tremplin.Repositories
 {

@@ -1,7 +1,7 @@
 ﻿using Tremplin.Core.Enums;
 using Tremplin.Core.Helpers;
 using Tremplin.Data.Entity;
-using Tremplin.IRepositories.IPatient;
+using Tremplin.IRepositories;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models;
 

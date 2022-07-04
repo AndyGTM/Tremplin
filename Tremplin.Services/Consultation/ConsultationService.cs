@@ -1,5 +1,5 @@
 ﻿using Tremplin.Data.Entity;
-using Tremplin.IRepositories.IConsultation;
+using Tremplin.IRepositories;
 using Tremplin.IServices.IConsultation;
 using Tremplin.Models;
 

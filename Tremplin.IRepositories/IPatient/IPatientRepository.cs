@@ -1,6 +1,6 @@
 ﻿using Tremplin.Data.Entity;
 
-namespace Tremplin.IRepositories.IPatient
+namespace Tremplin.IRepositories
 {
     public interface IPatientRepository<T> where T : Patient
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Tremplin.Data.Entity;
-using Tremplin.IRepositories.IUser;
+using Tremplin.IRepositories;
 
 namespace Tremplin.Store
 {

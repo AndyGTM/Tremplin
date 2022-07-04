@@ -1,6 +1,6 @@
 ﻿using Tremplin.Data.Entity;
 
-namespace Tremplin.IRepositories.IUser
+namespace Tremplin.IRepositories
 {
     public interface IUserRepository<T> : IDisposable where T : User
     {

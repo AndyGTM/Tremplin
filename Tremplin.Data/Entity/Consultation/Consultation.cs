@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Tremplin.Data.Entity.Consultation
+﻿namespace Tremplin.Data.Entity.Consultation
 {
     public class Consultation : BaseEntity
     {
         /// <summary>
         /// Consultation date
         /// </summary>
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         /// <summary>

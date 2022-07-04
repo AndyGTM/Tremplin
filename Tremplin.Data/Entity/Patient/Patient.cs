@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Tremplin.Core.Enums;
+﻿using Tremplin.Core.Enums;
 
 namespace Tremplin.Data.Entity.Patient
 {
@@ -23,8 +22,6 @@ namespace Tremplin.Data.Entity.Patient
         /// <summary>
         /// Patient birth date
         /// </summary>
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         /// <summary>

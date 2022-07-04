@@ -1,6 +1,6 @@
 ﻿using Tremplin.Models;
 
-namespace Tremplin.IServices.IConsultation
+namespace Tremplin.IServices
 {
     public interface IConsultationService
     {

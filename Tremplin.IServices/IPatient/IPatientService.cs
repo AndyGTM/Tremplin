@@ -1,7 +1,7 @@
 ﻿using Tremplin.Core.Enums;
 using Tremplin.Models;
 
-namespace Tremplin.IServices.IPatient
+namespace Tremplin.IServices
 {
     public interface IPatientService
     {

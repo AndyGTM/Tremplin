@@ -1,6 +1,6 @@
 ﻿using Tremplin.Data.Entity;
 
-namespace Tremplin.IServices.IUser
+namespace Tremplin.IServices
 {
     public interface IUserService
     {

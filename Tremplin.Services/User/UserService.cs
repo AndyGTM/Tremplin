@@ -1,5 +1,5 @@
 ﻿using Tremplin.Data.Entity;
-using Tremplin.IServices.IUser;
+using Tremplin.IServices;
 
 namespace Tremplin.Services
 {

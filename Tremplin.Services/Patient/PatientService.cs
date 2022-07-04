@@ -2,7 +2,7 @@
 using Tremplin.Core.Helpers;
 using Tremplin.Data.Entity;
 using Tremplin.IRepositories;
-using Tremplin.IServices.IPatient;
+using Tremplin.IServices;
 using Tremplin.Models;
 
 namespace Tremplin.Services

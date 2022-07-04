@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Tremplin.Data.Entity.User;
+using Tremplin.Data.Entity;
 
 namespace Tremplin.Store
 {

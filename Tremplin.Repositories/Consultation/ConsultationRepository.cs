@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
-using Tremplin.Data.Entity.Consultation;
+using Tremplin.Data.Entity;
 using Tremplin.IRepositories.IConsultation;
 
 namespace Tremplin.Repositories

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Tremplin.Data.Entity.User
+﻿namespace Tremplin.Data.Entity
 {
     public class UserRole : BaseEntity
     {

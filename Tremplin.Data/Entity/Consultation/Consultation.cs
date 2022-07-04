@@ -1,4 +1,4 @@
-﻿namespace Tremplin.Data.Entity.Consultation
+﻿namespace Tremplin.Data.Entity
 {
     public class Consultation : BaseEntity
     {

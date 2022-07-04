@@ -44,6 +44,6 @@ namespace Tremplin.Data.Entity
         /// </summary>
         public string CreatedBy { get; set; }
 
-        public List<Consultation.Consultation> Consultations { get; set; }
+        public List<Consultation> Consultations { get; set; }
     }
 }

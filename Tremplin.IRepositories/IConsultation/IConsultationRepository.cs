@@ -1,4 +1,4 @@
-﻿using Tremplin.Data.Entity.Consultation;
+﻿using Tremplin.Data.Entity;
 
 namespace Tremplin.IRepositories.IConsultation
 {

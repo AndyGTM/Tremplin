@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tremplin.Data.Entity.User;
+using Tremplin.Data.Entity;
 using Tremplin.Data.Helpers;
 
 namespace Tremplin.Data.EntityConfiguration.UserConfiguration

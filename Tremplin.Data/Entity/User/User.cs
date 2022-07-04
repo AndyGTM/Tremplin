@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Tremplin.Data.Entity.User
+namespace Tremplin.Data.Entity
 {
     public class User : BaseEntity
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Tremplin.Data.Entity.User;
+using Tremplin.Data.Entity;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models.Consultation;

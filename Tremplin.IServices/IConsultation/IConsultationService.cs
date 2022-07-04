@@ -1,4 +1,4 @@
-﻿using Tremplin.Models.Consultation;
+﻿using Tremplin.Models;
 
 namespace Tremplin.IServices.IConsultation
 {

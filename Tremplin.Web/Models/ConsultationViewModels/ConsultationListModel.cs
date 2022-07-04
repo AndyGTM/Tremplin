@@ -24,6 +24,6 @@ namespace Tremplin.Models.ConsultationViewModels
         /// <summary>
         /// List to display consultations in the view "Index" (for consultations controller)
         /// </summary>
-        public List<Consultation.ConsultationModel>? Consultations { get; set; }
+        public List<ConsultationModel>? Consultations { get; set; }
     }
 }

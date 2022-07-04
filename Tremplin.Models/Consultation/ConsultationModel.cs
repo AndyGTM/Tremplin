@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tremplin.Models.Consultation
+namespace Tremplin.Models
 {
     public class ConsultationModel
     {

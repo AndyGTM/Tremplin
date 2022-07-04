@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Tremplin.Data.Entity;
 using Tremplin.IServices.IConsultation;
 using Tremplin.IServices.IPatient;
-using Tremplin.Models.Consultation;
+using Tremplin.Models;
 using Tremplin.Models.ConsultationViewModels;
-using Tremplin.Models.Patient;
 
 namespace Tremplin.Controllers
 {

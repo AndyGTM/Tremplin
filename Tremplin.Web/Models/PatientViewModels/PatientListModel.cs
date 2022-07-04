@@ -56,7 +56,7 @@ namespace Tremplin.Models.PatientViewModels
         /// <summary>
         /// List to display patients in the view "Index" (for patients controller)
         /// </summary>
-        public List<Patient.PatientModel>? Patients { get; set; }
+        public List<PatientModel>? Patients { get; set; }
 
         /// <summary>
         /// Allow to search patients by last name

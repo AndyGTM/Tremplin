@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tremplin.Core.Enums;
 
-namespace Tremplin.Models.Patient
+namespace Tremplin.Models
 {
     public class PatientModel
     {

@@ -1,5 +1,5 @@
 ﻿using Tremplin.Core.Enums;
-using Tremplin.Models.Patient;
+using Tremplin.Models;
 
 namespace Tremplin.IServices.IPatient
 {

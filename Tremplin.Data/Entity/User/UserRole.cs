@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tremplin.Data
+namespace Tremplin.Data.Entity.User
 {
     [Table("UserRole")]
     public class UserRole

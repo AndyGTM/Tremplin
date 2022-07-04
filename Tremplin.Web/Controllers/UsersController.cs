@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Tremplin.Data;
+using Tremplin.Data.Entity.User;
 using Tremplin.IServices.IUser;
 using Tremplin.Models.UserViewModels;
 

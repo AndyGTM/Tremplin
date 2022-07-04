@@ -1,4 +1,5 @@
 ﻿using Tremplin.Data;
+using Tremplin.Data.Entity.User;
 using Tremplin.IRepositories.IUser;
 
 namespace Tremplin.Repositories

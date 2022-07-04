@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Tremplin.Data;
+using Tremplin.Data.Entity.User;
 
 [Table("Role")]
 public class Role

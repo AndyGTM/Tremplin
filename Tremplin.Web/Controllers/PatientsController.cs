@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tremplin.Core.Helpers;
-using Tremplin.Data;
+using Tremplin.Data.Entity.User;
 using Tremplin.IServices.IPatient;
 using Tremplin.Models.Patient;
 using Tremplin.Models.PatientViewModels;

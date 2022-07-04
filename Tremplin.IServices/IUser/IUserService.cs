@@ -1,4 +1,4 @@
-﻿using Tremplin.Data;
+﻿using Tremplin.Data.Entity.User;
 
 namespace Tremplin.IServices.IUser
 {

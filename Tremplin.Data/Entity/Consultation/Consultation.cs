@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tremplin.Data.Entity.Consultation
 {
-    [Table("Consultation")]
     public class Consultation : BaseEntity
     {
         /// <summary>

@@ -21,7 +21,7 @@ namespace Tremplin.CustomValidation
             // Removal of any blank spaces to match database social security number
             string socialSecurityNumberViewModel = Regex.Replace(value.ToString(), @"\s", "");
 
-            if (!datacontext.Patients.Any(x => x.SocialSecurityNumber == socialSecurityNumberViewModel))
+            if (!datacontext.Patient.Any(x => x.SocialSecurityNumber == socialSecurityNumberViewModel))
             {
                 return ValidationResult.Success;
             }

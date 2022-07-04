@@ -23,9 +23,9 @@ namespace Tremplin.Data
             this._provider = new AesProvider(this._encryptionKey, this._encryptionIV);
         }
 
-        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Patient> Patient { get; set; }
 
-        public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<Consultation> Consultation { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 

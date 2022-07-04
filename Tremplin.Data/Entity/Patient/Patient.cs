@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Tremplin.Core.Enums;
 
 namespace Tremplin.Data.Entity.Patient
 {
-    [Table("Patient")]
     public class Patient : BaseEntity
     {
         /// <summary>

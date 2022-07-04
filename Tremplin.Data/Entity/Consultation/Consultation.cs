@@ -22,6 +22,6 @@
         /// </summary>
         public int PatientId { get; set; }
 
-        public Patient.Patient Patient { get; set; }
+        public Patient Patient { get; set; }
     }
 }

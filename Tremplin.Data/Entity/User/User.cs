@@ -1,34 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tremplin.Data.Entity.User
 {
-    [Table("User")]
-    public class User
+    public class User : BaseEntity
     {
-        /// <summary>
-        /// User Id
-        /// </summary>
-        [Key, Required]
-        public int Id { get; set; }
-
         /// <summary>
         /// User identifier
         /// </summary>
-        [Required]
         public string UserName { get; set; }
 
         /// <summary>
         /// User password
         /// </summary>
-        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         /// <summary>
         /// User email
         /// </summary>
-        [Required]
         public string Email { get; set; }
     }
 }

@@ -15,7 +15,8 @@ namespace Tremplin.Data.EntityConfiguration.ConsultationConfiguration
                 .HasOne(s => s.Patient)
                 .WithMany(c => c.Consultations)
                 .HasForeignKey(c => c.PatientId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 

@@ -12,7 +12,7 @@ namespace Tremplin.CustomValidation
         {
             DataContext datacontext = (DataContext)validationContext.GetService(typeof(DataContext));
 
-            if (!datacontext.Users.Any(x => x.UserName == value.ToString()))
+            if (!datacontext.User.Any(x => x.UserName == value.ToString()))
             {
                 return ValidationResult.Success;
             }

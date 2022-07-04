@@ -1,18 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tremplin.Data.Entity.User
 {
-    [Table("UserRole")]
-    public class UserRole
+    public class UserRole : BaseEntity
     {
-        [Key, Required]
-        public int Id { get; set; }
-
-        [Required, ForeignKey(nameof(User))]
         public int UserId { get; set; }
 
-        [Required, ForeignKey(nameof(Role))]
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }

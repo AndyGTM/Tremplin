@@ -1,6 +1,6 @@
 ﻿using Tremplin.Core.Enums;
 
-namespace Tremplin.Data.Entity.Patient
+namespace Tremplin.Data.Entity
 {
     public class Patient : BaseEntity
     {

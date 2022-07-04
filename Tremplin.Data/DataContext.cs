@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore.DataEncryption;
 using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
 using Tremplin.Data.Entity.Consultation;
-using Tremplin.Data.Entity.Patient;
+using Tremplin.Data.Entity;
 using Tremplin.Data.Entity.User;
 using Tremplin.Data.EntityConfiguration.ConsultationConfiguration;
 using Tremplin.Data.EntityConfiguration.PatientConfiguration;
+using Tremplin.Data.EntityConfiguration.UserConfiguration;
 using Tremplin.Data.Helpers;
 
 namespace Tremplin.Data
@@ -27,11 +28,11 @@ namespace Tremplin.Data
 
         public DbSet<Consultation> Consultation { get; set; }
 
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<Role> Role { get; set; }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
 
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -51,6 +52,12 @@ namespace Tremplin.Data
             modelBuilder.ApplyConfiguration(new ConsultationConfiguration()).AddConfiguration(new ConsultationAddConfiguration());
 
             modelBuilder.ApplyConfiguration(new PatientConfiguration()).AddConfiguration(new PatientAddConfiguration());
+
+            modelBuilder.ApplyConfiguration(new RoleConfiguration()).AddConfiguration(new RoleAddConfiguration());
+
+            modelBuilder.ApplyConfiguration(new UserConfiguration()).AddConfiguration(new UserAddConfiguration());
+
+            modelBuilder.ApplyConfiguration(new UserRoleConfiguration()).AddConfiguration(new UserRoleAddConfiguration());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.Data.Entity.Patient;
 using Tremplin.IRepositories.IPatient;
 
 namespace Tremplin.Repositories

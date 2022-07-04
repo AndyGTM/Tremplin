@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Tremplin.Data
+namespace Tremplin.Data.Entity.Consultation
 {
     [Table("Consultation")]
     public class Consultation : BaseEntity
@@ -28,6 +28,6 @@ namespace Tremplin.Data
         /// </summary>
         public int PatientId { get; set; }
 
-        public Patient Patient { get; set; }
+        public Patient.Patient Patient { get; set; }
     }
 }

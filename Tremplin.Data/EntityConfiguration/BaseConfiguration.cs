@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Tremplin.Data.Entity;
 
 namespace Tremplin.Data.EntityConfiguration
 {

@@ -1,4 +1,4 @@
-﻿using Tremplin.Data;
+﻿using Tremplin.Data.Entity.Patient;
 
 namespace Tremplin.IRepositories.IPatient
 {

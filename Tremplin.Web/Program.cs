@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Tremplin.Data;
+using Tremplin.Data.Entity.Consultation;
+using Tremplin.Data.Entity.Patient;
 using Tremplin.IRepositories.IConsultation;
 using Tremplin.IRepositories.IPatient;
 using Tremplin.IRepositories.IUser;

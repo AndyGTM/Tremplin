@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Tremplin.Core.Enums;
 
-namespace Tremplin.Data
+namespace Tremplin.Data.Entity.Patient
 {
     [Table("Patient")]
     public class Patient : BaseEntity
@@ -49,6 +49,6 @@ namespace Tremplin.Data
         /// </summary>
         public string CreatedBy { get; set; }
 
-        public List<Consultation> Consultations { get; set; }
+        public List<Consultation.Consultation> Consultations { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Tremplin.Data.Entity.Consultation;
 using Tremplin.Data.Helpers;
 
 namespace Tremplin.Data.EntityConfiguration.ConsultationConfiguration

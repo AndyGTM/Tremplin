@@ -1,4 +1,4 @@
-﻿namespace Tremplin.Data
+﻿namespace Tremplin.Data.Entity
 {
     public class BaseEntity
     {

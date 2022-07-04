@@ -4,18 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Tremplin.Data
 {
     [Table("Consultation")]
-    public class Consultation
+    public class Consultation : BaseEntity
     {
-        /// <summary>
-        /// Consultation Id
-        /// </summary>
-        [Key, Required]
-        public int Id { get; set; }
-
         /// <summary>
         /// Consultation date
         /// </summary>
-        [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
@@ -23,7 +16,6 @@ namespace Tremplin.Data
         /// <summary>
         /// Short description of the consultation
         /// </summary>
-        [Required]
         public string ShortDescription { get; set; }
 
         /// <summary>
@@ -34,7 +26,8 @@ namespace Tremplin.Data
         /// <summary>
         /// Patient Id associated with this consultation
         /// </summary>
-        [ForeignKey("Patient"), Required]
         public int PatientId { get; set; }
+
+        public Patient Patient { get; set; }
     }
 }

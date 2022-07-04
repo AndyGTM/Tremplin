@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DataEncryption;
 using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
+using Tremplin.Data.EntityConfiguration.ConsultationConfiguration;
+using Tremplin.Data.EntityConfiguration.PatientConfiguration;
+using Tremplin.Data.Helpers;
 
 namespace Tremplin.Data
 {
@@ -38,6 +41,13 @@ namespace Tremplin.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseEncryption(this._provider);
+
+            base.OnModelCreating(modelBuilder);
+
+            // Entity declaration for Code First
+            modelBuilder.ApplyConfiguration(new ConsultationConfiguration()).AddConfiguration(new ConsultationAddConfiguration());
+
+            modelBuilder.ApplyConfiguration(new PatientConfiguration()).AddConfiguration(new PatientAddConfiguration());
         }
     }
 }

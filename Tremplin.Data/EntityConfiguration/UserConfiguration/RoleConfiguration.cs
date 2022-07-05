@@ -2,7 +2,7 @@
 using Tremplin.Data.Entity;
 using Tremplin.Data.Helpers;
 
-namespace Tremplin.Data.EntityConfiguration.UserConfiguration
+namespace Tremplin.Data.EntityConfiguration
 {
     public class RoleConfiguration : BaseConfiguration<Role>
     {

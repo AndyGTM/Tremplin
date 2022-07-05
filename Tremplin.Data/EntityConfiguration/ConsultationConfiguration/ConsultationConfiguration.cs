@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tremplin.Data.Entity;
 using Tremplin.Data.Helpers;
 
-namespace Tremplin.Data.EntityConfiguration.ConsultationConfiguration
+namespace Tremplin.Data.EntityConfiguration
 {
     public class ConsultationConfiguration : BaseConfiguration<Consultation>
     {

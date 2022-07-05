@@ -5,7 +5,7 @@ namespace Tremplin.IRepositories
     public interface IConsultationRepository<T> where T : Consultation
     {
         T GetConsultationById(int id);
-        
+
         IQueryable<T> GetConsultations();
 
         void CreateConsultation(T consultation);

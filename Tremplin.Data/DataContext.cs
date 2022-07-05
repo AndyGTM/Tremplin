@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore.DataEncryption;
 using Microsoft.EntityFrameworkCore.DataEncryption.Providers;
 using Tremplin.Data.Entity;
-using Tremplin.Data.EntityConfiguration.ConsultationConfiguration;
-using Tremplin.Data.EntityConfiguration.PatientConfiguration;
-using Tremplin.Data.EntityConfiguration.UserConfiguration;
+using Tremplin.Data.EntityConfiguration;
 using Tremplin.Data.Helpers;
 
 namespace Tremplin.Data

@@ -191,16 +191,17 @@ namespace Tremplin.Controllers
                 // Patient update
                 PatientModel patientModel = _patientService.GetPatientById(id);
 
+                patientModel.SocialSecurityNumber = patientUpdateModel.SocialSecurityNumber;
+                patientModel.LastName = patientUpdateModel.LastName;
+                patientModel.FirstName = patientUpdateModel.FirstName;
+                patientModel.BirthDate = patientUpdateModel.BirthDate;
+                patientModel.BloodGroup = patientUpdateModel.BloodGroup;
+                patientModel.Sex = patientUpdateModel.Sex;
+                patientModel.SharedSheet = patientUpdateModel.SharedSheet;
+
                 _patientService.UpdatePatient
                     (
-                        patientModel,
-                        patientUpdateModel.SocialSecurityNumber,
-                        patientUpdateModel.LastName,
-                        patientUpdateModel.FirstName,
-                        patientUpdateModel.BirthDate,
-                        patientUpdateModel.BloodGroup,
-                        patientUpdateModel.Sex,
-                        patientUpdateModel.SharedSheet
+                        patientModel
                     );
 
                 result = this.RedirectToAction(nameof(this.Index));

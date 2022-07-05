@@ -22,8 +22,7 @@ namespace Tremplin.IServices
         void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
             BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName);
 
-        void UpdatePatient(PatientModel patientModel, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
-            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet);
+        void UpdatePatient(PatientModel patientModel);
 
         void DeletePatient(PatientModel patientModel);
 

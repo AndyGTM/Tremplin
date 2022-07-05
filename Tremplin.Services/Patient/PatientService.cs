@@ -72,18 +72,10 @@ namespace Tremplin.Services
             _patientRepository.CreatePatient(patient);
         }
 
-        public void UpdatePatient(PatientModel patientModel, string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
-            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet)
+        public void UpdatePatient(PatientModel patientModel)
         {
             // Removal of any blank spaces for recording the social security number in the database
-            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
-
-            patientModel.LastName = lastName;
-            patientModel.FirstName = firstName;
-            patientModel.BirthDate = birthDate;
-            patientModel.BloodGroup = bloodGroup;
-            patientModel.Sex = sex;
-            patientModel.SharedSheet = sharedSheet;
+            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
 
             Patient patient = MapToPatient(patientModel);
 

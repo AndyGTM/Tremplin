@@ -1,5 +1,4 @@
-﻿using Tremplin.Core.Enums;
-using Tremplin.Core.Helpers;
+﻿using Tremplin.Core.Helpers;
 using Tremplin.Data.Entity;
 using Tremplin.IRepositories;
 using Tremplin.IServices;
@@ -49,23 +48,10 @@ namespace Tremplin.Services
         /// <summary>
         /// Creation of a patient by logged user
         /// </summary>
-        /// <param name="userName">Logged user</param>
-        public void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
-            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName)
+        public void CreatePatient(PatientModel patientModel)
         {
-            PatientModel patientModel = new()
-            {
-                // Removal of any blank spaces for recording the social security number in the database
-                SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber),
-
-                LastName = lastName,
-                FirstName = firstName,
-                BirthDate = birthDate,
-                BloodGroup = bloodGroup,
-                Sex = sex,
-                SharedSheet = sharedSheet,
-                CreatedBy = userName
-            };
+            // Removal of any blank spaces for recording the social security number in the database
+            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
 
             Patient patient = MapToPatient(patientModel);
 

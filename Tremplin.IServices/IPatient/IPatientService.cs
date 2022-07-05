@@ -1,5 +1,4 @@
-﻿using Tremplin.Core.Enums;
-using Tremplin.Models;
+﻿using Tremplin.Models;
 
 namespace Tremplin.IServices
 {
@@ -18,9 +17,7 @@ namespace Tremplin.IServices
         /// <summary>
         /// Creation of a patient by logged user
         /// </summary>
-        /// <param name="userName">Logged user</param>
-        void CreatePatient(string socialSecurityNumber, string lastName, string firstName, DateTime birthDate,
-            BloodGroupNames bloodGroup, SexTypes sex, bool sharedSheet, string userName);
+        void CreatePatient(PatientModel patientModel);
 
         void UpdatePatient(PatientModel patientModel);
 

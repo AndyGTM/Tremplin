@@ -118,18 +118,20 @@ namespace Tremplin.Controllers
             {
                 User user = await UserManager.GetUserAsync(User);
 
+                PatientModel patientModel = new()
+                {
+                    SocialSecurityNumber = patientCreationModel.SocialSecurityNumber,
+                    LastName = patientCreationModel.LastName,
+                    FirstName = patientCreationModel.FirstName,
+                    BirthDate = patientCreationModel.BirthDate,
+                    BloodGroup = patientCreationModel.BloodGroup,
+                    Sex = patientCreationModel.Sex,
+                    SharedSheet = patientCreationModel.SharedSheet,
+                    CreatedBy = user.UserName
+                };
+
                 // Patient creation
-                _patientService.CreatePatient
-                    (
-                        patientCreationModel.SocialSecurityNumber,
-                        patientCreationModel.LastName,
-                        patientCreationModel.FirstName,
-                        patientCreationModel.BirthDate,
-                        patientCreationModel.BloodGroup,
-                        patientCreationModel.Sex,
-                        patientCreationModel.SharedSheet,
-                        user.UserName
-                    );
+                _patientService.CreatePatient(patientModel);
 
                 result = this.RedirectToAction(nameof(this.Index));
             }
@@ -199,10 +201,7 @@ namespace Tremplin.Controllers
                 patientModel.Sex = patientUpdateModel.Sex;
                 patientModel.SharedSheet = patientUpdateModel.SharedSheet;
 
-                _patientService.UpdatePatient
-                    (
-                        patientModel
-                    );
+                _patientService.UpdatePatient(patientModel);
 
                 result = this.RedirectToAction(nameof(this.Index));
             }

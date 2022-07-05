@@ -46,17 +46,8 @@ namespace Tremplin.Services
         /// <summary>
         /// Creation of a consultation for the selected patient
         /// </summary>
-        public void CreateConsultation(DateTime date, string shortDescription, string? longDescription, int patientId)
+        public void CreateConsultation(ConsultationModel consultationModel)
         {
-            // Consultation creation
-            ConsultationModel consultationModel = new()
-            {
-                Date = date,
-                ShortDescription = shortDescription,
-                LongDescription = longDescription,
-                PatientId = patientId
-            };
-
             Consultation consultation = MapToConsultation(consultationModel);
 
             _consultationRepository.CreateConsultation(consultation);
@@ -65,13 +56,8 @@ namespace Tremplin.Services
         /// <summary>
         /// Update of a consultation for the selected patient
         /// </summary>
-        public void UpdateConsultation(ConsultationModel consultationModel, DateTime date, string shortDescription, string? longDescription)
+        public void UpdateConsultation(ConsultationModel consultationModel)
         {
-            // Consultation update
-            consultationModel.Date = date;
-            consultationModel.ShortDescription = shortDescription;
-            consultationModel.LongDescription = longDescription;
-
             Consultation consultation = MapToConsultation(consultationModel);
 
             _consultationRepository.UpdateConsultation(consultation);

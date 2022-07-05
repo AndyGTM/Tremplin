@@ -98,13 +98,15 @@ namespace Tremplin.Controllers
             else
             {
                 // Consultation creation
-                _consultationService.CreateConsultation
-                    (
-                        consultationCreationModel.Date,
-                        consultationCreationModel.ShortDescription,
-                        consultationCreationModel.LongDescription,
-                        consultationCreationModel.Id
-                    );
+                ConsultationModel consultationModel = new()
+                {
+                    Date = consultationCreationModel.Date,
+                    ShortDescription = consultationCreationModel.ShortDescription,
+                    LongDescription = consultationCreationModel.LongDescription,
+                    PatientId = consultationCreationModel.Id
+                };
+
+                _consultationService.CreateConsultation(consultationModel);
 
                 result = this.RedirectToAction(nameof(this.Index), new { id = consultationCreationModel.Id });
             }
@@ -190,13 +192,11 @@ namespace Tremplin.Controllers
                 // Consultation update
                 ConsultationModel consultationModel = _consultationService.GetConsultationById(consultationUpdateModel.Id);
 
-                _consultationService.UpdateConsultation
-                    (
-                        consultationModel,
-                        consultationUpdateModel.Date,
-                        consultationUpdateModel.ShortDescription,
-                        consultationUpdateModel.LongDescription
-                    );
+                consultationModel.Date = consultationUpdateModel.Date;
+                consultationModel.ShortDescription = consultationUpdateModel.ShortDescription;
+                consultationModel.LongDescription = consultationUpdateModel.LongDescription;
+
+                _consultationService.UpdateConsultation(consultationModel);
 
                 result = this.RedirectToAction(nameof(this.Index), new { id = consultationModel.PatientId });
             }

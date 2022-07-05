@@ -16,12 +16,12 @@ namespace Tremplin.IServices
         /// <summary>
         /// Creation of a consultation for the selected patient
         /// </summary>
-        void CreateConsultation(DateTime date, string shortDescription, string? longDescription, int patientId);
+        void CreateConsultation(ConsultationModel consultationModel);
 
         /// <summary>
         /// Update of a consultation for the selected patient
         /// </summary>
-        void UpdateConsultation(ConsultationModel consultationModel, DateTime date, string shortDescription, string? longDescription);
+        void UpdateConsultation(ConsultationModel consultationModel);
 
         void DeleteConsultation(ConsultationModel consultationModel);
 

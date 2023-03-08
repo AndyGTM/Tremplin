@@ -17,5 +17,10 @@ This project was developed in ASP.NET Core 6.0, with Entity Framework Core in Co
 ## Roadmap
 The most important feature that remains to be implemented is AES 256 data encryption.
 
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+See LICENSE.md for more information.
+
 ## Authors and acknowledgment
 I'm a solo developer for this project :)

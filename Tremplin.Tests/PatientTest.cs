@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using Tremplin.Core.Helpers;
 using Tremplin.Tests.CustomData;
 
 namespace Tremplin.Tests
@@ -32,7 +32,7 @@ namespace Tremplin.Tests
             string socialSecurityNumber = "289113356951934";
 
             // Act
-            string result = Regex.Replace(socialSecurityNumber, @"(\w{1})(\w{2})(\w{2})(\w{2})(\w{3})(\w{3})(\w{2})", @"$1 $2 $3 $4 $5 $6 $7");
+            string result = SocialSecurityNumberHelper.AddBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
 
             // Assert
             Assert.AreEqual("2 89 11 33 569 519 34", result);
@@ -48,7 +48,7 @@ namespace Tremplin.Tests
             string socialSecurityNumber = "1 90 05 35 777 888 55";
 
             // Act
-            string result = Regex.Replace(socialSecurityNumber, @"\s", "");
+            string result = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(socialSecurityNumber);
 
             // Assert
             Assert.AreEqual("190053577788855", result);

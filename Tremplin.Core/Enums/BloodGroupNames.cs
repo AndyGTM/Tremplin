@@ -2,9 +2,6 @@
 
 namespace Tremplin.Core.Enums
 {
-    /// <summary>
-    /// Enumeration of blood groups
-    /// </summary>
     public enum BloodGroupNames
     {
         [Display(Name = "O+")]

@@ -2,9 +2,6 @@
 
 namespace Tremplin.Core.Enums
 {
-    /// <summary>
-    /// Enumeration of sex types
-    /// </summary>
     public enum SexTypes
     {
         [Display(Name = "Masculin")]

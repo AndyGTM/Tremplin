@@ -17,85 +17,67 @@ namespace Tremplin.Services
 
         #region CRUD Patients
 
-        public PatientModel GetPatientById(int id)
+        public PatientModel GetPatientById(int idPatient)
         {
-            Patient patient = _patientRepository.GetPatientById(id);
+            Patient patientEntity = _patientRepository.GetPatientById(idPatient);
 
-            PatientModel patientModel = MapToPatientModel(patient);
+            PatientModel patientModel = MapPatientEntityToPatientModel(patientEntity);
 
             return patientModel;
         }
 
-        /// <summary>
-        /// Gets list of patients with shared sheet and/or created by logged user
-        /// </summary>
-        /// <param name="userName">Logged user</param>
         public IEnumerable<PatientModel> GetPatients(string userName)
         {
             IQueryable<Patient> patients = _patientRepository.GetPatients().Where(m => m.SharedSheet || m.CreatedBy == userName);
 
             List<PatientModel> patientsModels = new();
 
-            foreach (Patient patient in patients)
+            foreach (Patient patientEntity in patients)
             {
-                PatientModel patientModel = MapToPatientModel(patient);
+                PatientModel patientModel = MapPatientEntityToPatientModel(patientEntity);
                 patientsModels.Add(patientModel);
             }
 
             return patientsModels;
         }
 
-        /// <summary>
-        /// Creation of a patient by logged user
-        /// </summary>
         public void CreatePatient(PatientModel patientModel)
         {
-            // Removal of any blank spaces for recording the social security number in the database
-            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
+            Patient patientEntity = MapPatientModelToPatientEntity(patientModel);
 
-            Patient patient = MapToPatient(patientModel);
-
-            _patientRepository.CreatePatient(patient);
+            _patientRepository.CreatePatient(patientEntity);
         }
 
         public void UpdatePatient(PatientModel patientModel)
         {
-            // Removal of any blank spaces for recording the social security number in the database
-            patientModel.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
+            Patient patientEntity = MapPatientModelToPatientEntity(patientModel);
 
-            Patient patient = MapToPatient(patientModel);
-
-            _patientRepository.UpdatePatient(patient);
+            _patientRepository.UpdatePatient(patientEntity);
         }
 
         public void DeletePatient(PatientModel patientModel)
         {
-            Patient patient = _patientRepository.GetPatientById(patientModel.Id);
+            Patient patientEntity = _patientRepository.GetPatientById(patientModel.Id);
 
-            _patientRepository.DeletePatient(patient);
+            _patientRepository.DeletePatient(patientEntity);
         }
 
         #endregion CRUD Patients
 
         #region Mapping
 
-        /// <summary>
-        /// Map patient model to patient entity
-        /// </summary>
-        /// <param name="patientModel">Patient model</param>
-        /// <returns>Patient entity</returns>
-        public Patient MapToPatient(PatientModel patientModel)
+        public Patient MapPatientModelToPatientEntity(PatientModel patientModel)
         {
             if (patientModel == null)
                 return new Patient();
 
-            Patient patient = _patientRepository.GetPatientById(patientModel.Id);
+            Patient patientEntity = _patientRepository.GetPatientById(patientModel.Id);
 
-            if (patient == null)
+            if (patientEntity == null)
             {
                 Patient newPatient = new()
                 {
-                    SocialSecurityNumber = patientModel.SocialSecurityNumber,
+                    SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber),
                     LastName = patientModel.LastName,
                     FirstName = patientModel.FirstName,
                     BirthDate = patientModel.BirthDate,
@@ -108,38 +90,33 @@ namespace Tremplin.Services
                 return newPatient;
             }
 
-            patient.SocialSecurityNumber = patientModel.SocialSecurityNumber;
-            patient.LastName = patientModel.LastName;
-            patient.FirstName = patientModel.FirstName;
-            patient.BirthDate = patientModel.BirthDate;
-            patient.BloodGroup = patientModel.BloodGroup;
-            patient.Sex = patientModel.Sex;
-            patient.SharedSheet = patientModel.SharedSheet;
+            patientEntity.SocialSecurityNumber = SocialSecurityNumberHelper.RemoveBlankSpacesInSocialSecurityNumber(patientModel.SocialSecurityNumber);
+            patientEntity.LastName = patientModel.LastName;
+            patientEntity.FirstName = patientModel.FirstName;
+            patientEntity.BirthDate = patientModel.BirthDate;
+            patientEntity.BloodGroup = patientModel.BloodGroup;
+            patientEntity.Sex = patientModel.Sex;
+            patientEntity.SharedSheet = patientModel.SharedSheet;
 
-            return patient;
+            return patientEntity;
         }
 
-        /// <summary>
-        /// Map patient entity to patient model
-        /// </summary>
-        /// <param name="patient">Patient entity</param>
-        /// <returns>Patient model</returns>
-        public static PatientModel MapToPatientModel(Patient patient)
+        public static PatientModel MapPatientEntityToPatientModel(Patient patientEntity)
         {
-            if (patient == null)
+            if (patientEntity == null)
                 return new PatientModel();
 
             return new PatientModel()
             {
-                Id = patient.Id,
-                SocialSecurityNumber = patient.SocialSecurityNumber,
-                LastName = patient.LastName,
-                FirstName = patient.FirstName,
-                BirthDate = patient.BirthDate,
-                BloodGroup = patient.BloodGroup,
-                Sex = patient.Sex,
-                SharedSheet = patient.SharedSheet,
-                CreatedBy = patient.CreatedBy
+                Id = patientEntity.Id,
+                SocialSecurityNumber = patientEntity.SocialSecurityNumber,
+                LastName = patientEntity.LastName,
+                FirstName = patientEntity.FirstName,
+                BirthDate = patientEntity.BirthDate,
+                BloodGroup = patientEntity.BloodGroup,
+                Sex = patientEntity.Sex,
+                SharedSheet = patientEntity.SharedSheet,
+                CreatedBy = patientEntity.CreatedBy
             };
         }
 

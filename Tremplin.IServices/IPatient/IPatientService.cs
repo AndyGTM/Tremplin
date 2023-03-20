@@ -6,17 +6,10 @@ namespace Tremplin.IServices
     {
         #region CRUD Patients
 
-        PatientModel GetPatientById (int id);
+        PatientModel GetPatientById (int idPatient);
 
-        /// <summary>
-        /// Gets list of patients with shared sheet and/or created by logged user
-        /// </summary>
-        /// <param name="userName">Logged user</param>
         IEnumerable<PatientModel> GetPatients(string userName);
 
-        /// <summary>
-        /// Creation of a patient by logged user
-        /// </summary>
         void CreatePatient(PatientModel patientModel);
 
         void UpdatePatient(PatientModel patientModel);

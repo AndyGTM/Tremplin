@@ -9,7 +9,6 @@ namespace Tremplin.Services
 
         public User CreateUser(string userName, string password, string email)
         {
-            // User creation
             User user = new()
             {
                 UserName = userName,

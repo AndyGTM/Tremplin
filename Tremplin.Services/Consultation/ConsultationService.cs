@@ -16,77 +16,63 @@ namespace Tremplin.Services
 
         #region CRUD Consultations
 
-        public ConsultationModel GetConsultationById(int id)
+        public ConsultationModel GetConsultationById(int idConsultation)
         {
-            Consultation consultation = _consultationRepository.GetConsultationById(id);
+            Consultation consultationEntity = _consultationRepository.GetConsultationById(idConsultation);
 
-            ConsultationModel consultationModel = MapToConsultationModel(consultation);
+            ConsultationModel consultationModel = MapConsultationEntityToConsultationModel(consultationEntity);
 
             return consultationModel;
         }
 
-        /// <summary>
-        /// Gets list of consultations by patient Id
-        /// </summary>
         public IEnumerable<ConsultationModel> GetConsultations(int idPatient)
         {
             IQueryable<Consultation> consultations = _consultationRepository.GetConsultations().Where(m => m.PatientId == idPatient);
 
             List<ConsultationModel> consultationsModels = new();
 
-            foreach (Consultation consultation in consultations)
+            foreach (Consultation consultationEntity in consultations)
             {
-                ConsultationModel consultationModel = MapToConsultationModel(consultation);
+                ConsultationModel consultationModel = MapConsultationEntityToConsultationModel(consultationEntity);
                 consultationsModels.Add(consultationModel);
             }
 
             return consultationsModels;
         }
 
-        /// <summary>
-        /// Creation of a consultation for the selected patient
-        /// </summary>
         public void CreateConsultation(ConsultationModel consultationModel)
         {
-            Consultation consultation = MapToConsultation(consultationModel);
+            Consultation consultationEntity = MapConsultationModelToConsultationEntity(consultationModel);
 
-            _consultationRepository.CreateConsultation(consultation);
+            _consultationRepository.CreateConsultation(consultationEntity);
         }
 
-        /// <summary>
-        /// Update of a consultation for the selected patient
-        /// </summary>
         public void UpdateConsultation(ConsultationModel consultationModel)
         {
-            Consultation consultation = MapToConsultation(consultationModel);
+            Consultation consultationEntity = MapConsultationModelToConsultationEntity(consultationModel);
 
-            _consultationRepository.UpdateConsultation(consultation);
+            _consultationRepository.UpdateConsultation(consultationEntity);
         }
 
         public void DeleteConsultation(ConsultationModel consultationModel)
         {
-            Consultation consultation = _consultationRepository.GetConsultationById(consultationModel.Id);
+            Consultation consultationEntity = _consultationRepository.GetConsultationById(consultationModel.Id);
 
-            _consultationRepository.DeleteConsultation(consultation);
+            _consultationRepository.DeleteConsultation(consultationEntity);
         }
 
         #endregion CRUD Consultations
 
         #region Mapping
 
-        /// <summary>
-        /// Map consultation model to consultation entity
-        /// </summary>
-        /// <param name="consultationModel">Consultation model</param>
-        /// <returns>Consultation entity</returns>
-        public Consultation MapToConsultation(ConsultationModel consultationModel)
+        public Consultation MapConsultationModelToConsultationEntity(ConsultationModel consultationModel)
         {
             if (consultationModel == null)
                 return new Consultation();
 
-            Consultation consultation = _consultationRepository.GetConsultationById(consultationModel.Id);
+            Consultation consultationEntity = _consultationRepository.GetConsultationById(consultationModel.Id);
 
-            if (consultation == null)
+            if (consultationEntity == null)
             {
                 Consultation newConsultation = new()
                 {
@@ -99,31 +85,26 @@ namespace Tremplin.Services
                 return newConsultation;
             }
 
-            consultation.Date = consultationModel.Date;
-            consultation.ShortDescription = consultationModel.ShortDescription;
-            consultation.LongDescription = consultationModel.LongDescription;
-            consultation.PatientId = consultationModel.PatientId;
+            consultationEntity.Date = consultationModel.Date;
+            consultationEntity.ShortDescription = consultationModel.ShortDescription;
+            consultationEntity.LongDescription = consultationModel.LongDescription;
+            consultationEntity.PatientId = consultationModel.PatientId;
 
-            return consultation;
+            return consultationEntity;
         }
 
-        /// <summary>
-        /// Map consultation entity to consultation model
-        /// </summary>
-        /// <param name="consultation">Consultation entity</param>
-        /// <returns>Consultation model</returns>
-        public static ConsultationModel MapToConsultationModel(Consultation consultation)
+        public static ConsultationModel MapConsultationEntityToConsultationModel(Consultation consultationEntity)
         {
-            if (consultation == null)
+            if (consultationEntity == null)
                 return new ConsultationModel();
 
             return new ConsultationModel()
             {
-                Id = consultation.Id,
-                Date = consultation.Date,
-                ShortDescription = consultation.ShortDescription,
-                LongDescription = consultation.LongDescription,
-                PatientId = consultation.PatientId
+                Id = consultationEntity.Id,
+                Date = consultationEntity.Date,
+                ShortDescription = consultationEntity.ShortDescription,
+                LongDescription = consultationEntity.LongDescription,
+                PatientId = consultationEntity.PatientId
             };
         }
 

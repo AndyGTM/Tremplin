@@ -9,7 +9,6 @@ namespace Tremplin.Data
 {
     public class DataContext : DbContext
     {
-        // Get key and IV from a Base64String or any other ways
         private readonly byte[] _encryptionKey = AesProvider.GenerateKey(AesKeySize.AES256Bits).Key;
         private readonly byte[] _encryptionIV = AesProvider.GenerateKey(AesKeySize.AES256Bits).IV;
         private readonly IEncryptionProvider _provider;
@@ -17,7 +16,7 @@ namespace Tremplin.Data
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-            this._provider = new AesProvider(this._encryptionKey, this._encryptionIV);
+            _provider = new AesProvider(_encryptionKey, _encryptionIV);
         }
 
         public DbSet<Patient> Patient { get; set; }
@@ -30,21 +29,20 @@ namespace Tremplin.Data
 
         public DbSet<UserRole> UserRole { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!options.IsConfigured)
+            if (!optionsBuilder.IsConfigured)
             {
-                options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Tremplin.db;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Tremplin.db;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseEncryption(this._provider);
+            modelBuilder.UseEncryption(_provider);
 
             base.OnModelCreating(modelBuilder);
 
-            // Entity declaration for Code First
             modelBuilder.ApplyConfiguration(new ConsultationConfiguration()).AddConfiguration(new ConsultationAddConfiguration());
 
             modelBuilder.ApplyConfiguration(new PatientConfiguration()).AddConfiguration(new PatientAddConfiguration());

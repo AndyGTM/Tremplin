@@ -60,7 +60,7 @@
         {
             <tr>
                 <td>
-                    @(item.UserIsCreator ? "Oui":"Non")
+                    @(item.UserIsCreatorOfPatientSheet ? "Oui":"Non")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
@@ -84,7 +84,7 @@
                     @(item.SharedSheet ? "Oui":"Non")
                 </td>
 
-                @if (item.UserIsCreator)
+                @if (item.UserIsCreatorOfPatientSheet)
                 {
                     <td>
                         <a asp-controller="Consultations" asp-action="Index" asp-route-id="@item.Id">Consultations</a> |

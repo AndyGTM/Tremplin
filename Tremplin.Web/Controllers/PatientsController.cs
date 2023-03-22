@@ -79,11 +79,11 @@ namespace Tremplin.Controllers
                 // Check if user is the creator of the patient
                 if (patientModel.CreatedBy == user.UserName)
                 {
-                    patientModel.UserIsCreator = true;
+                    patientModel.UserIsCreatorOfPatientSheet = true;
                 }
                 else
                 {
-                    patientModel.UserIsCreator = false;
+                    patientModel.UserIsCreatorOfPatientSheet = false;
                 }
             }
 

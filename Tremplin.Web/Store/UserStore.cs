@@ -17,7 +17,6 @@ namespace Tremplin.Store
         {
             _userRepository.CreateUser(user, cancellationToken);
 
-            // Return
             return await Task.FromResult(IdentityResult.Success);
         }
 
@@ -25,21 +24,16 @@ namespace Tremplin.Store
         {
             _userRepository.UpdateUser(user, cancellationToken);
 
-            // Return
             return await Task.FromResult(IdentityResult.Success);
         }
 
         public async Task<User> FindByIdAsync(string userId, CancellationToken cancellationToken)
         {
-            // Find an user by his Id
-            return int.TryParse(userId, out int id) ?
-                _userRepository.GetUserById(id, cancellationToken) :
-                await Task.FromResult((User)null);
+            return int.TryParse(userId, out int id) ? _userRepository.GetUserById(id, cancellationToken) : await Task.FromResult((User)null);
         }
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            // Find an user by his name
             return await Task.FromResult(_userRepository.GetUserByName(normalizedUserName, cancellationToken));
         }
 

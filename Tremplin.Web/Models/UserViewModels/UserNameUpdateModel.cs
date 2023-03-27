@@ -6,9 +6,6 @@ namespace Tremplin.Models.UserViewModels
 {
     public class UserNameUpdateModel
     {
-        /// <summary>
-        /// User identifier
-        /// </summary>
         [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Identifiant")]
         [ExistingUserName]

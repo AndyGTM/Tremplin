@@ -10,28 +10,19 @@ namespace Tremplin.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        /// <summary>
-        /// User manager
-        /// </summary>
         private UserManager<User> UserManager { get; init; }
 
-        /// <summary>
-        /// Security manager
-        /// </summary>
         private SignInManager<User> LoginManager { get; init; }
 
         private readonly IUserService _userService;
 
         public UsersController(UserManager<User> aUserManager, SignInManager<User> aLoginManager, IUserService userService)
         {
-            this.UserManager = aUserManager;
-            this.LoginManager = aLoginManager;
+            UserManager = aUserManager;
+            LoginManager = aLoginManager;
             _userService = userService;
         }
 
-        /// <summary>
-        /// Provides access to the view for creating a user
-        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
@@ -39,10 +30,6 @@ namespace Tremplin.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Allows to create a user
-        /// </summary>
-        /// <param name="userRegistrationModel">User information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -50,14 +37,12 @@ namespace Tremplin.Controllers
         {
             IActionResult result;
 
-            // Valid input data ?
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(userRegistrationModel);
+                result = View(userRegistrationModel);
             }
             else
             {
-                // User creation
                 User user = _userService.CreateUser
                     (
                         userRegistrationModel.UserName,
@@ -65,99 +50,87 @@ namespace Tremplin.Controllers
                         userRegistrationModel.Email
                     );
 
-                IdentityResult resultCreate = await this.UserManager.CreateAsync(user, userRegistrationModel.Password);
+                IdentityResult resultCreate = await UserManager.CreateAsync(user, userRegistrationModel.Password);
 
-                // User created ?
                 if (!resultCreate.Succeeded)
                 {
                     foreach (IdentityError item in resultCreate.Errors)
-                        this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(userRegistrationModel);
+                    {
+                        ModelState.AddModelError(string.Empty, item.Description);
+                    }
+
+                    result = View(userRegistrationModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(Index), "Home");
+                {
+                    result = RedirectToAction(nameof(Index), "Home");
+                }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Provides access to the menu for updating an user's information
-        /// </summary>
         [HttpGet]
         public IActionResult UpdateMenu()
         {
             return View();
         }
 
-        /// <summary>
-        /// Provides access to the view for updating an user's name
-        /// </summary>
         [HttpGet]
         public IActionResult UserNameUpdate()
         {
             return View();
         }
 
-        /// <summary>
-        /// Allows to update an user's name
-        /// </summary>
-        /// <param name="userNameUpdateModel">UserName information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserNameUpdate(UserNameUpdateModel userNameUpdateModel)
         {
             IActionResult result;
 
-            // Valid input data ?
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(userNameUpdateModel);
+                result = View(userNameUpdateModel);
             }
             else
             {
-                // UserName update
                 User user = await UserManager.GetUserAsync(User);
                 user.UserName = userNameUpdateModel.UserName;
-                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+                IdentityResult resultUpdate = await UserManager.UpdateAsync(user);
 
-                // UserName updated ?
                 if (!resultUpdate.Succeeded)
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
-                        this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(userNameUpdateModel);
+                    {
+                        ModelState.AddModelError(string.Empty, item.Description);
+                    }
+
+                    result = View(userNameUpdateModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
+                {
+                    result = RedirectToAction(nameof(this.UpdateSucceeded));
+                }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Provides access to the view for updating an user's password
-        /// </summary>
         [HttpGet]
         public IActionResult PasswordUpdate()
         {
             return View();
         }
 
-        /// <summary>
-        /// Allows to update an user's password
-        /// </summary>
-        /// <param name="passwordUpdateModel">Password information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PasswordUpdate(PasswordUpdateModel passwordUpdateModel)
         {
             IActionResult result;
 
-            // First input data validation
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(passwordUpdateModel);
+                result = View(passwordUpdateModel);
             }
             else
             {
@@ -175,74 +148,72 @@ namespace Tremplin.Controllers
                     {
                         foreach (IdentityError error in resultValidator.Errors)
                         {
-                            this.ModelState.AddModelError(string.Empty, error.Description);
+                            ModelState.AddModelError(string.Empty, error.Description);
                         }
 
-                        result = this.View(passwordUpdateModel);
+                        result = View(passwordUpdateModel);
                         return result;
                     }
                 }
 
                 #endregion Password validators
 
-                // Password update
                 user.Password = UserManager.PasswordHasher.HashPassword(user, passwordUpdateModel.Password);
-                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+                IdentityResult resultUpdate = await UserManager.UpdateAsync(user);
 
-                // Password updated ?
                 if (!resultUpdate.Succeeded)
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
-                        this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(passwordUpdateModel);
+                    {
+                        ModelState.AddModelError(string.Empty, item.Description);
+                    }
+
+                    result = View(passwordUpdateModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
+                {
+                    result = RedirectToAction(nameof(this.UpdateSucceeded));
+                }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Provides access to the view for updating an user's email
-        /// </summary>
         [HttpGet]
         public IActionResult EmailUpdate()
         {
             return View();
         }
 
-        /// <summary>
-        /// Allows to update an user's email
-        /// </summary>
-        /// <param name="emailUpdateModel">Email information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EmailUpdate(EmailUpdateModel emailUpdateModel)
         {
             IActionResult result;
 
-            // Valid input data ?
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(emailUpdateModel);
+                result = View(emailUpdateModel);
             }
             else
             {
-                // Email update
                 User user = await UserManager.GetUserAsync(User);
                 user.Email = emailUpdateModel.Email;
-                IdentityResult resultUpdate = await this.UserManager.UpdateAsync(user);
+                IdentityResult resultUpdate = await UserManager.UpdateAsync(user);
 
-                // Email updated ?
                 if (!resultUpdate.Succeeded)
                 {
                     foreach (IdentityError item in resultUpdate.Errors)
-                        this.ModelState.AddModelError(string.Empty, item.Description);
-                    result = this.View(emailUpdateModel);
+                    {
+                        ModelState.AddModelError(string.Empty, item.Description);
+                    }
+
+                    result = View(emailUpdateModel);
                 }
                 else
-                    result = this.RedirectToAction(nameof(this.UpdateSucceeded));
+                {
+                    result = RedirectToAction(nameof(this.UpdateSucceeded));
+                }
             }
 
             return result;
@@ -250,79 +221,60 @@ namespace Tremplin.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        /// <summary>
-        /// Provides access to the view for the user login
-        /// </summary>
         public IActionResult Login()
         {
-            return this.View();
+            return View();
         }
 
-        /// <summary>
-        /// Allows a user to login
-        /// </summary>
-        /// <param name="userLoginModel">User credentials</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginModel userLoginModel)
         {
             IActionResult result;
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(userLoginModel);
+                result = View(userLoginModel);
             }
             else
             {
-                Microsoft.AspNetCore.Identity.SignInResult resultLogin = await this.LoginManager.PasswordSignInAsync(userLoginModel.UserName,
+                Microsoft.AspNetCore.Identity.SignInResult resultLogin = await LoginManager.PasswordSignInAsync(userLoginModel.UserName,
                     userLoginModel.Password, userLoginModel.IsRememberMe, false);
 
                 if (!resultLogin.Succeeded)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Identifiant ou mot de passe non correct ");
-                    result = this.View(userLoginModel);
+                    ModelState.AddModelError(string.Empty, "Identifiant ou mot de passe non correct ");
+                    result = View(userLoginModel);
                 }
                 else
-                    result = this.RedirectToAction(resultLogin.Succeeded ? nameof(this.AccessAllowed) : nameof(this.AccessDenied));
+                    result = RedirectToAction(resultLogin.Succeeded ? nameof(this.AccessAllowed) : nameof(this.AccessDenied));
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Allows a user to logout
-        /// </summary>
         [AllowAnonymous]
         public ActionResult Logout()
         {
-            this.LoginManager.SignOutAsync();
+            LoginManager.SignOutAsync();
 
-            return this.RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        /// <summary>
-        /// Method accessible to authenticated users
-        /// </summary>
         public IActionResult AccessAllowed()
         {
-            return this.View();
+            return View();
         }
 
-        /// <summary>
-        /// Method accessible to all users
-        /// </summary>
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
-            return this.View();
+            return View();
         }
 
-        /// <summary>
-        /// Provides access to the view when an update succeeds
-        /// </summary>
         public IActionResult UpdateSucceeded()
         {
-            return this.View();
+            return View();
         }
     }
 }

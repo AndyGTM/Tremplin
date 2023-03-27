@@ -3,9 +3,6 @@ using Tremplin.Data;
 
 namespace Tremplin.CustomValidation
 {
-    /// <summary>
-    /// Checking if there is an identical email in the database
-    /// </summary>
     public class ExistingMailAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

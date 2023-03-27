@@ -5,17 +5,11 @@ namespace Tremplin.Models.UserViewModels
 {
     public class PasswordUpdateModel
     {
-        /// <summary>
-        /// User password
-        /// </summary>
         [Required(ErrorMessage = "{0} requis")]
         [DisplayName("Mot de passe")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        /// <summary>
-        /// Password confirmation for users
-        /// </summary>
         [Required(ErrorMessage = "Le mot de passe doit être confirmé")]
         [DisplayName("Confirmation du mot de passe")]
         [DataType(DataType.Password)]

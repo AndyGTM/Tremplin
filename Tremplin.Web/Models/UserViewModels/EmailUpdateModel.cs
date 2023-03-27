@@ -6,9 +6,6 @@ namespace Tremplin.Models.UserViewModels
 {
     public class EmailUpdateModel
     {
-        /// <summary>
-        /// User email
-        /// </summary>
         [Required(ErrorMessage = "{0} requis")]
         [DisplayName("E-mail")]
         [EmailAddress(ErrorMessage = "{0} non valide")]

@@ -28,7 +28,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserIsCreator)
+                @Html.DisplayNameFor(model => model.UserIsCreatorOfPatientSheet)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SocialSecurityNumber)
@@ -49,7 +49,7 @@
                 @Html.DisplayNameFor(model => model.Sex)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SharedSheet)
+                @Html.DisplayNameFor(model => model.SharedSheetWithOthersPractitioners)
             </th>
             <th></th>
         </tr>
@@ -60,7 +60,7 @@
         {
             <tr>
                 <td>
-                    @(item.UserIsCreatorOfPatientSheet ? "Oui":"Non")
+                    @(item.UserIsCreatorOfPatientSheet ? "Oui" : "Non")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SocialSecurityNumber)
@@ -81,7 +81,7 @@
                     @Html.DisplayFor(modelItem => item.Sex)
                 </td>
                 <td>
-                    @(item.SharedSheet ? "Oui":"Non")
+                    @(item.SharedSheet ? "Oui" : "Non")
                 </td>
 
                 @if (item.UserIsCreatorOfPatientSheet)

@@ -12,23 +12,14 @@ namespace Tremplin.Models.ConsultationViewModels
         [ForeignKey("Patient"), Required]
         public int Id { get; set; }
 
-        /// <summary>
-        /// Consultation date
-        /// </summary>
         [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de consultation")]
         public DateTime Date { get; set; }
 
-        /// <summary>
-        /// Short description of the consultation
-        /// </summary>
         [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Description courte")]
         public string ShortDescription { get; set; }
 
-        /// <summary>
-        /// Long description of the consultation
-        /// </summary>
         [DisplayName("Description longue (optionnelle)")]
         public string? LongDescription { get; set; }
     }

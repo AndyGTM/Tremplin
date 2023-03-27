@@ -3,9 +3,6 @@ using Tremplin.Data;
 
 namespace Tremplin.CustomValidation
 {
-    /// <summary>
-    /// Checking if there is an identical username in the database
-    /// </summary>
     public class ExistingUserNameAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

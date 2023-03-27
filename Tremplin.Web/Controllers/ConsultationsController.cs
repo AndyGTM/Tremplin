@@ -11,9 +11,6 @@ namespace Tremplin.Controllers
     [Authorize]
     public class ConsultationsController : Controller
     {
-        /// <summary>
-        /// User manager
-        /// </summary>
         private UserManager<User> UserManager { get; init; }
 
         private readonly IConsultationService _consultationService;
@@ -22,16 +19,13 @@ namespace Tremplin.Controllers
 
         public ConsultationsController(UserManager<User> aUserManager, IConsultationService consultationService, IPatientService patientService)
         {
-            this.UserManager = aUserManager;
+            UserManager = aUserManager;
             _consultationService = consultationService;
             _patientService = patientService;
         }
 
         #region CRUD Consultations
 
-        /// <summary>
-        /// Provides access to the view for listing consultations
-        /// </summary>
         /// <param name="id">Patient Id</param>
         [HttpGet]
         public async Task<IActionResult> Index(int id, ConsultationListModel consultationListModel)
@@ -40,10 +34,9 @@ namespace Tremplin.Controllers
 
             PatientModel patientModel = _patientService.GetPatientById(id);
 
-            // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
             {
-                return this.RedirectToAction("AccessDenied", "Users");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             IEnumerable<ConsultationModel> consultationsModels = _consultationService.GetConsultations(id);
@@ -54,9 +47,6 @@ namespace Tremplin.Controllers
             return View(consultationListModel);
         }
 
-        /// <summary>
-        /// Provides access to the view for creating a consultation
-        /// </summary>
         /// <param name="id">Patient Id</param>
         [HttpGet]
         public async Task<IActionResult> Create(int id)
@@ -65,10 +55,9 @@ namespace Tremplin.Controllers
 
             PatientModel patientModel = _patientService.GetPatientById(id);
 
-            // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
             {
-                return this.RedirectToAction("AccessDenied", "Users");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             ConsultationCreationModel consultationCreationModel = new()
@@ -80,24 +69,18 @@ namespace Tremplin.Controllers
             return View(consultationCreationModel);
         }
 
-        /// <summary>
-        /// Allows to create a consultation
-        /// </summary>
-        /// <param name="consultationCreationModel">Consultation information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ConsultationCreationModel consultationCreationModel)
         {
             IActionResult result;
 
-            // Valid input data ?
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(consultationCreationModel);
+                result = View(consultationCreationModel);
             }
             else
             {
-                // Consultation creation
                 ConsultationModel consultationModel = new()
                 {
                     Date = consultationCreationModel.Date,
@@ -108,15 +91,12 @@ namespace Tremplin.Controllers
 
                 _consultationService.CreateConsultation(consultationModel);
 
-                result = this.RedirectToAction(nameof(this.Index), new { id = consultationCreationModel.Id });
+                result = RedirectToAction(nameof(this.Index), new { id = consultationCreationModel.Id });
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Provides access to the view for consultation's details
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Details(int id, ConsultationDetailsModel consultationDetailsModel)
         {
@@ -126,14 +106,12 @@ namespace Tremplin.Controllers
 
             PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
-            // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
             {
-                return this.RedirectToAction("AccessDenied", "Users");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             consultationDetailsModel.Id = consultationModel.Id;
-
             consultationDetailsModel.Date = consultationModel.Date;
             consultationDetailsModel.ShortDescription = consultationModel.ShortDescription;
             consultationDetailsModel.LongDescription = consultationModel.LongDescription;
@@ -142,9 +120,6 @@ namespace Tremplin.Controllers
             return View(consultationDetailsModel);
         }
 
-        /// <summary>
-        /// Provides access to the view for updating a consultation
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -154,10 +129,9 @@ namespace Tremplin.Controllers
 
             PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
-            // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
             {
-                return this.RedirectToAction("AccessDenied", "Users");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             ConsultationUpdateModel consultationUpdateModel = new()
@@ -172,24 +146,18 @@ namespace Tremplin.Controllers
             return View(consultationUpdateModel);
         }
 
-        /// <summary>
-        /// Allows to update a consultation
-        /// </summary>
-        /// <param name="consultationUpdateModel">Consultation information</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(ConsultationUpdateModel consultationUpdateModel)
         {
             IActionResult result;
 
-            // Valid input data ?
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                result = this.View(consultationUpdateModel);
+                result = View(consultationUpdateModel);
             }
             else
             {
-                // Consultation update
                 ConsultationModel consultationModel = _consultationService.GetConsultationById(consultationUpdateModel.Id);
 
                 consultationModel.Date = consultationUpdateModel.Date;
@@ -198,15 +166,12 @@ namespace Tremplin.Controllers
 
                 _consultationService.UpdateConsultation(consultationModel);
 
-                result = this.RedirectToAction(nameof(this.Index), new { id = consultationModel.PatientId });
+                result = RedirectToAction(nameof(this.Index), new { id = consultationModel.PatientId });
             }
 
             return result;
         }
 
-        /// <summary>
-        /// Provides access to the view for deleting a consultation
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Delete(int id, ConsultationDeleteModel consultationdDeleteModel)
         {
@@ -216,10 +181,9 @@ namespace Tremplin.Controllers
 
             PatientModel patientModel = _patientService.GetPatientById(consultationModel.PatientId);
 
-            // Check if user has the rights to access this view
             if (patientModel.CreatedBy != user.UserName)
             {
-                return this.RedirectToAction("AccessDenied", "Users");
+                return RedirectToAction("AccessDenied", "Users");
             }
 
             consultationdDeleteModel.Id = consultationModel.Id;
@@ -230,23 +194,19 @@ namespace Tremplin.Controllers
             return View(consultationdDeleteModel);
         }
 
-        /// <summary>
-        /// Allows to delete a consultation
-        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(ConsultationDeleteModel consultationdDeleteModel)
         {
             IActionResult result;
 
-            // Consultation delete
             ConsultationModel consultationModel = _consultationService.GetConsultationById(consultationdDeleteModel.Id);
 
             consultationdDeleteModel.PatientId = consultationModel.PatientId;
 
             _consultationService.DeleteConsultation(consultationModel);
 
-            result = this.RedirectToAction(nameof(this.Index), new { id = consultationdDeleteModel.PatientId });
+            result = RedirectToAction(nameof(this.Index), new { id = consultationdDeleteModel.PatientId });
 
             return result;
         }

@@ -83,7 +83,7 @@ namespace Tremplin.Services
                     BirthDate = patientModel.BirthDate,
                     BloodGroup = patientModel.BloodGroup,
                     Sex = patientModel.Sex,
-                    SharedSheet = patientModel.SharedSheet,
+                    SharedSheet = patientModel.SharedSheetWithOthersPractitioners,
                     CreatedBy = patientModel.CreatedBy
                 };
 
@@ -96,7 +96,7 @@ namespace Tremplin.Services
             patientEntity.BirthDate = patientModel.BirthDate;
             patientEntity.BloodGroup = patientModel.BloodGroup;
             patientEntity.Sex = patientModel.Sex;
-            patientEntity.SharedSheet = patientModel.SharedSheet;
+            patientEntity.SharedSheet = patientModel.SharedSheetWithOthersPractitioners;
 
             return patientEntity;
         }
@@ -115,7 +115,7 @@ namespace Tremplin.Services
                 BirthDate = patientEntity.BirthDate,
                 BloodGroup = patientEntity.BloodGroup,
                 Sex = patientEntity.Sex,
-                SharedSheet = patientEntity.SharedSheet,
+                SharedSheetWithOthersPractitioners = patientEntity.SharedSheet,
                 CreatedBy = patientEntity.CreatedBy
             };
         }

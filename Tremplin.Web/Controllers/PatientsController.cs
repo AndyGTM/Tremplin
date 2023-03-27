@@ -111,7 +111,7 @@ namespace Tremplin.Controllers
                     BirthDate = patientCreationModel.BirthDate,
                     BloodGroup = patientCreationModel.BloodGroup,
                     Sex = patientCreationModel.Sex,
-                    SharedSheet = patientCreationModel.SharedSheetWithOthersPractitioners,
+                    SharedSheetWithOthersPractitioners = patientCreationModel.SharedSheetWithOthersPractitioners,
                     CreatedBy = user.UserName
                 };
 
@@ -144,7 +144,7 @@ namespace Tremplin.Controllers
                 BirthDate = patientModel.BirthDate,
                 BloodGroup = patientModel.BloodGroup,
                 Sex = patientModel.Sex,
-                SharedSheetWithOthersPractitioners = patientModel.SharedSheet
+                SharedSheetWithOthersPractitioners = patientModel.SharedSheetWithOthersPractitioners
             };
 
             return View(patientUpdateModel);
@@ -170,7 +170,7 @@ namespace Tremplin.Controllers
                 patientModel.BirthDate = patientUpdateModel.BirthDate;
                 patientModel.BloodGroup = patientUpdateModel.BloodGroup;
                 patientModel.Sex = patientUpdateModel.Sex;
-                patientModel.SharedSheet = patientUpdateModel.SharedSheetWithOthersPractitioners;
+                patientModel.SharedSheetWithOthersPractitioners = patientUpdateModel.SharedSheetWithOthersPractitioners;
 
                 _patientService.UpdatePatient(patientModel);
 
@@ -201,7 +201,7 @@ namespace Tremplin.Controllers
                 BirthDate = patientModel.BirthDate,
                 BloodGroup = patientModel.BloodGroup,
                 Sex = patientModel.Sex,
-                SharedSheetWithOthersPractitioners = patientModel.SharedSheet
+                SharedSheetWithOthersPractitioners = patientModel.SharedSheetWithOthersPractitioners
             };
 
             return View(patientDeleteModel);

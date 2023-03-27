@@ -28,7 +28,7 @@ namespace Tremplin.Models
         [Required]
         public SexTypes Sex { get; set; }
 
-        public bool SharedSheet { get; set; }
+        public bool SharedSheetWithOthersPractitioners { get; set; }
 
         public string CreatedBy { get; set; }
 

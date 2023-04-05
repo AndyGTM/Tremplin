@@ -16,18 +16,18 @@ namespace Tremplin.Services
 
         #region CRUD Consultations
 
-        public ConsultationModel GetConsultationById(int idConsultation)
+        public ConsultationModel GetConsultationById(int consultationId)
         {
-            Consultation consultationEntity = _consultationRepository.GetConsultationById(idConsultation);
+            Consultation consultationEntity = _consultationRepository.GetConsultationById(consultationId);
 
             ConsultationModel consultationModel = MapConsultationEntityToConsultationModel(consultationEntity);
 
             return consultationModel;
         }
 
-        public IEnumerable<ConsultationModel> GetConsultations(int idPatient)
+        public IEnumerable<ConsultationModel> GetConsultations(int patientId)
         {
-            IQueryable<Consultation> consultations = _consultationRepository.GetConsultations().Where(m => m.PatientId == idPatient);
+            IQueryable<Consultation> consultations = _consultationRepository.GetConsultations().Where(m => m.PatientId == patientId);
 
             List<ConsultationModel> consultationsModels = new();
 

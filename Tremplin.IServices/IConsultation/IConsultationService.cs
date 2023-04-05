@@ -6,9 +6,9 @@ namespace Tremplin.IServices
     {
         #region CRUD Consultations
 
-        ConsultationModel GetConsultationById(int idConsultation);
+        ConsultationModel GetConsultationById(int consultationId);
 
-        IEnumerable<ConsultationModel> GetConsultations(int idPatient);
+        IEnumerable<ConsultationModel> GetConsultations(int patientId);
 
         void CreateConsultation(ConsultationModel consultationModel);
 

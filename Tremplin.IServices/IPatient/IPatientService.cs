@@ -6,7 +6,7 @@ namespace Tremplin.IServices
     {
         #region CRUD Patients
 
-        PatientModel GetPatientById (int idPatient);
+        PatientModel GetPatientById (int patientId);
 
         IEnumerable<PatientModel> GetPatients(string userName);
 

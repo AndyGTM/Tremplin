@@ -17,9 +17,9 @@ namespace Tremplin.Services
 
         #region CRUD Patients
 
-        public PatientModel GetPatientById(int idPatient)
+        public PatientModel GetPatientById(int patientId)
         {
-            Patient patientEntity = _patientRepository.GetPatientById(idPatient);
+            Patient patientEntity = _patientRepository.GetPatientById(patientId);
 
             PatientModel patientModel = MapPatientEntityToPatientModel(patientEntity);
 

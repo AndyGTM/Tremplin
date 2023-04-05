@@ -1,22 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Tremplin.Core.Helpers;
 
 namespace Tremplin.CustomValidation
 {
-    public class BirthDateNotAfterTodayAttribute : ValidationAttribute
+    public class BirthDateBeforeOrEqualToTodayAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
-            int comparisonResult = DateTime.Compare((DateTime)value, DateTime.Today);
+            bool comparisonResult = ComparisonDatesHelper.IsBeforeOrEqualToToday((DateTime)value);
 
-            if (comparisonResult <= 0)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+            return comparisonResult;
         }
     }
 }

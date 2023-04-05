@@ -1,4 +1,5 @@
-﻿using Tremplin.Tests.CustomData;
+﻿using Tremplin.Core.Helpers;
+using Tremplin.Tests.CustomData;
 
 namespace Tremplin.Tests.Helpers
 {
@@ -7,9 +8,9 @@ namespace Tremplin.Tests.Helpers
     {
         [DataTestMethod]
         [ComparisonDatesDataSource]
-        public void Compare_BirthDate_WithToday(string displayTestRowName, DateTime birthDate, int expectedComparison)
+        public void Compare_BirthDate_WithToday(string displayTestRowName, DateTime birthDate, bool expectedComparison)
         {
-            int currentComparison = DateTime.Compare(birthDate, DateTime.Today);
+            bool currentComparison = ComparisonDatesHelper.IsBeforeOrEqualToToday(birthDate);
 
             Assert.AreEqual(expectedComparison, currentComparison);
         }

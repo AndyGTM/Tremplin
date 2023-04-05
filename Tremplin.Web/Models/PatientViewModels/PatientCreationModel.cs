@@ -24,7 +24,7 @@ namespace Tremplin.Models.PatientViewModels
 
         [Required(ErrorMessage = "{0} requise")]
         [DisplayName("Date de naissance")]
-        [BirthDateNotAfterToday(ErrorMessage = "La {0} ne peut pas être après la date d'aujourd'hui")]
+        [BirthDateBeforeOrEqualToToday(ErrorMessage = "La {0} ne peut pas être après la date d'aujourd'hui")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "{0} requis")]

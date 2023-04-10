@@ -24,7 +24,8 @@ namespace Tremplin.Tests.Services.Patient
                 CreatedBy = "Antoine"
             };
             Mock<IPatientService> patientServiceMock = new();
-            patientServiceMock.Setup(p => p.GetPatientById(patientModelMock.Id)).Returns(patientModelMock);
+            patientServiceMock.Setup(p => p.GetPatientById(patientModelMock.Id))
+                              .Returns(patientModelMock);
 
             PatientModel patientModelResult = patientServiceMock.Object.GetPatientById(patientModelMock.Id);
 

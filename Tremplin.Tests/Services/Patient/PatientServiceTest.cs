@@ -30,5 +30,69 @@ namespace Tremplin.Tests.Services.Patient
 
             Assert.AreEqual(patientModelMock, patientModelResult);
         }
+
+        [TestMethod("Get patients with shared sheet and/or created by defined user")]
+        public void Get_Patients_WithSharedSheetAndOrCreatedByDefinedUser()
+        {
+            string definedUser = "Antoine";
+            List<PatientModel> patientsModelsMock = new(){
+                new PatientModel
+                {
+                    Id = 30,
+                    SocialSecurityNumber = "164031685324945",
+                    LastName = "Bollou",
+                    FirstName = "Michel",
+                    BirthDate = new DateTime(1964, 03, 07),
+                    BloodGroup = BloodGroupNames.BPositive,
+                    Sex = SexTypes.Male,
+                    SharedSheetWithOthersPractitioners = true,
+                    CreatedBy = definedUser
+                },
+                new PatientModel
+                {
+                    Id = 31,
+                    SocialSecurityNumber = "259075841653541",
+                    LastName = "Fadois",
+                    FirstName = "Marthe",
+                    BirthDate = new DateTime(1959, 07, 11),
+                    BloodGroup = BloodGroupNames.ABPositive,
+                    Sex = SexTypes.Female,
+                    SharedSheetWithOthersPractitioners = false,
+                    CreatedBy = definedUser
+                },
+                new PatientModel
+                {
+                    Id = 32,
+                    SocialSecurityNumber = "271022365485214",
+                    LastName = "Saffa",
+                    FirstName = "Denise",
+                    BirthDate = new DateTime(1971, 02, 02),
+                    BloodGroup = BloodGroupNames.OPositive,
+                    Sex = SexTypes.Female,
+                    SharedSheetWithOthersPractitioners = true,
+                    CreatedBy = "Paul"
+                },
+                new PatientModel
+                {
+                    Id = 33,
+                    SocialSecurityNumber = "178114368568423",
+                    LastName = "Gupain",
+                    FirstName = "Fabrice",
+                    BirthDate = new DateTime(1978, 11, 25),
+                    BloodGroup = BloodGroupNames.ANegative,
+                    Sex = SexTypes.Male,
+                    SharedSheetWithOthersPractitioners = false,
+                    CreatedBy = "Paul"
+                }
+            };
+            Mock<IPatientService> patientServiceMock = new();
+            patientServiceMock.Setup(p => p.GetPatients(definedUser))
+                              .Returns(patientsModelsMock
+                              .Where(m => m.SharedSheetWithOthersPractitioners || m.CreatedBy == definedUser));
+
+            IEnumerable<PatientModel> patientsModelsResult = patientServiceMock.Object.GetPatients(definedUser);
+
+            Assert.AreEqual(3, patientsModelsResult.Count());
+        }
     }
 }

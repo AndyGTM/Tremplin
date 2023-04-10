@@ -88,8 +88,7 @@ namespace Tremplin.Tests.Services.Patient
             };
             Mock<IPatientService> patientServiceMock = new();
             patientServiceMock.Setup(p => p.GetPatients(definedUser))
-                              .Returns(patientsModelsMock
-                              .Where(m => m.SharedSheetWithOthersPractitioners || m.CreatedBy == definedUser));
+                              .Returns(patientsModelsMock.Where(m => m.SharedSheetWithOthersPractitioners || m.CreatedBy == definedUser));
 
             IEnumerable<PatientModel> patientsModelsResult = patientServiceMock.Object.GetPatients(definedUser);
 

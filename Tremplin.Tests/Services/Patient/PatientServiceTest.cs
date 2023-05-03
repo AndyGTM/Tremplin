@@ -94,5 +94,27 @@ namespace Tremplin.Tests.Services.Patient
 
             Assert.AreEqual(3, patientsModelsResult.Count());
         }
+
+        [TestMethod("Create a patient correctly")]
+        public void Create_Patient_Correctly()
+        {
+            PatientModel patientModelMock = new()
+            {
+                Id = 45,
+                SocialSecurityNumber = "264012685413579",
+                LastName = "Camblet",
+                FirstName = "Gabrielle",
+                BirthDate = new DateTime(1964, 01, 24),
+                BloodGroup = BloodGroupNames.BNegative,
+                Sex = SexTypes.Female,
+                SharedSheetWithOthersPractitioners = false,
+                CreatedBy = "Antoine"
+            };
+            Mock<IPatientService> patientServiceMock = new();
+
+            patientServiceMock.Object.CreatePatient(patientModelMock);
+
+            patientServiceMock.Verify(p => p.CreatePatient(It.IsAny<PatientModel>()), Times.Once());
+        }
     }
 }

@@ -106,8 +106,8 @@ namespace Tremplin.Tests.Services.Patient
             Assert.AreEqual(3, patientsModelsResult.Count());
         }
 
-        [TestMethod("Create a patient correctly")]
-        public void Create_Patient_Correctly()
+        [TestMethod("Correctly call the service to create a patient")]
+        public void Create_Patient_CallMethodCorrectly()
         {
             PatientModel patientModelMock = new()
             {
@@ -121,11 +121,10 @@ namespace Tremplin.Tests.Services.Patient
                 SharedSheetWithOthersPractitioners = false,
                 CreatedBy = "Antoine"
             };
-            Mock<IPatientService> patientServiceMock = new();
 
-            patientServiceMock.Object.CreatePatient(patientModelMock);
+            _patientService.CreatePatient(patientModelMock);
 
-            patientServiceMock.Verify(p => p.CreatePatient(It.IsAny<PatientModel>()), Times.Once());
+            _patientRepositoryMock.Verify(p => p.CreatePatient(It.IsAny<Data.Entity.Patient>()), Times.Once());
         }
 
         [TestMethod("Correctly call the service to delete a patient")]

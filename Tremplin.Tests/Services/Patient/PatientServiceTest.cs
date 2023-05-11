@@ -71,6 +71,27 @@ namespace Tremplin.Tests.Services.Patient
             _patientRepositoryMock.Verify(p => p.CreatePatient(It.IsAny<Data.Entity.Patient>()), Times.Once());
         }
 
+        [TestMethod("Correctly call the service to update a patient")]
+        public void Update_Patient_CallServiceCorrectly()
+        {
+            PatientModel patientModelMock = new()
+            {
+                Id = 56,
+                SocialSecurityNumber = "161122348652953",
+                LastName = "Gaffran",
+                FirstName = "Patrice",
+                BirthDate = new DateTime(1961, 12, 08),
+                BloodGroup = BloodGroupNames.ABNegative,
+                Sex = SexTypes.Male,
+                SharedSheetWithOthersPractitioners = true,
+                CreatedBy = "Paul"
+            };
+
+            _patientService.UpdatePatient(patientModelMock);
+
+            _patientRepositoryMock.Verify(p => p.UpdatePatient(It.IsAny<Data.Entity.Patient>()), Times.Once());
+        }
+
         [TestMethod("Correctly call the service to delete a patient")]
         public void Delete_Patient_CallServiceCorrectly()
         {

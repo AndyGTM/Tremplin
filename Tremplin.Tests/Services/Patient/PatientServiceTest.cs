@@ -19,6 +19,8 @@ namespace Tremplin.Tests.Services.Patient
             _patientService = new PatientService(_patientRepositoryMock.Object);
         }
 
+        #region CRUD Patients
+
         [TestMethod("Correctly call the service to get a patient by his id")]
         public void Get_PatientById_CallServiceCorrectly()
         {
@@ -112,5 +114,7 @@ namespace Tremplin.Tests.Services.Patient
 
             _patientRepositoryMock.Verify(p => p.DeletePatient(It.IsAny<Data.Entity.Patient>()), Times.Once());
         }
+
+        #endregion CRUD Patients
     }
 }

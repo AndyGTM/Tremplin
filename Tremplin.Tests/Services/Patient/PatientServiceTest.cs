@@ -104,7 +104,7 @@ namespace Tremplin.Tests.Services.Patient
         }
 
         [TestMethod("Correctly call the service to create a patient")]
-        public void Create_Patient_CallMethodCorrectly()
+        public void Create_Patient_CallServiceCorrectly()
         {
             PatientModel patientModelMock = new()
             {
@@ -125,7 +125,7 @@ namespace Tremplin.Tests.Services.Patient
         }
 
         [TestMethod("Correctly call the service to delete a patient")]
-        public void Delete_Patient_CallMethodCorrectly()
+        public void Delete_Patient_CallServiceCorrectly()
         {
             PatientModel patientModelMock = new()
             {

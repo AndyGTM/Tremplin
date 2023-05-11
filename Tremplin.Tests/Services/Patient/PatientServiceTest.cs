@@ -19,10 +19,10 @@ namespace Tremplin.Tests.Services.Patient
             _patientService = new PatientService(_patientRepositoryMock.Object);
         }
 
-        [TestMethod("Get a patient by his id")]
-        public void Get_Patient_ById()
+        [TestMethod("Correctly call the service to get a patient by his id")]
+        public void Get_PatientById_CallServiceCorrectly()
         {
-            PatientModel patientModelMock = new()
+            Data.Entity.Patient patientMock = new()
             {
                 Id = 20,
                 SocialSecurityNumber = "175043577788855",
@@ -31,16 +31,13 @@ namespace Tremplin.Tests.Services.Patient
                 BirthDate = new DateTime(1975, 04, 30),
                 BloodGroup = BloodGroupNames.APositive,
                 Sex = SexTypes.Male,
-                SharedSheetWithOthersPractitioners = true,
+                SharedSheet = true,
                 CreatedBy = "Antoine"
             };
-            Mock<IPatientService> patientServiceMock = new();
-            patientServiceMock.Setup(p => p.GetPatientById(patientModelMock.Id))
-                              .Returns(patientModelMock);
 
-            PatientModel patientModelResult = patientServiceMock.Object.GetPatientById(patientModelMock.Id);
+            _patientService.GetPatientById(patientMock.Id);
 
-            Assert.AreEqual(patientModelMock, patientModelResult);
+            _patientRepositoryMock.Verify(p => p.GetPatientById(patientMock.Id), Times.Once());
         }
 
         [TestMethod("Get patients with shared sheet and/or created by defined user")]

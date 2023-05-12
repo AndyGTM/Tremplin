@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Tremplin.Core.Enums;
 using Tremplin.IRepositories;
 using Tremplin.IServices;
 using Tremplin.Services;
@@ -34,6 +35,27 @@ namespace Tremplin.Tests.Services.Consultation
             _consultationService.GetConsultationById(consultationMock.Id);
 
             _consultationRepositoryMock.Verify(p => p.GetConsultationById(consultationMock.Id), Times.Once());
+        }
+
+        [TestMethod("Correctly call the service to get consultations from a patient id")]
+        public void Get_ConsultationsFromPatientId_CallServiceCorrectly()
+        {
+            Data.Entity.Patient patientMock = new()
+            {
+                Id = 65,
+                SocialSecurityNumber = "151111245685268",
+                LastName = "Korla",
+                FirstName = "Didier",
+                BirthDate = new DateTime(1951, 11, 21),
+                BloodGroup = BloodGroupNames.OPositive,
+                Sex = SexTypes.Male,
+                SharedSheet = false,
+                CreatedBy = "Antoine"
+            };
+
+            _consultationService.GetConsultations(patientMock.Id);
+
+            _consultationRepositoryMock.Verify(p => p.GetConsultations(), Times.Once());
         }
 
         #endregion CRUD Consultations

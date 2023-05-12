@@ -2,6 +2,7 @@
 using Tremplin.Core.Enums;
 using Tremplin.IRepositories;
 using Tremplin.IServices;
+using Tremplin.Models;
 using Tremplin.Services;
 
 namespace Tremplin.Tests.Services.Consultation
@@ -56,6 +57,23 @@ namespace Tremplin.Tests.Services.Consultation
             _consultationService.GetConsultations(patientMock.Id);
 
             _consultationRepositoryMock.Verify(p => p.GetConsultations(), Times.Once());
+        }
+
+        [TestMethod("Correctly call the service to create a consultation")]
+        public void Create_Consultation_CallServiceCorrectly()
+        {
+            ConsultationModel consultationModelMock = new()
+            {
+                Id = 25,
+                Date = new DateTime(2021, 04, 26),
+                ShortDescription = "Toux",
+                LongDescription = "Toux pouvant faire penser à la Covid-19",
+                PatientId = 65
+            };
+
+            _consultationService.CreateConsultation(consultationModelMock);
+
+            _consultationRepositoryMock.Verify(p => p.CreateConsultation(It.IsAny<Data.Entity.Consultation>()), Times.Once());
         }
 
         #endregion CRUD Consultations

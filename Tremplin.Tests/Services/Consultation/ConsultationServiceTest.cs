@@ -93,6 +93,23 @@ namespace Tremplin.Tests.Services.Consultation
             _consultationRepositoryMock.Verify(p => p.UpdateConsultation(It.IsAny<Data.Entity.Consultation>()), Times.Once());
         }
 
+        [TestMethod("Correctly call the service to delete a consultation")]
+        public void Delete_Consultation_CallServiceCorrectly()
+        {
+            ConsultationModel consultationModelMock = new()
+            {
+                Id = 34,
+                Date = new DateTime(2020, 07, 17),
+                ShortDescription = "Demande de certificat médical",
+                LongDescription = "Demande de certificat médical pour du tennis de haut niveau",
+                PatientId = 74
+            };
+
+            _consultationService.DeleteConsultation(consultationModelMock);
+
+            _consultationRepositoryMock.Verify(p => p.DeleteConsultation(It.IsAny<Data.Entity.Consultation>()), Times.Once());
+        }
+
         #endregion CRUD Consultations
     }
 }

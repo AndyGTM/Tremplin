@@ -76,6 +76,23 @@ namespace Tremplin.Tests.Services.Consultation
             _consultationRepositoryMock.Verify(p => p.CreateConsultation(It.IsAny<Data.Entity.Consultation>()), Times.Once());
         }
 
+        [TestMethod("Correctly call the service to update a consultation")]
+        public void Update_Consultation_CallServiceCorrectly()
+        {
+            ConsultationModel consultationModelMock = new()
+            {
+                Id = 32,
+                Date = new DateTime(2022, 08, 11),
+                ShortDescription = "Renouvellement de traitement",
+                LongDescription = null,
+                PatientId = 70
+            };
+
+            _consultationService.UpdateConsultation(consultationModelMock);
+
+            _consultationRepositoryMock.Verify(p => p.UpdateConsultation(It.IsAny<Data.Entity.Consultation>()), Times.Once());
+        }
+
         #endregion CRUD Consultations
     }
 }

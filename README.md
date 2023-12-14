@@ -12,7 +12,7 @@ Here's an example of a patient list in the application :
 We focus only on the back-end part x)
 
 ## Installation
-This project was developed in ASP.NET Core 7.0, with Entity Framework Core in Code First.
+This project was developed in ASP.NET Core 8.0, with Entity Framework Core in Code First.
 
 ## Roadmap
 The most important feature that remains to be implemented is AES 256 data encryption.
